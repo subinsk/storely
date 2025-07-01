@@ -1,0 +1,56 @@
+{
+  "name": "storely",
+  "version": "1.0.0",
+  "description": "Modern e-commerce platform with admin dashboard and web store",
+  "private": true,
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:admin": "turbo run dev --filter=@storely/admin",
+    "dev:web": "turbo run dev --filter=@storely/web",
+    "build": "turbo run build",
+    "build:admin": "turbo run build --filter=@storely/admin",
+    "build:web": "turbo run build --filter=@storely/web",
+    "build:shared": "turbo run build --filter=@storely/shared",
+    "start": "turbo run start",
+    "start:admin": "turbo run start --filter=@storely/admin",
+    "start:web": "turbo run start --filter=@storely/web",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "type-check": "turbo run type-check",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "db:generate": "turbo run db:generate",
+    "db:migrate:dev": "turbo run db:migrate:dev",
+    "db:migrate:reset": "turbo run db:migrate:reset",
+    "db:push": "turbo run db:push",
+    "db:studio": "turbo run db:studio",
+    "db:seed": "turbo run db:seed",
+    "test": "turbo run test",
+    "test:admin": "turbo run test --filter=@storely/admin",
+    "test:web": "turbo run test --filter=@storely/web",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "postinstall": "turbo run db:generate"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "@typescript-eslint/eslint-plugin": "^7.1.1",
+    "@typescript-eslint/parser": "^7.1.1",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.34.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^3.2.5",
+    "turbo": "^2.0.0",
+    "typescript": "^5.4.2"
+  },
+  "packageManager": "pnpm@8.12.1",
+  "engines": {
+    "node": ">=18.17.0",
+    "npm": ">=10.0.0"
+  },
+  "dependencies": {
+    "simplebar": "^6.3.1",
+    "simplebar-react": "^3.2.4"
+  }
+}

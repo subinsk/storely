@@ -1,0 +1,23 @@
+{
+  "name": "@storely/eslint-config",
+  "version": "1.0.0",
+  "description": "ESLint configuration for Storely platform",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "next.js",
+    "react.js"
+  ],
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.1.1",
+    "@typescript-eslint/parser": "^7.1.1",
+    "eslint-config-next": "14.2.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.34.0",
+    "eslint-plugin-react-hooks": "^4.6.0"
+  },
+  "peerDependencies": {
+    "eslint": "^8.0.0",
+    "typescript": "^5.0.0"
+  }
+}

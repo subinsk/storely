@@ -1,0 +1,108 @@
+{
+  "name": "@storely/shared",
+  "version": "1.0.0",
+  "description": "Shared components, utilities, and types for Storely platform",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./components": {
+      "types": "./dist/components/index.d.ts",
+      "import": "./dist/components/index.js",
+      "require": "./dist/components/index.js"
+    },
+    "./utils": {
+      "types": "./dist/utils/index.d.ts",
+      "import": "./dist/utils/index.js",
+      "require": "./dist/utils/index.js"
+    },
+    "./types": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/types/index.js",
+      "require": "./dist/types/index.js"
+    },
+    "./hooks": {
+      "types": "./dist/hooks/index.d.ts",
+      "import": "./dist/hooks/index.js",
+      "require": "./dist/hooks/index.js"
+    },
+    "./theme": {
+      "types": "./dist/theme/index.d.ts",
+      "import": "./dist/theme/index.js",
+      "require": "./dist/theme/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "lint": "eslint src/**/*.{ts,tsx}",
+    "lint:fix": "eslint src/**/*.{ts,tsx} --fix",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@auth/prisma-adapter": "^2.10.0",
+    "@cloudinary/url-gen": "^1.21.0",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@hookform/resolvers": "^3.3.4",
+    "@iconify/react": "^4.1.1",
+    "@mui/icons-material": "^7.2.0",
+    "@mui/lab": "^5.0.0-alpha.170",
+    "@mui/material": "^5.15.15",
+    "@mui/x-data-grid": "^6.19.10",
+    "@mui/x-date-pickers": "^7.2.0",
+    "@storely/database": "workspace:*",
+    "autosuggest-highlight": "^3.3.4",
+    "axios": "^1.6.8",
+    "bcryptjs": "^2.4.3",
+    "clsx": "^2.1.1",
+    "date-fns": "^3.6.0",
+    "framer-motion": "^11.0.28",
+    "highlight.js": "^11.9.0",
+    "imagekit": "^6.0.0",
+    "lodash": "^4.17.21",
+    "mui-one-time-password-input": "^2.0.2",
+    "next-auth": "^4.24.11",
+    "notistack": "^3.0.1",
+    "nprogress": "^0.2.0",
+    "numeral": "^2.0.6",
+    "prop-types": "^15.8.1",
+    "react": "^18.3.1",
+    "react-beautiful-dnd": "^13.1.1",
+    "react-color": "^2.19.3",
+    "react-dom": "^18.3.1",
+    "react-dropzone": "^14.2.3",
+    "react-hook-form": "^7.51.3",
+    "react-lazy-load-image-component": "^1.6.0",
+    "react-quill": "^2.0.0",
+    "recharts": "^3.0.2",
+    "simplebar-react": "^3.2.4",
+    "slugify": "^1.6.6",
+    "swr": "^2.2.5",
+    "yup": "^1.4.0",
+    "zod": "^3.23.6"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/lodash": "^4.17.0",
+    "@types/nprogress": "^0.2.3",
+    "@types/numeral": "^2.0.5",
+    "@types/prop-types": "^15.7.5",
+    "@types/react": "^18.3.3",
+    "@types/react-beautiful-dnd": "^13.1.8",
+    "@types/react-color": "^3.0.13",
+    "@types/react-dom": "^18.3.0",
+    "@types/react-lazy-load-image-component": "^1.6.3",
+    "next": "^14.2.1",
+    "typescript": "^5.4.2"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  }
+}

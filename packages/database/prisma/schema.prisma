@@ -1,0 +1,688 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Core Enums
+enum Role {
+  super_admin
+  org_admin
+  org_user
+  member
+  user
+}
+
+enum Plan {
+  free
+  premium
+  enterprise
+}
+
+enum ProductStatus {
+  draft
+  active
+  inactive
+  archived
+}
+
+enum OrderStatus {
+  pending
+  confirmed
+  processing
+  shipped
+  delivered
+  cancelled
+  refunded
+}
+
+enum PaymentStatus {
+  pending
+  paid
+  failed
+  refunded
+  partially_refunded
+}
+
+enum ShippingStatus {
+  pending
+  preparing
+  shipped
+  in_transit
+  delivered
+  returned
+}
+
+enum NotificationType {
+  order_created
+  order_updated
+  order_shipped
+  order_delivered
+  payment_received
+  payment_failed
+  low_stock
+  product_review
+  system_update
+  welcome
+  general
+}
+
+enum AddressType {
+  home
+  work
+  other
+}
+
+// Core Organization Model
+model Organization {
+  id               String           @id @default(uuid())
+  name             String           @unique
+  subdomain        String?          @unique
+  customDomain     String?          @unique
+  logo             String?
+  plan             Plan             @default(free)
+  isActive         Boolean          @default(true)
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  
+  // Relations
+  users            User[]
+  invitations      Invitation[]
+  stores           Store[]
+  products         Product[]
+  orders           Order[]
+  categories       Category[]
+  storeSettings    StoreSettings?
+  themeSettings    ThemeSettings?
+  configurations   StoreConfiguration[]
+  navigationMenus  NavigationMenu[]
+  customPages      CustomPage[]
+  analyticsEvents  AnalyticsEvent[]
+  salesReports     SalesReport[]
+
+  @@map("organizations")
+}
+
+// Store Model for Multi-store Support
+model Store {
+  id             String              @id @default(uuid())
+  name           String
+  organizationId String
+  isDefault      Boolean             @default(false)
+  isActive       Boolean             @default(true)
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+  
+  // Relations
+  organization   Organization        @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  configurations StoreConfiguration[]
+
+  @@map("stores")
+}
+
+// Store Configuration for Flexible Settings
+model StoreConfiguration {
+  id             String       @id @default(uuid())
+  organizationId String
+  storeId        String?
+  category       String       // theme, payment, shipping, etc
+  settings       Json
+  isActive       Boolean      @default(true)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  
+  // Relations
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  store          Store?       @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@map("store_configurations")
+}
+
+// Enhanced User Model
+model User {
+  id              String       @id @default(uuid())
+  email           String       @unique
+  name            String
+  phone           String?
+  password        String?
+  image           String?
+  role            Role         @default(user)
+  organizationId  String?
+  createdAt       DateTime     @default(now()) @map("created_at")
+  emailVerified   DateTime?    @map("email_verified")
+  updatedAt       DateTime     @updatedAt @map("updated_at")
+  
+  // Relations
+  organization    Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  addresses       Address[]
+  cart            Cart?
+  orders          Order[]
+  reviews         Review[]
+  accounts        Account[]
+  sessions        Session[]
+  sentInvitations Invitation[] @relation("InvitedBy")
+  notifications   Notification[]
+
+  @@map("users")
+}
+
+// Enhanced Address Model
+model Address {
+  id             String      @id @default(uuid())
+  name           String?
+  phone          String?
+  street         String
+  house          String?
+  landmark       String?
+  city           String
+  state          String
+  country        String
+  zip            String
+  pincode        String?
+  type           AddressType @default(home)
+  isDefault      Boolean     @default(false)
+  deliveryDays   String[]    @default(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"])
+  additionalInfo String?
+  userId         String
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  
+  // Relations
+  user           User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("addresses")
+}
+
+// Enhanced Category Model
+model Category {
+  id             String     @id @default(uuid())
+  name           String
+  slug           String     @unique
+  description    String?
+  image          String?
+  organizationId String?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  parentId       String?
+  
+  // Relations
+  organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  parent         Category?     @relation("SubCategories", fields: [parentId], references: [id])
+  subCategories  Category[]    @relation("SubCategories")
+  products       Product[]
+
+  @@map("categories")
+}
+
+// Enhanced Product Model
+model Product {
+  id              String             @id @default(uuid())
+  slug            String             @unique
+  name            String
+  sku             String             @unique
+  price           Float
+  comparePrice    Float?             // Original price for sales
+  mrp             Float?             // Maximum retail price
+  cost            Float?             // Cost price for profit calculations
+  categoryId      String
+  organizationId  String
+  status          ProductStatus      @default(draft)
+  featured        Boolean            @default(false)
+  trackQuantity   Boolean            @default(true)
+  quantity        Int                @default(0)
+  lowStockAlert   Int?               // Alert when quantity falls below this
+  weight          Float?
+  dimensions      String?            // JSON string for length, width, height
+  content         String?            // Product description/content
+  code            String?            // Product code
+  images          String[]           // Array of image URLs
+  newLabel        String?
+  saleLabel       String?
+  subDescription  String?
+  metaTitle       String?
+  metaDescription String?
+  tags            String[]           // For search and filtering
+  isActive        Boolean            @default(true)
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  publishedAt     DateTime?
+  
+  // Relations
+  category        Category           @relation(fields: [categoryId], references: [id])
+  organization    Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  variants        ProductVariant[]
+  inventory       ProductInventory[]
+  reviews         Review[]
+  cartItems       CartItem[]
+  orderItems      OrderItem[]
+
+  @@map("products")
+}
+
+// Enhanced Product Variant Model
+model ProductVariant {
+  id           String             @id @default(uuid())
+  productId    String
+  name         String             // e.g., "Color", "Size", "Material"
+  value        String             // e.g., "Red", "Large", "Wood"
+  sku          String?            @unique
+  price        Float?             // Price difference from base product
+  comparePrice Float?
+  quantity     Int                @default(0)
+  weight       Float?
+  image        String?
+  attributes   Json?              // Additional attributes as JSON
+  position     Int                @default(0)
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+  
+  // Relations
+  product      Product            @relation(fields: [productId], references: [id], onDelete: Cascade)
+  inventory    ProductInventory[]
+  cartItems    CartItem[]
+  orderItems   OrderItem[]
+
+  @@map("product_variants")
+}
+
+// Product Inventory Model
+model ProductInventory {
+  id               String          @id @default(uuid())
+  productId        String
+  variantId        String?
+  quantity         Int             @default(0)
+  reservedQuantity Int             @default(0) // Quantity in pending orders
+  location         String?         // Warehouse/store location
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  
+  // Relations
+  product          Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variant          ProductVariant? @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, variantId, location])
+  @@map("product_inventory")
+}
+
+// Cart Model
+model Cart {
+  id        String     @id @default(uuid())
+  userId    String     @unique
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  
+  // Relations
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     CartItem[]
+
+  @@map("carts")
+}
+
+// Cart Item Model
+model CartItem {
+  id        String          @id @default(uuid())
+  cartId    String
+  productId String
+  variantId String?
+  quantity  Int
+  price     Float           // Price at time of adding to cart
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  
+  // Relations
+  cart      Cart            @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  product   Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variant   ProductVariant? @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  @@unique([cartId, productId, variantId])
+  @@map("cart_items")
+}
+
+// Enhanced Order Model
+model Order {
+  id              String         @id @default(uuid())
+  orderNumber     String         @unique
+  userId          String
+  organizationId  String
+  status          OrderStatus    @default(pending)
+  paymentStatus   PaymentStatus  @default(pending)
+  shippingStatus  ShippingStatus @default(pending)
+  subtotal        Float
+  taxAmount       Float          @default(0)
+  shippingAmount  Float          @default(0)
+  discountAmount  Float          @default(0)
+  totalAmount     Float
+  currency        String         @default("USD")
+  notes           String?
+  paymentMethod   String?
+  shippingAddress Json?          // Shipping address as JSON
+  billingAddress  Json?          // Billing address as JSON
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  processedAt     DateTime?
+  shippedAt       DateTime?
+  deliveredAt     DateTime?
+  
+  // Relations
+  user            User           @relation(fields: [userId], references: [id])
+  organization    Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  items           OrderItem[]
+  payments        Payment[]
+  invoice         Invoice?
+
+  @@map("orders")
+}
+
+// Order Item Model
+model OrderItem {
+  id        String          @id @default(uuid())
+  orderId   String
+  productId String
+  variantId String?
+  quantity  Int
+  price     Float           // Price at time of order
+  total     Float           // price * quantity
+  createdAt DateTime        @default(now())
+  
+  // Relations
+  order     Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product         @relation(fields: [productId], references: [id])
+  variant   ProductVariant? @relation(fields: [variantId], references: [id])
+
+  @@map("order_items")
+}
+
+// Payment Model
+model Payment {
+  id              String        @id @default(uuid())
+  orderId         String
+  amount          Float
+  currency        String        @default("USD")
+  status          PaymentStatus @default(pending)
+  paymentMethod   String?       // e.g., "credit_card", "paypal", "stripe"
+  transactionId   String?       // External payment provider transaction ID
+  gatewayResponse Json?         // Full response from payment gateway
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  processedAt     DateTime?
+  
+  // Relations
+  order           Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@map("payments")
+}
+
+// Review Model
+model Review {
+  id        String   @id @default(uuid())
+  content   String
+  rating    Int
+  productId String
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("reviews")
+}
+
+// NextAuth.js Models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  
+  // Relations
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  
+  // Relations
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// Invitation Model
+model Invitation {
+  id             String       @id @default(uuid())
+  email          String
+  role           Role         @default(org_user)
+  organizationId String
+  invitedById    String
+  status         String       // pending, accepted, revoked, expired
+  acceptedAt     DateTime?
+  expiresAt      DateTime
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  
+  // Relations
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  invitedBy      User         @relation("InvitedBy", fields: [invitedById], references: [id], onDelete: Cascade)
+
+  @@map("invitations")
+}
+
+// Webstore Configuration Models
+model StoreSettings {
+  id               String       @id @default(uuid())
+  organizationId   String       @unique
+  storeName        String
+  storeUrl         String?
+  logo             String?
+  favicon          String?
+  primaryColor     String       @default("#8B4513")
+  secondaryColor   String       @default("#556B7D")
+  fontFamily       String       @default("Inter")
+  currency         String       @default("USD")
+  timezone         String       @default("UTC")
+  language         String       @default("en")
+  metaTitle        String?
+  metaDescription  String?
+  metaKeywords     String?
+  socialMediaLinks Json?        // Facebook, Twitter, Instagram, etc.
+  contactInfo      Json?        // Phone, email, address
+  businessHours    Json?        // Operating hours
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  
+  // Relations
+  organization     Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@map("store_settings")
+}
+
+model ThemeSettings {
+  id             String       @id @default(uuid())
+  organizationId String       @unique
+  themeName      String       @default("default")
+  colorScheme    String       @default("light")
+  primaryColor   String       @default("#8B4513")
+  secondaryColor String       @default("#556B7D")
+  accentColor    String       @default("#1976D2")
+  fontPrimary    String       @default("Inter")
+  fontSecondary  String       @default("Inter")
+  borderRadius   Int          @default(8)
+  spacing        Int          @default(8)
+  shadows        Boolean      @default(true)
+  customCSS      String?      // Custom CSS for advanced styling
+  layout         Json?        // Layout configuration
+  components     Json?        // Component-specific styles
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  
+  // Relations
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@map("theme_settings")
+}
+
+model NavigationMenu {
+  id             String       @id @default(uuid())
+  organizationId String
+  name           String
+  type           String       @default("header") // header, footer, sidebar
+  items          Json         // Navigation items as JSON
+  isActive       Boolean      @default(true)
+  position       Int          @default(0)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  
+  // Relations
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@map("navigation_menus")
+}
+
+model CustomPage {
+  id              String       @id @default(uuid())
+  organizationId  String
+  title           String
+  slug            String
+  content         String?
+  metaTitle       String?
+  metaDescription String?
+  isPublished     Boolean      @default(false)
+  publishedAt     DateTime?
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  
+  // Relations
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, slug])
+  @@map("custom_pages")
+}
+
+// Analytics Models
+model AnalyticsEvent {
+  id             String       @id @default(uuid())
+  organizationId String
+  eventType      String       // page_view, product_view, add_to_cart, purchase, etc.
+  eventData      Json         // Event-specific data
+  userId         String?
+  sessionId      String
+  ipAddress      String?
+  userAgent      String?
+  referrer       String?
+  createdAt      DateTime     @default(now())
+  
+  // Relations
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId, eventType])
+  @@index([organizationId, createdAt])
+  @@map("analytics_events")
+}
+
+model SalesReport {
+  id                 String       @id @default(uuid())
+  organizationId     String
+  reportDate         DateTime
+  totalSales         Float        @default(0)
+  totalOrders        Int          @default(0)
+  averageOrderValue  Float        @default(0)
+  newCustomers       Int          @default(0)
+  returningCustomers Int          @default(0)
+  conversionRate     Float        @default(0)
+  reportData         Json?        // Additional report data
+  createdAt          DateTime     @default(now())
+  
+  // Relations
+  organization       Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, reportDate])
+  @@map("sales_reports")
+}
+
+// Invoice Models
+model Invoice {
+  id            String        @id @default(uuid())
+  invoiceNumber String        @unique
+  orderId       String        @unique
+  status        String        @default("draft") // draft, sent, paid, overdue, cancelled
+  issueDate     DateTime      @default(now())
+  dueDate       DateTime
+  subtotal      Float         @default(0)
+  taxAmount     Float         @default(0)
+  totalAmount   Float         @default(0)
+  currency      String        @default("USD")
+  notes         String?
+  sentAt        DateTime?
+  paidAt        DateTime?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  
+  // Relations
+  order         Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  items         InvoiceItem[]
+
+  @@map("invoices")
+}
+
+model InvoiceItem {
+  id          String   @id @default(uuid())
+  invoiceId   String
+  description String
+  quantity    Int
+  unitPrice   Float
+  total       Float
+  createdAt   DateTime @default(now())
+  
+  // Relations
+  invoice     Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@map("invoice_items")
+}
+
+// Notification Model
+model Notification {
+  id          String           @id @default(uuid())
+  userId      String
+  type        NotificationType
+  title       String
+  description String?
+  actionUrl   String?
+  isRead      Boolean          @default(false)
+  isArchived  Boolean          @default(false)
+  metadata    Json?            // Additional data specific to notification type
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  
+  // Relations
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
