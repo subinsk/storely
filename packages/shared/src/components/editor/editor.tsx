@@ -1,6 +1,6 @@
 "use client";
 
-import "@/utils/highlight";
+import "../../utils/highlight";
 import dynamic from "next/dynamic";
 
 // @mui

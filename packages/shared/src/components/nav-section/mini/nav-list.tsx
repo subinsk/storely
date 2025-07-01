@@ -5,7 +5,7 @@ import Stack from "@mui/material/Stack";
 import Popover from "@mui/material/Popover";
 import { appBarClasses } from "@mui/material/AppBar";
 // routes
-import { useActiveLink } from "@/hooks/use-active-link";
+import { useActiveLink } from "../../../hooks/use-active-link";
 //
 import NavItem from "./nav-item";
 import { usePathname } from "next/navigation";

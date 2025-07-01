@@ -60,7 +60,7 @@ export const StyledEditor: StyledComponent<BoxProps> = styled(Box)(({ theme }: {
   },
 }));
 
-export const StyledEditorToolbar: StyledComponent<{ theme?: Theme }> = styled("div")(
+export const StyledEditorToolbar: React.ComponentType<React.HTMLAttributes<HTMLDivElement>> = styled("div")<React.HTMLAttributes<HTMLDivElement>>(
   ({ theme }: { theme: Theme }) => {
     const isRTL = theme.direction === "rtl";
 

@@ -1,4 +1,4 @@
-import { categorySchema } from "@/schema/category";
+import { categorySchema } from "@storely/shared/schemas";
 
 export const validateApiRequest = async (request: Request) => {
   const res = await request.json();

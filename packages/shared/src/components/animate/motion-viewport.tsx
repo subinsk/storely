@@ -2,7 +2,7 @@ import { m } from "framer-motion";
 // @mui
 import Box from "@mui/material/Box";
 // hooks
-import { useResponsive } from "@/hooks/use-responsive";
+import { useResponsive } from "../../hooks/use-responsive";
 //
 import { varContainer } from "./variants";
 

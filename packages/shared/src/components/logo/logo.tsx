@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import type { BoxProps } from "@mui/material/Box";
 import Image from "next/image";
 // routes
-import { RouterLink } from "@/components/router-link";
+import { RouterLink } from "../router-link";
 
 // ----------------------------------------------------------------------
 

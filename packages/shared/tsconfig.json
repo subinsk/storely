@@ -16,7 +16,8 @@
     }
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "src/locales/langs/*.json"
   ],
   "exclude": [
     "dist",

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { SxProps, Theme, useTheme } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 // theme
-import { bgBlur } from "@/theme/css";
+import { bgBlur } from "../../theme/css";
 //
 import Iconify from "../iconify";
 import { MouseEventHandler } from "react";

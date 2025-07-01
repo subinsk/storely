@@ -50,7 +50,10 @@
     "npm": ">=10.0.0"
   },
   "dependencies": {
+    "i18next": "^23.11.1",
+    "i18next-browser-languagedetector": "^7.2.1",
+    "react-i18next": "^14.1.0",
     "simplebar": "^6.3.1",
-    "simplebar-react": "^3.2.4"
+    "simplebar-react": "^3.3.1"
   }
 }

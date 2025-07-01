@@ -2,7 +2,7 @@ import type { FC } from "react";
 // @mui
 import { styled, alpha } from "@mui/material/styles";
 // theme
-import { bgBlur } from "@/theme/css";
+import { bgBlur } from "../../theme/css";
 import type { Theme } from "@mui/material/styles";
 
 // ----------------------------------------------------------------------

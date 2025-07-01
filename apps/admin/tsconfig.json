@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "baseUrl": ".",
     "plugins": [
       {
         "name": "next"
@@ -8,31 +9,20 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@/components/*": ["../../packages/shared/src/components/*"],
-      "@/utils/*": ["../../packages/shared/src/utils/*"],
-      "@/hooks/*": ["./src/hooks/*", "../../packages/shared/src/hooks/*"],
-      "@/types/*": ["../../packages/shared/src/types/*"],
-      "@/theme/*": ["../../packages/shared/src/theme/*"],
-      "@/schema/*": ["./src/schema/*", "../../packages/shared/src/schemas/*"],
-      "@/assets/*": ["../../packages/shared/src/assets/*"],
-      "@/constants/*": ["../../packages/shared/src/constants/*"],
-      "@/routes/*": ["../../packages/shared/src/routes/*", "./src/routes/*"],
-      "@/config": ["./src/config/index", "../../packages/shared/src/config/index"],
-      "@/config/*": ["./src/config/*", "../../packages/shared/src/config/*"],
-      "@/lib": ["./src/lib/index", "../../packages/shared/src/lib/index"],
-      "@/lib/*": ["./src/lib/*", "../../packages/shared/src/lib/*"],
-      "@/layouts/*": ["./src/layouts/*"],
-      "@/sections/*": ["./src/sections/*"],
-      "@/views/*": ["./src/views/*"],
-      "@/services/*": ["./src/services/*"],
-      "@/_mock/*": ["./src/_mock/*"],
-      "@/locales/*": ["./src/locales/*"],
-      "@storely/shared": ["../../packages/shared/src"],
-      "@storely/shared/*": ["../../packages/shared/src/*"],
-      "@storely/database": ["../../packages/database/src"],
+      "@storely/shared/components": ["../../packages/shared/src/components/index.ts"],
+      "@storely/shared/components/*": ["../../packages/shared/src/components/*"],
+      "@storely/shared/theme": ["../../packages/shared/src/theme/index.ts"],
+      "@storely/shared/theme/*": ["../../packages/shared/src/theme/*"],
+      "@storely/shared/config": ["../../packages/shared/src/config/index.ts"],
+      "@storely/shared/config/*": ["../../packages/shared/src/config/*"],
+      "@storely/database": ["../../packages/database/src/index.ts"],
       "@storely/database/*": ["../../packages/database/src/*"],
-      "@storely/config": ["../../packages/config/src"],
-      "@storely/config/*": ["../../packages/config/src/*"]
+      "@storely/shared/schemas": ["../../packages/shared/src/schemas/index.ts"],
+      "@storely/shared/schemas/*": ["../../packages/shared/src/schemas/*"],
+      "@storely/shared/utils": ["../../packages/shared/src/utils/index.ts"],
+      "@storely/shared/utils/*": ["../../packages/shared/src/utils/*"],
+      "@storely/shared/locales": ["../../packages/shared/src/locales/index.ts"],
+      "@storely/shared/locales/*": ["../../packages/shared/src/locales/*"]
     }
   },
   "include": [
