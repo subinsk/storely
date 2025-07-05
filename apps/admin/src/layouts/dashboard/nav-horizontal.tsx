@@ -4,11 +4,11 @@ import { SxProps, Theme, useTheme } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 // theme
-import { bgBlur } from "@/theme/css";
+import { bgBlur } from "@storely/shared/theme/css";
 // hooks
 import { useSession } from "next-auth/react";
 // components
-import { NavSectionHorizontal } from "@/components/nav-section";
+import { NavSectionHorizontal } from "@storely/shared/components/nav-section";
 //
 import { HEADER } from "../config-layout";
 import { useNavData } from "./config-navigation";

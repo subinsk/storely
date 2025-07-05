@@ -11,9 +11,9 @@ import ListItemButton, {
   listItemButtonClasses,
 } from "@mui/material/ListItemButton";
 // components
-import Label from "@/components/label";
-import Iconify from "@/components/iconify";
-import SearchNotFound from "@/components/search-not-found";
+import Label from "@storely/shared/components/label";
+import {Iconify} from"@storely/shared/components/iconify";
+import SearchNotFound from "@storely/shared/components/search-not-found";
 
 // ----------------------------------------------------------------------
 

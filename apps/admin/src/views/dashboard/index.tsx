@@ -1,9 +1,9 @@
 "use client";
 
-import Iconify from "@/components/iconify";
-import AnalyticsDashboard from "@/components/analytics/analytics-dashboard";
-import ConfigurationOverview from "@/components/dashboard/configuration-overview";
-import SystemStatusOverview from "@/components/dashboard/system-status-overview";
+import { Iconify } from "@storely/shared/components/iconify";
+import AnalyticsDashboard from "@/sections/analytics/analytics-dashboard";
+import ConfigurationOverview from "@/sections/dashboard/configuration-overview";
+import SystemStatusOverview from "@/sections/dashboard/system-status-overview";
 import { paths } from "@/routes/paths";
 import { Card, Stack, Typography, Box, Grid, CircularProgress, Alert } from "@mui/material";
 import Link from "@/routes/components/router-link";
@@ -81,7 +81,6 @@ export default function DashboardView() {
 
   return (
     <Box sx={{ p: 3 }}>
-      {/* Welcome Section */}
       <Box sx={{ mb: 4 }}>
         <Typography variant="h4" gutterBottom>
           Welcome back! 👋
@@ -90,8 +89,6 @@ export default function DashboardView() {
           Here&apos;s what&apos;s happening with your store today
         </Typography>
       </Box>
-
-      {/* Analytics Dashboard */}
       <Box sx={{ mb: 4 }}>
         {loading ? (
           <Box sx={{ display: 'flex', justifyContent: 'center', p: 4 }}>
@@ -105,8 +102,6 @@ export default function DashboardView() {
           <AnalyticsDashboard {...analyticsData} />
         ) : null}
       </Box>
-
-      {/* Quick Actions */}
       <Box sx={{ mb: 4 }}>
         <Typography variant="h5" sx={{ mb: 3 }}>
           Quick Actions
@@ -162,13 +157,9 @@ export default function DashboardView() {
           ))}
         </Grid>
       </Box>
-
-      {/* Configuration Overview */}
       <Box sx={{ mb: 4 }}>
         <ConfigurationOverview />
       </Box>
-
-      {/* System Status Overview */}
       <SystemStatusOverview />
     </Box>
   );

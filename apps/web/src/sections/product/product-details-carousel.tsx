@@ -7,12 +7,12 @@ import Avatar from "@mui/material/Avatar";
 // theme
 import { bgGradient } from "@/theme/css";
 // components
-import Image from "@/components/image";
-import Lightbox, { useLightBox } from "@/components/lightbox";
+import Image from "@storely/shared/components/image";
+import Lightbox, { useLightBox } from "@storely/shared/components/lightbox";
 import Carousel, {
   CarouselArrowIndex,
   useCarousel,
-} from "@/components/carousel";
+} from "@storely/shared/components/carousel";
 
 // ----------------------------------------------------------------------
 

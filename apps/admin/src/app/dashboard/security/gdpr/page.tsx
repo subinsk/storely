@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
-import GDPRCompliance from '@/components/security/gdpr-compliance';
+
+export const dynamic = 'force-dynamic';
+
+import GDPRCompliance from '@/sections/security/gdpr-compliance';
 
 // ----------------------------------------------------------------------
 

@@ -10,8 +10,8 @@ import InputAdornment from "@mui/material/InputAdornment";
 import Autocomplete, { autocompleteClasses } from "@mui/material/Autocomplete";
 // routes
 // components
-import Iconify from "@/components/iconify";
-import SearchNotFound from "@/components/search-not-found";
+import {Iconify} from"@storely/shared/components/iconify";
+import SearchNotFound from "@storely/shared/components/search-not-found";
 import { useRouter } from "next/navigation";
 
 // ----------------------------------------------------------------------

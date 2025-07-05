@@ -14,20 +14,20 @@ import Typography from '@mui/material/Typography';
 import useGetUser from "@/hooks/use-get-user";
 import { updateUserProfile, useGetUserProfile } from '@/services/user.service';
 // utils
-import { fData } from '@/utils/format-number';
+import { fData } from '@storely/shared/utils/format-number';
 // assets
 import { countries } from '@/assets/data';
 // components
-import Iconify from '@/components/iconify';
-import { useSnackbar } from '@/components/snackbar';
+import {Iconify} from'@storely/shared/components/iconify';
+import { useSnackbar } from '@storely/shared/components/snackbar';
 import FormProvider, {
   RHFSwitch,
   RHFTextField,
   RHFUploadAvatar,
   RHFAutocomplete,
-} from '@/components/hook-form';
+} from '@storely/shared/components/hook-form';
 import { imagekit } from '@/lib';
-import { slugify } from '@/utils/slugify';
+import { slugify } from '@storely/shared/utils/slugify';
 
 // ----------------------------------------------------------------------
 

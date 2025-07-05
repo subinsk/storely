@@ -1,4 +1,4 @@
-import { prisma } from "@/lib";
+import { prisma } from '@storely/database';
 import sendResponse from "@/lib/response";
 import { NextRequest } from "next/server";
 
@@ -149,6 +149,7 @@ export async function POST(request: Request) {
         
         const {
             customerId: userId,
+            organizationId,
             items,
             shippingAddress,
             billingAddress,
@@ -160,6 +161,31 @@ export async function POST(request: Request) {
             totalAmount
         } = requestBody;
 
+        // Validate required fields
+        if (!userId) {
+            return sendResponse({
+                data: null,
+                message: "Customer ID is required",
+                success: false
+            });
+        }
+
+        if (!organizationId) {
+            return sendResponse({
+                data: null,
+                message: "Organization ID is required",
+                success: false
+            });
+        }
+
+        if (!items || !Array.isArray(items) || items.length === 0) {
+            return sendResponse({
+                data: null,
+                message: "Order items are required",
+                success: false
+            });
+        }
+
         // Generate order number
         const orderCount = await prisma.order.count();
         const orderNumber = `ORD-${Date.now()}-${String(orderCount + 1).padStart(4, '0')}`;
@@ -168,6 +194,7 @@ export async function POST(request: Request) {
             data: {
                 orderNumber,
                 userId,
+                organizationId,
                 subtotal,
                 taxAmount,
                 shippingAmount,

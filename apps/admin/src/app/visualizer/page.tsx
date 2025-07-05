@@ -1,5 +1,7 @@
 import { Container, Typography, Alert } from '@mui/material';
 
+export const dynamic = 'force-dynamic';
+
 export default function Page() {
   return (
     <Container>

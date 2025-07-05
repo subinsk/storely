@@ -1,4 +1,4 @@
-import SvgColor from "@/components/svg-color";
+import SvgColor from "@storely/shared/components/svg-color";
 import {
   Card,
   CardContent,

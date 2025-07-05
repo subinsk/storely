@@ -10,15 +10,15 @@ import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Unstable_Grid2';
 import CardHeader from '@mui/material/CardHeader';
 // hooks
-import { useBoolean } from '@/hooks/use-boolean';
+import { useBoolean } from '@storely/shared/hooks';
 // assets
-import { PlanFreeIcon, PlanStarterIcon, PlanPremiumIcon } from '@/assets/icons';
+import { PlanFreeIcon, PlanStarterIcon, PlanPremiumIcon } from '@storely/shared/assets/icons';
 // components
-import Label from '@/components/label';
-import Iconify from '@/components/iconify';
+import { Label } from '@storely/shared/components/label';
+import {Iconify} from '@storely/shared/components/iconify';
 //
-import { AddressListDialog } from '../address';
-import PaymentCardListDialog from '../payment/payment-card-list-dialog';
+import { AddressListDialog } from '../../address';
+import {PaymentCardListDialog} from '../../payment';
 
 // ----------------------------------------------------------------------
 
@@ -204,7 +204,7 @@ export default function AccountBillingPlan({ cardList, addressBook, plans }:{
       />
 
       <AddressListDialog
-        list={addressBook}
+        addresses={addressBook}
         open={openAddress.value}
         onClose={openAddress.onFalse}
         selected={(selectedId) => selectedAddress?.id === selectedId}

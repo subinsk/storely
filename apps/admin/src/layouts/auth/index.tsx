@@ -5,8 +5,8 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useResponsive } from "@/hooks/use-responsive";
-import { bgGradient } from "@/theme/css";
-import Logo from "@/components/logo";
+import { bgGradient } from "@storely/shared/theme/css";
+import {Logo} from "@storely/shared/components/logo";
 
 // ----------------------------------------------------------------------
 

@@ -1,5 +1,5 @@
 // assets
-import { countries } from "@/assets/data";
+import { countries } from "@storely/shared/assets/data";
 //
 import { _mock } from "./_mock";
 import { _tags } from "./assets";

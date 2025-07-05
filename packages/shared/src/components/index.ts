@@ -1,5 +1,4 @@
-export { default as FormProvider } from './hook-form/form-provider';
-export { default as Iconify } from './iconify';
+export * from './iconify'
 export * from './snackbar';
 export * from './label';
 export * from './logo';
@@ -25,4 +24,5 @@ export * from './editor';
 export * from './settings';
 export * from './custom-date-range-picker';
 export * from './router-link';
+export * from './hook-form';
 

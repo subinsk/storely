@@ -2,9 +2,9 @@ import PropTypes from "prop-types";
 // @mui
 import Button from "@mui/material/Button";
 // routes
-import { RouterLink } from "@/routes/components";
 // config
-import { PATH_AFTER_LOGIN } from "@/config";
+import { PATH_AFTER_LOGIN } from "@storely/shared/config";
+import { RouterLink } from "@/routes/components";
 
 // ----------------------------------------------------------------------
 

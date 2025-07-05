@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma-client";
+import { prisma } from '@storely/database';
 
 export async function GET(req: Request, { params }: { params: { id: string } }) {
   const { searchParams } = new URL(req.url);

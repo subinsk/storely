@@ -7,8 +7,8 @@ import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 // components
-import Label from "@/components/label";
-import Iconify from "@/components/iconify";
+import Label from "@storely/shared/components/label";
+import {Iconify} from"@storely/shared/components/iconify";
 
 // ----------------------------------------------------------------------
 

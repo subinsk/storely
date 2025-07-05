@@ -12,8 +12,8 @@ import Dialog from '@mui/material/Dialog';
 // assets
 import { OrderCompleteIllustration } from '@/assets/illustrations';
 // components
-import Iconify from '@/components/iconify';
-import { varFade } from '@/components/animate';
+import {Iconify} from'@storely/shared/components/iconify';
+import { varFade } from '@storely/shared/components/animate';
 
 // ----------------------------------------------------------------------
 

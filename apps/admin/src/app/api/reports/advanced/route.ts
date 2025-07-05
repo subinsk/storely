@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { authOptions } from 'src/app/api/auth/[...nextauth]/route';
-import { prisma } from 'src/lib/prisma';
+import { authOptions } from '@/lib/auth';
+import { prisma } from '@storely/database';
+
+// Force dynamic rendering for this route
+export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   try {
@@ -86,7 +89,7 @@ async function getOverviewAnalytics(organizationId: string, startDate: Date, end
         createdAt: { gte: startDate, lte: endDate },
         status: { notIn: ['cancelled', 'refunded'] }
       },
-      _sum: { total: true }
+      _sum: { totalAmount: true }
     }),
     
     // Total orders
@@ -98,10 +101,11 @@ async function getOverviewAnalytics(organizationId: string, startDate: Date, end
     }),
     
     // Total customers
-    prisma.customer.count({
+    prisma.user.count({
       where: {
         organizationId,
-        createdAt: { gte: startDate, lte: endDate }
+        createdAt: { gte: startDate, lte: endDate },
+        role: 'user'
       }
     }),
     
@@ -169,11 +173,11 @@ async function getOverviewAnalytics(organizationId: string, startDate: Date, end
 
   return {
     overview: {
-      totalRevenue: totalRevenue._sum.total || 0,
+      totalRevenue: totalRevenue._sum?.totalAmount || 0,
       totalOrders,
       totalCustomers,
       totalProducts,
-      averageOrderValue: totalOrders > 0 ? (totalRevenue._sum.total || 0) / totalOrders : 0
+      averageOrderValue: totalOrders > 0 ? (totalRevenue._sum?.totalAmount || 0) / totalOrders : 0
     },
     trends: {
       revenue: revenueByMonth,
@@ -238,7 +242,7 @@ async function getRevenueAnalytics(organizationId: string, startDate: Date, endD
         END as segment,
         SUM(total) as revenue,
         COUNT(*) as orders,
-        COUNT(DISTINCT "customerId") as customers
+        COUNT(DISTINCT "userId") as customers
       FROM "Order"
       WHERE "organizationId" = ${organizationId}
         AND "createdAt" >= ${startDate}
@@ -286,7 +290,7 @@ async function getProductAnalytics(organizationId: string, startDate: Date, endD
         p.id,
         p.name,
         p.price,
-        p.stock,
+        p.quantity,
         COALESCE(SUM(oi.quantity), 0) as units_sold,
         COALESCE(SUM(oi.quantity * oi.price), 0) as revenue,
         COUNT(DISTINCT oi."orderId") as orders_count
@@ -296,7 +300,7 @@ async function getProductAnalytics(organizationId: string, startDate: Date, endD
       WHERE p."organizationId" = ${organizationId}
         AND (o."createdAt" IS NULL OR (o."createdAt" >= ${startDate} AND o."createdAt" <= ${endDate}))
         AND (o.status IS NULL OR o.status NOT IN ('cancelled', 'refunded'))
-      GROUP BY p.id, p.name, p.price, p.stock
+      GROUP BY p.id, p.name, p.price, p.quantity
       ORDER BY revenue DESC
     `,
     
@@ -325,13 +329,11 @@ async function getProductAnalytics(organizationId: string, startDate: Date, endD
       select: {
         id: true,
         name: true,
-        stock: true,
+        quantity: true,
         price: true,
-        category: {
-          select: { name: true }
-        }
+        category: { select: { name: true } }
       },
-      orderBy: { stock: 'asc' }
+      orderBy: { quantity: 'asc' }
     }),
     
     // Pricing analysis
@@ -370,19 +372,20 @@ async function getCustomerAnalytics(organizationId: string, startDate: Date, end
     // Customer segmentation
     prisma.$queryRaw`
       SELECT 
-        c.id,
-        c.name,
-        c.email,
+        u.id,
+        u.name,
+        u.email,
         COUNT(o.id) as order_count,
         COALESCE(SUM(o.total), 0) as total_spent,
         MAX(o."createdAt") as last_order_date,
         MIN(o."createdAt") as first_order_date
-      FROM "Customer" c
-      LEFT JOIN "Order" o ON c.id = o."customerId"
-      WHERE c."organizationId" = ${organizationId}
+      FROM "User" u
+      LEFT JOIN "Order" o ON u.id = o."userId"
+      WHERE u."organizationId" = ${organizationId}
+        AND u.role = 'user'
         AND (o."createdAt" IS NULL OR (o."createdAt" >= ${startDate} AND o."createdAt" <= ${endDate}))
         AND (o.status IS NULL OR o.status NOT IN ('cancelled', 'refunded'))
-      GROUP BY c.id, c.name, c.email
+      GROUP BY u.id, u.name, u.email
       ORDER BY total_spent DESC
     `,
     
@@ -400,14 +403,15 @@ async function getCustomerAnalytics(organizationId: string, startDate: Date, end
         AVG(order_count) as avg_orders
       FROM (
         SELECT 
-          c.id,
+          u.id,
           COUNT(o.id) as order_count,
           COALESCE(SUM(o.total), 0) as total_spent
-        FROM "Customer" c
-        LEFT JOIN "Order" o ON c.id = o."customerId"
-        WHERE c."organizationId" = ${organizationId}
+        FROM "User" u
+        LEFT JOIN "Order" o ON u.id = o."userId"
+        WHERE u."organizationId" = ${organizationId}
+          AND u.role = 'user'
           AND (o.status IS NULL OR o.status NOT IN ('cancelled', 'refunded'))
-        GROUP BY c.id
+        GROUP BY u.id
       ) customer_stats
       GROUP BY segment
       ORDER BY avg_ltv DESC
@@ -432,14 +436,15 @@ async function getCustomerAnalytics(organizationId: string, startDate: Date, end
         COUNT(CASE WHEN months_since_first = 3 THEN 1 END) as month_3
       FROM (
         SELECT 
-          c.id,
+          u.id,
           MIN(o."createdAt") as first_order,
-          DATE_PART('month', AGE(o."createdAt", MIN(o."createdAt") OVER (PARTITION BY c.id))) as months_since_first
-        FROM "Customer" c
-        JOIN "Order" o ON c.id = o."customerId"
-        WHERE c."organizationId" = ${organizationId}
+          DATE_PART('month', AGE(o."createdAt", MIN(o."createdAt") OVER (PARTITION BY u.id))) as months_since_first
+        FROM "User" u
+        JOIN "Order" o ON u.id = o."userId"
+        WHERE u."organizationId" = ${organizationId}
+          AND u.role = 'user'
           AND o.status NOT IN ('cancelled', 'refunded')
-        GROUP BY c.id, o."createdAt"
+        GROUP BY u.id, o."createdAt"
       ) cohort_data
       GROUP BY cohort_month
       ORDER BY cohort_month DESC
@@ -468,11 +473,11 @@ async function getInventoryAnalytics(organizationId: string, startDate: Date, en
       select: {
         id: true,
         name: true,
-        stock: true,
+        quantity: true,
         price: true,
         category: { select: { name: true } }
       },
-      orderBy: { stock: 'asc' }
+      orderBy: { quantity: 'asc' }
     }),
     
     // Turnover rates
@@ -480,10 +485,10 @@ async function getInventoryAnalytics(organizationId: string, startDate: Date, en
       SELECT 
         p.id,
         p.name,
-        p.stock,
+        p.quantity,
         COALESCE(SUM(oi.quantity), 0) as units_sold,
         CASE 
-          WHEN p.stock > 0 THEN COALESCE(SUM(oi.quantity), 0) / p.stock 
+          WHEN p.quantity > 0 THEN COALESCE(SUM(oi.quantity), 0) / p.quantity 
           ELSE 0 
         END as turnover_rate
       FROM "Product" p
@@ -492,7 +497,7 @@ async function getInventoryAnalytics(organizationId: string, startDate: Date, en
       WHERE p."organizationId" = ${organizationId}
         AND (o."createdAt" IS NULL OR (o."createdAt" >= ${startDate} AND o."createdAt" <= ${endDate}))
         AND (o.status IS NULL OR o.status NOT IN ('cancelled', 'refunded'))
-      GROUP BY p.id, p.name, p.stock
+      GROUP BY p.id, p.name, p.quantity
       ORDER BY turnover_rate DESC
     `,
     
@@ -500,16 +505,16 @@ async function getInventoryAnalytics(organizationId: string, startDate: Date, en
     prisma.product.findMany({
       where: {
         organizationId,
-        stock: { lte: 10 }
+        quantity: { lte: 10 }
       },
       select: {
         id: true,
         name: true,
-        stock: true,
+        quantity: true,
         price: true,
         category: { select: { name: true } }
       },
-      orderBy: { stock: 'asc' }
+      orderBy: { quantity: 'asc' }
     }),
     
     // Demand forecast (simplified)
@@ -518,7 +523,7 @@ async function getInventoryAnalytics(organizationId: string, startDate: Date, en
         p.id,
         p.name,
         AVG(daily_sales.quantity) as avg_daily_demand,
-        p.stock / NULLIF(AVG(daily_sales.quantity), 0) as days_of_stock
+        p.quantity / NULLIF(AVG(daily_sales.quantity), 0) as days_of_stock
       FROM "Product" p
       LEFT JOIN (
         SELECT 
@@ -533,7 +538,7 @@ async function getInventoryAnalytics(organizationId: string, startDate: Date, en
         GROUP BY oi."productId", DATE_TRUNC('day', o."createdAt")
       ) daily_sales ON p.id = daily_sales."productId"
       WHERE p."organizationId" = ${organizationId}
-      GROUP BY p.id, p.name, p.stock
+      GROUP BY p.id, p.name, p.quantity
       HAVING AVG(daily_sales.quantity) > 0
       ORDER BY days_of_stock ASC
     `

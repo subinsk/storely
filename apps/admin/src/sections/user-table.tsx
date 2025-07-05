@@ -17,8 +17,8 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import InviteUserModal from "./invite-user-modal";
 import { deleteUser, resendInvitation } from "@/services/user.service";
-import { useSnackbar } from "@/components/snackbar";
-import Iconify from "@/components/iconify";
+import { useSnackbar } from "@storely/shared/components/snackbar";
+import { Iconify } from "@storely/shared/components/iconify";
 import { ROLE_LABEL_MAP, ROLE_LEVEL_MAP } from "@/constants/role-label-map";
 import { useSession } from "next-auth/react";
 

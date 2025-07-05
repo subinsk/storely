@@ -2,12 +2,12 @@
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 // theme
-import { hideScroll } from "@/theme/css";
+import { hideScroll } from "@storely/shared/theme/css";
 // hooks
 import { useAuthContext } from "@/hooks/use-auth-context";
 // components
-import Logo from "@/components/logo";
-import { NavSectionMini } from "@/components/nav-section";
+import {Logo} from "@storely/shared/components/logo";
+import { NavSectionMini } from "@storely/shared/components/nav-section";
 //
 import { NAV } from "../config-layout";
 import { useNavData } from "./config-navigation";

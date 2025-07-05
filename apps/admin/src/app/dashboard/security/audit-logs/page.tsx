@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
-import AuditLogs from '@/components/security/audit-logs';
+
+export const dynamic = 'force-dynamic';
+
+import AuditLogs from '@/sections/security/audit-logs';
 
 // ----------------------------------------------------------------------
 

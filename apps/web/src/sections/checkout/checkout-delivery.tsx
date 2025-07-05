@@ -8,7 +8,7 @@ import Card from '@mui/material/Card';
 import ListItemText from '@mui/material/ListItemText';
 import Paper from '@mui/material/Paper';
 // components
-import Iconify from '@/components/iconify';
+import {Iconify} from'@storely/shared/components/iconify';
 
 // ----------------------------------------------------------------------
 

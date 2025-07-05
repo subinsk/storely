@@ -7,9 +7,9 @@ import Typography from '@mui/material/Typography';
 // routes
 import { paths } from '@/routes/paths';
 // components
-import Iconify from '@/components/iconify';
+import {Iconify} from'@storely/shared/components/iconify';
 import { RouterLink } from '@/routes/components';
-import EmptyContent from '@/components/empty-content';
+import EmptyContent from '@storely/shared/components/empty-content';
 //
 import { useCheckoutContext } from './context';
 import CheckoutSummary from './checkout-summary';

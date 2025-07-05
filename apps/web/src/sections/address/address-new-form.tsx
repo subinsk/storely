@@ -17,14 +17,14 @@ import DialogContent from "@mui/material/DialogContent";
 // assets
 import { countries } from "@/assets/data";
 // components
-import Iconify from "@/components/iconify";
+import {Iconify} from"@storely/shared/components/iconify";
 import FormProvider, {
   RHFCheckbox,
   RHFTextField,
   RHFRadioGroup,
   RHFAutocomplete,
-} from "@/components/hook-form";
-import Scrollbar from "@/components/scrollbar";
+} from "@storely/shared/components/hook-form";
+import Scrollbar from "@storely/shared/components/scrollbar";
 import { useCallback, useEffect, useState } from "react";
 import { Checkbox, FormControlLabel, Typography } from "@mui/material";
 import { createAddress, getAddress } from "@/services/user.service";

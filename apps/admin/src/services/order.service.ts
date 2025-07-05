@@ -1,4 +1,4 @@
-import { api, endpoints } from "@/lib/axios";
+import { api, endpoints } from "@storely/shared/lib/axios";
 import { useMemo } from "react";
 import useSWR from "swr";
 

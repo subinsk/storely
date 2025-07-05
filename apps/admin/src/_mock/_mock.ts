@@ -1,6 +1,6 @@
 import { sub } from "date-fns";
 // config
-import { ASSETS_API } from "@/config";
+import { ASSETS_API } from "@storely/shared/config";
 //
 import {
   _id,

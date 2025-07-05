@@ -6,8 +6,8 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Unstable_Grid2";
 import LoadingButton from "@mui/lab/LoadingButton";
 // components
-import Iconify from "@/components/iconify";
-import FormProvider from "@/components/hook-form";
+import {Iconify} from"@storely/shared/components/iconify";
+import FormProvider from "@storely/shared/components/hook-form";
 //
 import { useCheckoutContext } from "./context";
 import CheckoutSummary from "./checkout-summary";

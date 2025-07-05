@@ -32,9 +32,9 @@ import {
   Tooltip
 } from '@mui/material';
 import { format } from 'date-fns';
-import { fCurrency, fNumber } from '@/utils/format-number';
-import Iconify from '@/components/iconify';
-import Image from '@/components/image';
+import { fCurrency, fNumber } from '@storely/shared/utils/format-number';
+import {Iconify} from '@storely/shared/components';
+import Image from '@storely/shared/components/image';
 
 interface CustomerData {
   id: string;

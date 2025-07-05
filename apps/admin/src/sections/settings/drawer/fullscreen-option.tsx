@@ -5,8 +5,8 @@ import { useState, useCallback } from "react";
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import ButtonBase from "@mui/material/ButtonBase";
+import SvgColor from "@storely/shared/components/svg-color";
 //
-import SvgColor from "../../../../../../packages/shared/src/components/svg-color";
 
 // ----------------------------------------------------------------------
 

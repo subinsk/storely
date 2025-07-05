@@ -1,8 +1,11 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
+
 import { useRouter } from 'next/navigation';
 import { Container, Typography, Box } from '@mui/material';
-import OrderFormSimple from '@/components/order/order-form-simple';
+import OrderFormSimple from '@/sections/order/order-form-simple';
 
 export default function CreateOrderPage() {
   const router = useRouter();

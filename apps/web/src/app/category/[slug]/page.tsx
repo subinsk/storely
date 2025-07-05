@@ -10,7 +10,7 @@ import {
   Link,
   Skeleton
 } from '@mui/material';
-import { ProductCard } from '@/components/product/ProductCard';
+import { ProductCard } from '@storely/shared/components/product/ProductCard';
 import { useState, useEffect } from 'react';
 import NextLink from 'next/link';
 import { useParams } from 'next/navigation';

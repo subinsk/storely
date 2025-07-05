@@ -8,13 +8,13 @@ import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import CardHeader from '@mui/material/CardHeader';
 // hooks
-import { useBoolean } from '@/hooks/use-boolean';
+import { useBoolean } from '@storely/shared/hooks';
 
 // components
-import Iconify from '@/components/iconify';
-import CustomPopover, { usePopover } from '@/components/custom-popover';
+import {Iconify} from '@storely/shared/components/iconify';
+import CustomPopover, { usePopover } from '@storely/shared/components/custom-popover';
 //
-import { AddressNewForm, AddressItem } from '../address';
+import { AddressNewForm, AddressItem } from './address';
 
 // ----------------------------------------------------------------------
 

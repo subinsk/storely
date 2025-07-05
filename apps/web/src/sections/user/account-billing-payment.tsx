@@ -8,7 +8,7 @@ import CardHeader from '@mui/material/CardHeader';
 // hooks
 import { useBoolean } from '@/hooks/use-boolean';
 // components
-import Iconify from '@/components/iconify';
+import {Iconify} from'@storely/shared/components/iconify';
 //
 import PaymentCardItem from '../payment/payment-card-item';
 import PaymentNewCardDialog from '../payment/payment-new-card-dialog';

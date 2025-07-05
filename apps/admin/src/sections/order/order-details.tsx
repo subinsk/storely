@@ -17,9 +17,9 @@ import {
   Paper,
   Stack
 } from '@mui/material';
-import { fCurrency } from '@/utils/format-number';
-import { fDateTime } from '@/utils/format-time';
-import Image from '@/components/image';
+import { fCurrency } from '@storely/shared/utils/format-number';
+import { fDateTime } from '@storely/shared/utils/format-time';
+import Image from '@storely/shared/components/image';
 
 interface OrderDetailsProps {
   order: {

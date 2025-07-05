@@ -1,4 +1,4 @@
-import Image from "@/components/image";
+import Image from "@storely/shared/components/image";
 import { IMAGE_KIT_URL_ENDPOINT } from "@/config";
 
 export default function ImageBox({ banner }: { banner: string }) {

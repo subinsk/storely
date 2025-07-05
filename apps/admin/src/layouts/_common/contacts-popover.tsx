@@ -7,14 +7,14 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ListItemText from "@mui/material/ListItemText";
 // utils
-import { fToNow } from "@/utils/format-time";
+import { fToNow } from "@storely/shared/utils/format-time";
 // _mock
 import { _contacts } from "@/_mock";
 // components
-import Iconify from "@/components/iconify";
-import Scrollbar from "@/components/scrollbar";
-import { varHover } from "@/components/animate";
-import CustomPopover, { usePopover } from "@/components/custom-popover";
+import {Iconify} from "@storely/shared/components";
+import {Scrollbar} from "@storely/shared/components/scrollbar";
+import { varHover } from "@storely/shared/components/animate";
+import CustomPopover, { usePopover } from "@storely/shared/components/custom-popover";
 
 // ----------------------------------------------------------------------
 

@@ -1,5 +1,5 @@
-import { usePopover } from "@/components/custom-popover";
-import Iconify from "@/components/iconify";
+import { usePopover } from "@storely/shared/components/custom-popover";
+import {Iconify} from"@storely/shared/components/iconify";
 import { Checkbox, IconButton, TableCell, TableRow } from "@mui/material";
 
 export default function CategoriesTableRow({

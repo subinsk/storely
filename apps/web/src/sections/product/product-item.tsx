@@ -10,12 +10,12 @@ import Tooltip from "@mui/material/Tooltip";
 import { paths } from "@/routes/paths";
 import { RouterLink } from "@/routes/components";
 // utils
-import { fCurrency } from "@/utils/format-number";
+import { fCurrency } from "@storely/shared/utils/format-number";
 // components
-import Label from "@/components/label";
-import Image from "@/components/image";
-import Iconify from "@/components/iconify";
-import { ColorPreview } from "@/components/color-utils";
+import Label from "@storely/shared/components/label";
+import Image from "@storely/shared/components/image";
+import {Iconify} from"@storely/shared/components/iconify";
+import { ColorPreview } from "@storely/shared/components/color-utils";
 //
 import { useCheckoutContext } from "../checkout/context";
 

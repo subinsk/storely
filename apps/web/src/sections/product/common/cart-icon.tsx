@@ -5,7 +5,7 @@ import Badge from "@mui/material/Badge";
 // routes
 import { paths } from "@/routes/paths";
 // components
-import Iconify from "@/components/iconify";
+import {Iconify} from"@storely/shared/components/iconify";
 import { RouterLink } from "@/routes/components";
 
 // ----------------------------------------------------------------------

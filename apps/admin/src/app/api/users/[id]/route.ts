@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma-client";
+import { prisma } from '@storely/database';
 import { getServerSession } from "next-auth";
 
 export async function PATCH(req: Request, { params }: { params: { id: string } }) {

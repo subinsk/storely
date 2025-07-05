@@ -46,9 +46,9 @@ import {
 import { LoadingButton } from '@mui/lab';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { useForm, Controller, useFieldArray } from 'react-hook-form';
-import { fNumber } from '@/utils/format-number';
-import Iconify from '@/components/iconify';
-import Image from '@/components/image';
+import { fNumber } from '@storely/shared/utils/format-number';
+import { Iconify } from '@storely/shared/components/iconify';
+import Image from '@storely/shared/components/image';
 
 interface TabPanelProps {
   children?: React.ReactNode;

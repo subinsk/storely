@@ -31,7 +31,7 @@ import {
   PRODUCT_CATEGORY_GROUP_OPTIONS,
 } from "@/_mock";
 // components
-import { useSnackbar } from "@/components/snackbar";
+import { useSnackbar } from "@storely/shared/components/snackbar";
 import FormProvider, {
   RHFSelect,
   RHFEditor,
@@ -41,7 +41,7 @@ import FormProvider, {
   RHFMultiSelect,
   RHFAutocomplete,
   RHFMultiCheckbox,
-} from "@/components/hook-form";
+} from "@storely/shared/components/hook-form";
 import { useRouter } from "next/navigation";
 
 // ----------------------------------------------------------------------

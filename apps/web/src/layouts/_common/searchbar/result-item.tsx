@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemButton from "@mui/material/ListItemButton";
 // components
-import Label from "@/components/label";
+import Label from "@storely/shared/components/label";
 
 // ----------------------------------------------------------------------
 

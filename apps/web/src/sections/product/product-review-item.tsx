@@ -7,9 +7,9 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import ListItemText from "@mui/material/ListItemText";
 // utils
-import { fDate } from "@/utils/format-time";
+import { fDate } from "@storely/shared/utils/format-time";
 // components
-import Iconify from "@/components/iconify";
+import {Iconify} from"@storely/shared/components/iconify";
 
 // ----------------------------------------------------------------------
 

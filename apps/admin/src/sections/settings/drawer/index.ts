@@ -1,1 +1,1 @@
-export { default } from './settings-drawer';
+export { default as SettingsDrawer } from './settings-drawer';

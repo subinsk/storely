@@ -10,9 +10,9 @@ import { paths } from '@/routes/paths';
 // _mock
 import { _userAbout, _userPlans, _userPayment, _userInvoices, _userAddressBook } from '@/_mock';
 // components
-import Iconify from '@/components/iconify';
-import { useSettingsContext } from '@/components/settings';
-import CustomBreadcrumbs from '@/components/custom-breadcrumbs';
+import {Iconify} from'@storely/shared/components/iconify';
+import { useSettingsContext } from '@storely/shared/components/settings';
+import CustomBreadcrumbs from '@storely/shared/components/custom-breadcrumbs';
 //
 import AccountGeneral from '@/sections/user/account-general';
 import AccountBilling from '@/sections/user/account-billing';

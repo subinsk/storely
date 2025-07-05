@@ -1,4 +1,4 @@
-import { PrismaAdapter } from "@auth/prisma-adapter";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@storely/database";
 import bcrypt from "bcryptjs";
@@ -42,14 +42,14 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token, user }) {
       if (session.user && token) {
         session.user.id = token.id as string || user?.id as string;
-        session.user.role = token.role as string || user?.role as string;
-        session.user.organizationId = token.organizationId as string || user?.organizationId as string;
+        session.user.role = token.role as string || (user as any)?.role;
+        session.user.organizationId = token.organizationId as string || (user as any)?.organizationId;
       }
       return session;
     },
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id
+        token.id = (user as any).id;
         token.role = (user as any).role;
         token.organizationId = (user as any).organizationId;
       }

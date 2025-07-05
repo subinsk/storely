@@ -1,6 +1,5 @@
 "use client";
 
-import Iconify from "@/components/iconify";
 import { Container, Stack, Typography } from "@mui/material";
 import {
   Parent,
@@ -8,7 +7,6 @@ import {
   BannerImageTwo,
   BannerImageThree,
 } from "./styles";
-import { useState } from "react";
 import UploadBox from "./upload-box";
 
 export default function BannerImagesView() {

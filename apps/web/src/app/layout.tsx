@@ -4,10 +4,10 @@ import "./globals.css";
 import Script from "next/script";
 import { API_URL } from "@/config";
 import { OrganizationProvider } from "@/hooks/useOrganization";
-import { DynamicThemeProvider } from "@/components/theme/DynamicThemeProvider";
-import { Header } from "@/components/common/Header";
-import { Footer } from "@/components/common/Footer";
-import { AuthProvider } from "@/components/auth/AuthProvider";
+import { DynamicThemeProvider } from "@storely/shared/components/theme/DynamicThemeProvider";
+import { Header } from "@storely/shared/components/common/Header";
+import { Footer } from "@storely/shared/components/common/Footer";
+import { AuthProvider } from "@storely/shared/components/auth/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 

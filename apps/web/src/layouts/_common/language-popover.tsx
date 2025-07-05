@@ -6,9 +6,9 @@ import IconButton from "@mui/material/IconButton";
 // locales
 import { useLocales } from "@/locales";
 // components
-import Iconify from "@/components/iconify";
-import { varHover } from "@/components/animate";
-import CustomPopover, { usePopover } from "@/components/custom-popover";
+import {Iconify} from"@storely/shared/components/iconify";
+import { varHover } from "@storely/shared/components/animate";
+import CustomPopover, { usePopover } from "@storely/shared/components/custom-popover";
 
 // ----------------------------------------------------------------------
 

@@ -24,14 +24,15 @@ import "slick-carousel/slick/slick-theme.css";
 // image
 import "react-lazy-load-image-component/src/effects/blur.css";
 
-import { MotionLazy, ProgressBar, SettingsDrawer, SettingsProvider, SnackbarProvider } from "@storely/shared/components";
+import { MotionLazy, ProgressBar, SettingsProvider, SnackbarProvider } from "@storely/shared/components";
 import { LocalizationProvider } from "@storely/shared/locales";
-import ThemeProvider from "@storely/shared/theme";
+import {ThemeProvider} from "@storely/shared/theme";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { IKContext } from "imagekitio-react";
 import { IMAGE_KIT_PUBLIC_KEY, IMAGE_KIT_URL_ENDPOINT } from "@storely/shared/config";
-import { imageKitAuthenticator } from "@/lib";
+import { imageKitAuthenticator } from "@storely/shared/lib";
 import { SessionProvider } from "next-auth/react";
+import { SettingsDrawer } from "@/sections/settings";
 
 export default function RootLayout({
   children,

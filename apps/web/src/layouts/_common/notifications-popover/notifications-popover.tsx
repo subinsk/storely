@@ -19,10 +19,10 @@ import { useResponsive } from "@/hooks/use-responsive";
 // _mock
 import { _notifications } from "@/_mock";
 // components
-import Label from "@/components/label";
-import Iconify from "@/components/iconify";
-import Scrollbar from "@/components/scrollbar";
-import { varHover } from "@/components/animate";
+import Label from "@storely/shared/components/label";
+import {Iconify} from"@storely/shared/components/iconify";
+import Scrollbar from "@storely/shared/components/scrollbar";
+import { varHover } from "@storely/shared/components/animate";
 //
 import NotificationItem from "./notification-item";
 

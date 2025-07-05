@@ -1,7 +1,7 @@
 // "use client";
 
-import Iconify from "@/components/iconify";
-import Logo from "@/components/logo";
+import {Iconify} from"@storely/shared/components/iconify";
+import Logo from "@storely/shared/components/logo";
 import useCartContext from "@/hooks/use-cart-context";
 import useGetUser from "@/hooks/use-get-user";
 import { AccountPopover } from "@/layouts/_common";

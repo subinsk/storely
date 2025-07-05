@@ -14,8 +14,8 @@ import { RouterLink } from '@/routes/components';
 // _mock
 import { _socials } from '@/_mock';
 // components
-import Logo from '@/components/logo';
-import Iconify from '@/components/iconify';
+import Logo from '@storely/shared/components/logo';
+import {Iconify} from'@storely/shared/components/iconify';
 import { usePathname } from 'next/navigation';
 
 // ----------------------------------------------------------------------

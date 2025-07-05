@@ -23,8 +23,8 @@ import {
 } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { LoadingButton } from '@mui/lab';
-import Iconify from '@/components/iconify';
-import { Upload } from '@/components/upload';
+import { Iconify } from '@storely/shared/components/iconify';
+import { Upload } from '@storely/shared/components/upload';
 
 // ----------------------------------------------------------------------
 
@@ -79,11 +79,14 @@ function TabPanel({ children, value, index }: TabPanelProps) {
 export default function StoreSettingsForm() {
   const [currentTab, setCurrentTab] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [logoError, setLogoError] = useState<string | null>(null);
 
   const { control, handleSubmit, watch, setValue } = useForm<StoreSettingsData>({
     defaultValues: {
       storeName: 'Storely Furniture',
       storeUrl: 'https://storely.com',
+      logo: '',
+      favicon: '',
       primaryColor: '#8B4513',
       secondaryColor: '#556B7D',
       fontFamily: 'Inter',
@@ -144,6 +147,64 @@ export default function StoreSettingsForm() {
     { label: 'Contact', icon: 'eva:phone-fill' },
     { label: 'Business Hours', icon: 'eva:clock-fill' },
   ];
+
+  // Helper function to convert file to base64
+  const convertToBase64 = (file: File): Promise<string> =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file);
+    });
+
+  // Validate image file
+  const validateImageFile = (file: File): string | null => {
+    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    const maxSize = 2 * 1024 * 1024; // 2MB
+
+    if (!validTypes.includes(file.type)) {
+      return 'Please upload a valid image file (JPEG, PNG, GIF, or WebP).';
+    }
+
+    if (file.size > maxSize) {
+      return 'Image size must be less than 2MB.';
+    }
+
+    return null;
+  };
+
+  // Handle logo upload
+  const handleLogoUpload = async (files: File[]) => {
+    setLogoError(null);
+    
+    if (!files || files.length === 0) {
+      setValue('logo', '');
+      return;
+    }
+
+    const file = files[0];
+    const validationError = validateImageFile(file);
+    
+    if (validationError) {
+      setLogoError(validationError);
+      setValue('logo', '');
+      return;
+    }
+
+    try {
+      const base64 = await convertToBase64(file);
+      setValue('logo', base64, { shouldValidate: true, shouldDirty: true });
+    } catch (error) {
+      setLogoError('Failed to process the image file.');
+      setValue('logo', '');
+    }
+  };
+
+  // Handle logo removal
+  const handleLogoRemove = () => {
+    setValue('logo', '');
+    setLogoError(null);
+  };
 
   return (
     <Box>
@@ -268,10 +329,32 @@ export default function StoreSettingsForm() {
                 </Typography>
                 <Upload
                   file={watch('logo')}
-                  onDrop={(files) => setValue('logo', files[0] as any)}
+                  onDrop={handleLogoUpload}
+                  onDelete={handleLogoRemove}
                   accept={{ 'image/*': [] }}
                   placeholder="Upload your store logo"
+                  error={!!logoError}
+                  helperText={logoError || 'Supported formats: JPEG, PNG, GIF, WebP. Max size: 2MB'}
                 />
+                {watch('logo') && (
+                  <Box sx={{ mt: 2, display: 'flex', alignItems: 'center', gap: 2 }}>
+                    <Avatar
+                      src={watch('logo')}
+                      alt="Store logo preview"
+                      sx={{ width: 56, height: 56, border: '1px solid #eee' }}
+                      variant="rounded"
+                    />
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      size="small"
+                      onClick={handleLogoRemove}
+                      aria-label="Remove logo"
+                    >
+                      Remove
+                    </Button>
+                  </Box>
+                )}
               </Box>
 
               {/* Color Schemes */}
@@ -292,7 +375,7 @@ export default function StoreSettingsForm() {
                           p: 1,
                           borderRadius: 1,
                           border: '2px solid',
-                          borderColor: 
+                          borderColor:
                             primaryColor === preset.primary ? 'primary.main' : 'transparent',
                           '&:hover': { borderColor: 'primary.main' },
                         }}
@@ -390,7 +473,7 @@ export default function StoreSettingsForm() {
               <Alert severity="info" icon={<Iconify icon="eva:info-fill" />}>
                 These settings help your store appear better in search engine results
               </Alert>
-              
+
               <Controller
                 name="metaTitle"
                 control={control}
@@ -404,7 +487,7 @@ export default function StoreSettingsForm() {
                   />
                 )}
               />
-              
+
               <Controller
                 name="metaDescription"
                 control={control}
@@ -420,7 +503,7 @@ export default function StoreSettingsForm() {
                   />
                 )}
               />
-              
+
               <Controller
                 name="metaKeywords"
                 control={control}
@@ -485,7 +568,7 @@ export default function StoreSettingsForm() {
                   />
                 </Grid>
               </Grid>
-              
+
               <Controller
                 name="address"
                 control={control}

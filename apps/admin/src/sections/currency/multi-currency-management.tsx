@@ -32,9 +32,9 @@ import {
   Tooltip
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import  Iconify  from '@/components/iconify';
-import { useSnackbar } from '@/components/snackbar';
-import { ConfirmDialog } from '@/components/custom-dialog';
+import  {Iconify}  from '@storely/shared/components';
+import { useSnackbar } from '@storely/shared/components/snackbar';
+import { ConfirmDialog } from '@storely/shared/components/custom-dialog';
 
 // ----------------------------------------------------------------------
 

@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import CardHeader from '@mui/material/CardHeader';
 // components
-import Iconify from '@/components/iconify';
+import {Iconify} from'@storely/shared/components/iconify';
 
 // ----------------------------------------------------------------------
 

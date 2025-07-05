@@ -2,10 +2,10 @@ import React from 'react';
 import { Container, Stack, Typography, Box, Button } from '@mui/material';
 import { ArrowBack, Print, Email, Edit } from '@mui/icons-material';
 import { useRouter } from 'next/navigation';
-import CustomBreadcrumbs from '@/components/custom-breadcrumbs';
+import {CustomBreadcrumbs} from '@storely/shared/components/custom-breadcrumbs';
 import { paths } from '@/routes/paths';
-import OrderDetails from '@/components/order/order-details';
-import OrderStatusForm from '@/components/order/order-status-form';
+import OrderDetails from '@/sections/order/order-details';
+import OrderStatusForm from '@/sections/order/order-status-form';
 import { useGetOrders } from '@/services/order.service';
 
 interface OrderDetailsViewProps {

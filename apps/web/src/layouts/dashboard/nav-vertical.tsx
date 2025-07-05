@@ -9,9 +9,9 @@ import { useResponsive } from "@/hooks/use-responsive";
 // hooks
 import { useMockedUser } from "@/hooks/use-mocked-user";
 // components
-import Logo from "@/components/logo";
-import Scrollbar from "@/components/scrollbar";
-import { NavSectionVertical } from "@/components/nav-section";
+import Logo from "@storely/shared/components/logo";
+import Scrollbar from "@storely/shared/components/scrollbar";
+import { NavSectionVertical } from "@storely/shared/components/nav-section";
 //
 import { NAV } from "../config-layout";
 import { useNavData } from "./config-navigation";

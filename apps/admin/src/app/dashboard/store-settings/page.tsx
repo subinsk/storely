@@ -1,11 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Container } from '@mui/material';
-import StoreSettingsManagement from '@/components/store/store-settings-management';
+import StoreSettingsManagement from '@/sections/store/store-settings-management';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-const StoreSettingsPage: React.FC = () => {
+const StoreSettingsContent: React.FC = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   
@@ -17,6 +17,14 @@ const StoreSettingsPage: React.FC = () => {
     <Container maxWidth={false}>
       <StoreSettingsManagement organizationId={organizationId} />
     </Container>
+  );
+};
+
+const StoreSettingsPage: React.FC = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <StoreSettingsContent />
+    </Suspense>
   );
 };
 

@@ -8,9 +8,9 @@ import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import Stack from "@mui/material/Stack";
 // components
-import Iconify from "@/components/iconify";
+import {Iconify} from"@storely/shared/components/iconify";
 import { RouterLink } from "@/routes/components";
-import CustomPopover, { usePopover } from "@/components/custom-popover";
+import CustomPopover, { usePopover } from "@storely/shared/components/custom-popover";
 
 // ----------------------------------------------------------------------
 

@@ -13,7 +13,7 @@ import FormHelperText from "@mui/material/FormHelperText";
 // hooks
 import { useBoolean } from "@/hooks/use-boolean";
 // components
-import Iconify from "@/components/iconify";
+import {Iconify} from"@storely/shared/components/iconify";
 //
 import PaymentNewCardDialog from "../payment/payment-new-card-dialog";
 

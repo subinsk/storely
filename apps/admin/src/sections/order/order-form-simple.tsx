@@ -29,8 +29,8 @@ import { useForm, Controller, useFieldArray } from 'react-hook-form';
 import { createOrder, updateOrder } from '@/services/order.service';
 import { useGetProducts } from '@/services/product.service';
 import { useGetCustomers } from '@/services/customer.service';
-import { fCurrency } from '@/utils/format-number';
-import Iconify from '@/components/iconify';
+import { fCurrency } from '@storely/shared/utils/format-number';
+import { Iconify } from '@storely/shared/components/iconify';
 
 interface OrderItem {
   productId: string;

@@ -1,5 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { prisma } from '@storely/database';
+
+export const dynamic = 'force-dynamic';
+
+function slugify(text: string) {
+  return text
+    .toString()
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9-]/g, '')
+    .replace(/-+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
 
 export async function GET(request: NextRequest) {
   try {
@@ -44,14 +56,6 @@ export async function GET(request: NextRequest) {
             select: {
               id: true,
               name: true
-            }
-          },
-          images: {
-            select: {
-              id: true,
-              url: true,
-              alt: true,
-              isPrimary: true
             }
           },
           _count: {
@@ -106,14 +110,12 @@ export async function POST(request: NextRequest) {
       categoryId,
       isActive,
       stockQuantity,
-      lowStockThreshold,
       weight,
       dimensions,
       images,
       variants,
-      seoTitle,
-      seoDescription,
-      tags
+      tags,
+      organizationId
     } = body;
     
     // Validate required fields
@@ -128,39 +130,31 @@ export async function POST(request: NextRequest) {
     const product = await prisma.product.create({
       data: {
         name,
-        description,
+        slug: slugify(name),
+        subDescription: description,
         price: parseFloat(price),
         comparePrice: comparePrice ? parseFloat(comparePrice) : null,
         sku,
-        categoryId,
         isActive: isActive ?? true,
-        stockQuantity: stockQuantity || 0,
-        lowStockThreshold: lowStockThreshold || 5,
+        trackQuantity: stockQuantity || 0,
         weight: weight ? parseFloat(weight) : null,
         dimensions,
-        seoTitle,
-        seoDescription,
         tags: tags || [],
-        images: images ? {
-          create: images.map((image: any, index: number) => ({
-            url: image.url,
-            alt: image.alt || name,
-            isPrimary: index === 0
-          }))
-        } : undefined,
+        images: images ? images.map((img: any) => img.url) : [],
+        category: { connect: { id: categoryId } },
+        organization: { connect: { id: organizationId } },
         variants: variants ? {
           create: variants.map((variant: any) => ({
             name: variant.name,
             value: variant.value,
             price: variant.price ? parseFloat(variant.price) : null,
             sku: variant.sku,
-            stockQuantity: variant.stockQuantity || 0
+            quantity: variant.stockQuantity || 0
           }))
         } : undefined
       },
       include: {
         category: true,
-        images: true,
         variants: true
       }
     });

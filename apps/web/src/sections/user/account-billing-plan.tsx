@@ -14,8 +14,8 @@ import { useBoolean } from '@/hooks/use-boolean';
 // assets
 import { PlanFreeIcon, PlanStarterIcon, PlanPremiumIcon } from '@/assets/icons';
 // components
-import Label from '@/components/label';
-import Iconify from '@/components/iconify';
+import Label from '@storely/shared/components/label';
+import {Iconify} from'@storely/shared/components/iconify';
 //
 import { AddressListDialog } from '../address';
 import PaymentCardListDialog from '../payment/payment-card-list-dialog';

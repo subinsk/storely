@@ -6,12 +6,12 @@ import Button from '@mui/material/Button';
 import CardHeader from '@mui/material/CardHeader';
 
 // hooks
-import { useBoolean } from '@/hooks/use-boolean';
+import { useBoolean } from '@storely/shared/hooks';
 // components
-import Iconify from '@/components/iconify';
+import {Iconify} from '@storely/shared/components/iconify';
 //
-import PaymentCardItem from '../payment/payment-card-item';
-import PaymentNewCardDialog from '../payment/payment-new-card-dialog';
+import PaymentCardItem from '@/sections/payment/payment-card-item';
+import PaymentNewCardDialog from '@/sections/payment/payment-new-card-dialog';
 
 // ----------------------------------------------------------------------
 

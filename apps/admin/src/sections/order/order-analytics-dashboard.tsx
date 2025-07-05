@@ -8,9 +8,9 @@ import {
   CircularProgress,
   Alert
 } from '@mui/material';
-import Iconify from '@/components/iconify';
+import { Iconify } from '@storely/shared/components/iconify';
 import { getOrderAnalytics, OrderAnalytics } from '@/services/order.service';
-import { fCurrency, fPercent } from '@/utils/format-number';
+import { fCurrency, fPercent } from '@storely/shared/utils/format-number';
 import useSWR from 'swr';
 
 interface OrderAnalyticsDashboardProps {

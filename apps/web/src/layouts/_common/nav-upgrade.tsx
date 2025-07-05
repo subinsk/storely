@@ -11,7 +11,7 @@ import { paths } from "@/routes/paths";
 // locales
 import { useLocales } from "@/locales";
 // components
-import Label from "@/components/label";
+import Label from "@storely/shared/components/label";
 
 // ----------------------------------------------------------------------
 

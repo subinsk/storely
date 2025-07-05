@@ -19,7 +19,7 @@ import {
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import { 
   LineChart, 
   Line, 
@@ -36,13 +36,13 @@ import {
   BarChart,
   Bar
 } from 'recharts';
-import CustomBreadcrumbs from '@/components/custom-breadcrumbs';
-import { useSettingsContext } from '@/components/settings';
+import { CustomBreadcrumbs } from '@storely/shared/components/custom-breadcrumbs';
+import { useSettingsContext } from '@storely/shared/components/settings';
 import { paths } from '@/routes/paths';
 import { useSalesReport } from '@/hooks/useReports';
-import { fCurrency, fNumber, fPercent } from '@/utils/format-number';
-import { fDate } from '@/utils/format-time';
-import Iconify from '@/components/iconify';
+import { fCurrency, fNumber, fPercent } from '@storely/shared/utils/format-number';
+import { fDate } from '@storely/shared/utils/format-time';
+import { Iconify } from '@storely/shared/components/iconify';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8'];
 

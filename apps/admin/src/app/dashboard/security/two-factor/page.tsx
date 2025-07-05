@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
-import TwoFactorAuthentication from '@/components/security/two-factor-auth';
+
+export const dynamic = 'force-dynamic';
+
+import TwoFactorAuthentication from '@/sections/security/two-factor-auth';
 
 // ----------------------------------------------------------------------
 

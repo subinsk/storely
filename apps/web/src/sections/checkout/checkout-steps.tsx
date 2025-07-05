@@ -10,7 +10,7 @@ import MuiStepConnector, {
   stepConnectorClasses,
 } from "@mui/material/StepConnector";
 // components
-import Iconify from "@/components/iconify";
+import {Iconify} from"@storely/shared/components/iconify";
 
 // ----------------------------------------------------------------------
 

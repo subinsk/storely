@@ -1,4 +1,4 @@
-import { palette as themePalette } from "@/theme/palette";
+import { palette as themePalette } from "@storely/shared/theme/palette";
 
 // ----------------------------------------------------------------------
 

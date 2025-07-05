@@ -30,8 +30,9 @@ import {
   PRODUCT_CATEGORY_GROUP_OPTIONS,
 } from "@/_mock";
 // components
-import { useSnackbar } from "@/components/snackbar";
-import FormProvider, {
+import { useSnackbar } from "@storely/shared/components/snackbar";
+import  {
+  FormProvider,
   RHFSelect,
   RHFEditor,
   RHFUpload,
@@ -40,20 +41,21 @@ import FormProvider, {
   RHFMultiSelect,
   RHFAutocomplete,
   RHFMultiCheckbox,
-} from "@/components/hook-form";
+} from "@storely/shared/components/hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 import { TextField } from "@mui/material";
 import { getCategoryById } from "@/services/category.service";
 import { createProduct, updateProduct } from "@/services/product.service";
-import { imagekit } from "@/lib";
-import { slugify } from "@/utils/slugify";
+import { slugify } from "@storely/shared/utils/slugify";
+import { imagekit } from "@storely/shared/lib";
+import type { ProductFormData } from "@/services/product.service";
 
 export default function AddProductForm({
   currentProduct,
   categoryId,
 }: {
   currentProduct?: any;
-  categoryId?: string | null;
+  categoryId: string;
 }) {
   const router = useRouter();
 
@@ -66,44 +68,60 @@ export default function AddProductForm({
 
   const NewProductSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
+    slug: Yup.string(),
     sku: Yup.string().required("SKU is required"),
-    code: Yup.string(),
-    subDescription: Yup.string(),
-    content: Yup.string(),
-    // images: Yup.array().min(1, "Images is required"),
-    images: Yup.array(),
-    quantity: Yup.number().moreThan(0, "Quantity should not be 0"),
-    newLabel: Yup.object().shape({
-      enabled: Yup.boolean(),
-      content: Yup.string(),
-    }),
-    saleLabel: Yup.object().shape({
-      enabled: Yup.boolean(),
-      content: Yup.string(),
-    }),
     price: Yup.number().moreThan(0, "Price should not be Rs. 0.00"),
+    comparePrice: Yup.number().nullable(),
+    cost: Yup.number().nullable(),
+    categoryId: Yup.string().required(),
+    status: Yup.string().oneOf(["draft", "active", "inactive", "archived"]).required(),
+    featured: Yup.boolean(),
+    trackQuantity: Yup.boolean(),
+    weight: Yup.number().nullable(),
+    dimensions: Yup.string().nullable(),
+    metaTitle: Yup.string().nullable(),
+    metaDescription: Yup.string().nullable(),
+    tags: Yup.array().of(Yup.string()),
+    content: Yup.string(),
+    images: Yup.array(),
     mrp: Yup.number().moreThan(0, "MRP should not be Rs. 0.00"),
+    quantity: Yup.number().moreThan(0, "Quantity should not be 0"),
+    lowStockAlert: Yup.number().nullable(),
+    variants: Yup.array().nullable(),
+    publishedAt: Yup.date().nullable(),
+    code: Yup.string(),
   });
 
-  const defaultValues = useMemo(
+  const defaultValues: ProductFormData = useMemo(
     () => ({
       name: currentProduct?.name || "",
-      subDescription: currentProduct?.subDescription || "",
-      content: currentProduct?.content || "",
-      images: currentProduct?.images || [],
-      //
-      code: currentProduct?.code || "",
+      slug: currentProduct?.slug || "",
       sku: currentProduct?.sku || "",
       price: currentProduct?.price || 0,
-      quantity: currentProduct?.quantity || 0,
+      comparePrice: currentProduct?.comparePrice || 0,
+      cost: currentProduct?.cost || 0,
+      categoryId: categoryId || "",
+      status: currentProduct?.status || "draft",
+      featured: currentProduct?.featured || false,
+      trackQuantity: currentProduct?.trackQuantity || true,
+      weight: currentProduct?.weight || 0,
+      dimensions: currentProduct?.dimensions || "",
+      metaTitle: currentProduct?.metaTitle || "",
+      metaDescription: currentProduct?.metaDescription || "",
+      tags: currentProduct?.tags || [],
+      content: currentProduct?.content || "",
+      images: currentProduct?.images || [],
       mrp: currentProduct?.mrp || 0,
-      newLabel: currentProduct?.newLabel || { enabled: false, content: "" },
-      saleLabel: currentProduct?.saleLabel || { enabled: false, content: "" },
+      quantity: currentProduct?.quantity || 0,
+      lowStockAlert: currentProduct?.lowStockAlert || 0,
+      variants: currentProduct?.variants || [],
+      publishedAt: currentProduct?.publishedAt || null,
+      code: currentProduct?.code || "",
     }),
-    [currentProduct]
+    [currentProduct, categoryId]
   );
 
-  const methods = useForm({
+  const methods = useForm<ProductFormData>({
     resolver: yupResolver(NewProductSchema as any),
     defaultValues,
   });
@@ -153,7 +171,7 @@ export default function AddProductForm({
 
           let responses = await Promise.all(uploadPromises);
 
-          responses.forEach((response) => {
+          responses.forEach((response: { url: string }) => {
             imageUrls.push(response.url);
           });
         } catch (error) {
@@ -165,20 +183,54 @@ export default function AddProductForm({
 
       if (!currentProduct) {
         response = await createProduct({
-          ...data,
+          name: data.name,
+          slug: slugify(data.name),
+          sku: data.sku,
+          price: data.price,
+          comparePrice: data.comparePrice,
+          cost: data.cost,
+          categoryId: categoryId,
+          status: 'draft',
+          featured: false,
+          trackQuantity: true,
+          weight: data.weight,
+          dimensions: data.dimensions,
+          metaTitle: data.metaTitle,
+          metaDescription: data.metaDescription,
+          tags: data.tags || [],
+          content: data.content,
           images: imageUrls,
-          categoryId,
-          newLabel: data.newLabel.content,
-          saleLabel: data.saleLabel.content,
+          mrp: data.mrp,
+          quantity: data.quantity,
+          lowStockAlert: data.lowStockAlert,
+          variants: data.variants || [],
+          publishedAt: data.publishedAt,
         });
       } else {
         response = await updateProduct({
-          ...data,
           id: currentProduct?.id,
+          name: data.name,
+          slug: currentProduct?.slug || slugify(data.name),
+          sku: data.sku,
+          price: data.price,
+          comparePrice: data.comparePrice,
+          cost: data.cost,
+          categoryId: categoryId,
+          status: currentProduct?.status || 'draft',
+          featured: currentProduct?.featured || false,
+          trackQuantity: currentProduct?.trackQuantity || true,
+          weight: data.weight,
+          dimensions: data.dimensions,
+          metaTitle: data.metaTitle,
+          metaDescription: data.metaDescription,
+          tags: data.tags || [],
+          content: data.content,
           images: imageUrls,
-          categoryId,
-          newLabel: data.newLabel.content,
-          saleLabel: data.saleLabel.content,
+          mrp: data.mrp,
+          quantity: data.quantity,
+          lowStockAlert: data.lowStockAlert,
+          variants: data.variants || [],
+          publishedAt: data.publishedAt,
         });
       }
 
@@ -194,31 +246,27 @@ export default function AddProductForm({
 
   const handleDrop = useCallback(
     (acceptedFiles: File[]) => {
-      const files = values.images || [];
-
+      const files = (values.images as any[]) || [];
       const newFiles = acceptedFiles.map((file) =>
         Object.assign(file, {
           preview: URL.createObjectURL(file),
         })
       );
-
-      setValue("images", [...files, ...newFiles], { shouldValidate: true });
+      setValue("images", [...files, ...newFiles] as any[], { shouldValidate: true });
     },
     [setValue, values.images]
   );
 
   const handleRemoveFile = useCallback(
     (inputFile: File) => {
-      const filtered =
-        values.images &&
-        values.images?.filter((file: File) => file !== inputFile);
-      setValue("images", filtered);
+      const filtered = (values.images as any[]).filter((file) => file !== inputFile);
+      setValue("images", filtered as any[]);
     },
     [setValue, values.images]
   );
 
   const handleRemoveAllFiles = useCallback(() => {
-    setValue("images", []);
+    setValue("images", [] as any[]);
   }, [setValue]);
 
   const renderDetails = (
@@ -318,20 +366,18 @@ export default function AddProductForm({
             <Stack direction="row" alignItems="center" spacing={3}>
               <RHFSwitch name="saleLabel.enabled" label={null} sx={{ m: 0 }} />
               <RHFTextField
-                name="saleLabel.content"
+                name="saleLabel"
                 label="Sale Label"
                 fullWidth
-                disabled={!values.saleLabel.enabled}
               />
             </Stack>
 
             <Stack direction="row" alignItems="center" spacing={3}>
               <RHFSwitch name="newLabel.enabled" label={null} sx={{ m: 0 }} />
               <RHFTextField
-                name="newLabel.content"
+                name="newLabel"
                 label="New Label"
                 fullWidth
-                disabled={!values.newLabel.enabled}
               />
             </Stack>
           </Stack>

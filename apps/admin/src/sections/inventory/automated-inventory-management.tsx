@@ -50,8 +50,8 @@ import {
   Cell
 } from 'recharts';
 import { format, subDays } from 'date-fns';
-import { fNumber, fCurrency } from '@/utils/format-number';
-import Iconify from '@/components/iconify';
+import { fNumber, fCurrency } from '@storely/shared/utils/format-number';
+import { Iconify } from '@storely/shared/components/iconify';
 
 interface Product {
   id: string;

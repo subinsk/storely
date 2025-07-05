@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Container } from '@mui/material';
-import EnhancedProductForm from '@/components/product/enhanced-product-form';
+import EnhancedProductForm from '@/sections/product/enhanced-product-form';
 import { useRouter, useParams } from 'next/navigation';
 
 const EditProductPage: React.FC = () => {

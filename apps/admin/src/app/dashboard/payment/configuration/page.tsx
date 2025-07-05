@@ -1,10 +1,13 @@
 "use client"
 
 import { Container } from '@mui/material';
-import { useSettingsContext } from '@/components/settings/context';
-import CustomBreadcrumbs from '@/components/custom-breadcrumbs';
+
+export const dynamic = 'force-dynamic';
+
+import { useSettingsContext } from '@storely/shared/components/settings';
+import {CustomBreadcrumbs} from '@storely/shared/components';
 import { paths } from '@/routes/paths';
-import PaymentGatewayManagement from '@/components/payment/payment-gateway-management';
+import PaymentGatewayManagement from '@/sections/payment/payment-gateway-management';
 
 export default function PaymentConfigurationPage() {
   const settings: any = useSettingsContext();

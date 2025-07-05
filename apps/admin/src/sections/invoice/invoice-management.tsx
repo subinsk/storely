@@ -38,9 +38,8 @@ import {
   Invoice,
   InvoiceFormData 
 } from '@/services/invoice.service';
-import { fCurrency } from '@/utils/format-number';
-import { fDateTime } from '@/utils/format-time';
-import Iconify from '@/components/iconify';
+import { fCurrency } from '@storely/shared/utils/format-number';
+import { Iconify } from '@storely/shared/components/iconify';
 
 const getStatusColor = (status: string) => {
   const colors = {

@@ -1,5 +1,5 @@
 // utils
-import { flattenArray } from "@/utils/flatten-array";
+import { flattenArray } from "@storely/shared/utils/flatten-array";
 
 // ----------------------------------------------------------------------
 

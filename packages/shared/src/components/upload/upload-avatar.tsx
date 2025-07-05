@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 //
-import Iconify from "../iconify";
+import {Iconify} from "../iconify";
 import Image from "../image";
 //
 import RejectionFiles from "./errors-rejection-files";

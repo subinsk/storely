@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 // Tax configuration API without authentication for demo purposes
 // Mock data for tax management
 const mockTaxRates = [

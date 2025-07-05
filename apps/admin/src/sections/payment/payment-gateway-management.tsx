@@ -42,7 +42,7 @@ import {
   Error,
   Info
 } from '@mui/icons-material';
-import Iconify from '@/components/iconify';
+import { Iconify } from '@storely/shared/components/iconify';
 import { useSnackbar } from 'notistack';
 
 interface TabPanelProps {

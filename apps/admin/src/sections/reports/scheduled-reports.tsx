@@ -41,10 +41,10 @@ import {
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { Iconify } from '../../../../../packages/shared/src/components/iconify';
-import { useSnackbar } from '../../../../../packages/shared/src/components/snackbar';
-import { ConfirmDialog } from '../../../../../packages/shared/src/components/custom-dialog';
-import { useScheduledReports, createScheduledReport, updateScheduledReport, deleteScheduledReport, executeScheduledReport } from '../../hooks/useReports';
+import { useSnackbar } from 'notistack';
+import { createScheduledReport, deleteScheduledReport, executeScheduledReport, updateScheduledReport, useScheduledReports } from '@/hooks/useReports';
+import { ConfirmDialog } from '@storely/shared/components/custom-dialog';
+import { Iconify } from '@storely/shared/components/iconify';
 
 // ----------------------------------------------------------------------
 

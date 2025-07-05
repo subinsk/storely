@@ -5,7 +5,7 @@ import IconButton from "@mui/material/IconButton";
 // theme
 import { bgBlur } from "../../theme/css";
 //
-import Iconify from "../iconify";
+import {Iconify} from "../iconify";
 import { MouseEventHandler } from "react";
 
 // ----------------------------------------------------------------------
@@ -40,12 +40,12 @@ export default function DownloadButton({
         transition: theme.transitions.create(["opacity"]),
         "&:hover": {
           opacity: 1,
-          ...bgBlur(
-            `rgba(${theme.palette.grey[900].replace('#', '').match(/.{1,2}/g)?.map(x => parseInt(x, 16)).join(',')}, 0.64)`
-          ),
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
+          backgroundColor: `${theme.palette.grey[900]}CC`,
         },
         ...sx,
-      }}
+      } as any}
     >
       <Iconify icon="eva:arrow-circle-down-fill" width={24} />
     </IconButton>

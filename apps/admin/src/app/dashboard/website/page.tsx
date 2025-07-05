@@ -1,4 +1,7 @@
-import WebsiteContentManager from '@/components/website/website-content-manager';
+import WebsiteContentManager from '@/sections/website/website-content-manager';
+
+export const dynamic = 'force-dynamic';
+
 
 export const metadata = {
   title: 'Website Content Management | Furnerio Admin',

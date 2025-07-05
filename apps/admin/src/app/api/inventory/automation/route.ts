@@ -1,5 +1,7 @@
+import { prisma } from '@storely/database';
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib';
+
+export const dynamic = 'force-dynamic';
 
 // GET /api/inventory/automation - Get automation rules and alerts
 export async function GET(request: NextRequest) {

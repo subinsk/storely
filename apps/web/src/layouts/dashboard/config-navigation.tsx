@@ -4,7 +4,7 @@ import { paths } from "@/routes/paths";
 // locales
 import { useLocales } from "@/locales";
 // components
-import SvgColor from "@/components/svg-color";
+import SvgColor from "@storely/shared/components/svg-color";
 
 // ----------------------------------------------------------------------
 

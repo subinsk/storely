@@ -1,7 +1,7 @@
 import BannerImages from "@/sections/home";
 import { Stack } from "@mui/material";
 import TopPicks from "@/sections/home/top-picks";
-import Image from "@/components/image";
+import Image from "@storely/shared/components/image";
 
 export default function HomeView() {
   // hooks

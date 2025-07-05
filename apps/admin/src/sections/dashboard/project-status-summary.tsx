@@ -17,7 +17,7 @@ import {
   ListItemText,
   alpha,
 } from '@mui/material';
-import Iconify from '@/components/iconify';
+import {Iconify} from '@storely/shared/components/iconify';
 
 const featureCategories = [
   {

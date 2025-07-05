@@ -10,8 +10,8 @@ import DialogContent from "@mui/material/DialogContent";
 import InputAdornment from "@mui/material/InputAdornment";
 import Dialog from "@mui/material/Dialog";
 // components
-import Iconify from "@/components/iconify";
-import CustomPopover, { usePopover } from "@/components/custom-popover";
+import {Iconify} from"@storely/shared/components/iconify";
+import CustomPopover, { usePopover } from "@storely/shared/components/custom-popover";
 
 // ----------------------------------------------------------------------
 

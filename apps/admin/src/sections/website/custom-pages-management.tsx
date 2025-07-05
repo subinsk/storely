@@ -42,30 +42,42 @@ import {
   AccordionDetails
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import { Iconify } from 'src/components/iconify';
-import { useSnackbar } from 'src/components/snackbar';
-import { ConfirmDialog } from 'src/components/custom-dialog';
+import { useSnackbar } from 'notistack';
+import { ConfirmDialog } from '@storely/shared/components/custom-dialog';
+import { Iconify } from '@storely/shared/components/iconify';
+import { Page, PageStatus } from '@/types/page';
+import { format } from 'date-fns';
 
 // ----------------------------------------------------------------------
 
-interface CustomPage {
-  id: string;
-  title: string;
-  slug: string;
-  content: string;
-  status: 'published' | 'draft' | 'scheduled';
+interface CustomPage extends Omit<Page, 'status' | 'publishedAt' | 'createdAt' | 'updatedAt'> {
+  status: PageStatus;
+  showInMenu: boolean;
+  menuOrder: number;
   template: string;
   seo: {
     title: string;
     description: string;
     keywords: string;
   };
-  isVisible: boolean;
-  showInMenu: boolean;
-  menuOrder: number;
+  publishedAt?: string;
   createdAt: string;
   updatedAt: string;
-  publishedAt?: string;
+}
+
+interface FormData {
+  title: string;
+  slug: string;
+  content: string;
+  template: string;
+  status: PageStatus;
+  seo: {
+    title: string;
+    description: string;
+    keywords: string;
+  };
+  showInMenu: boolean;
+  menuOrder: number;
 }
 
 interface PageTemplate {
@@ -195,12 +207,12 @@ export default function CustomPagesManagement() {
     action: () => {}
   });
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     title: '',
     slug: '',
     content: '',
     template: 'default',
-    status: 'draft' as const,
+    status: 'draft',
     seo: {
       title: '',
       description: '',
@@ -254,7 +266,7 @@ export default function CustomPagesManagement() {
       .replace(/[^a-z0-9\s-]/g, '')
       .replace(/\s+/g, '-')
       .replace(/-+/g, '-')
-      .trim('-');
+      .replace(/-+$/, '');
   }, []);
 
   const handleTitleChange = useCallback((title: string) => {
@@ -269,10 +281,15 @@ export default function CustomPagesManagement() {
     }));
   }, [generateSlug]);
 
+  const formatDate = (date: Date | string | undefined) => {
+    if (!date) return undefined;
+    return typeof date === 'string' ? date : format(date, "yyyy-MM-dd'T'HH:mm:ss'Z'");
+  };
+
   const handleSave = useCallback(async () => {
     setLoading(true);
     try {
-      const now = new Date().toISOString();
+      const now = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss'Z'");
       
       if (editingPage) {
         setPages(prev => prev.map(page => 
@@ -281,22 +298,23 @@ export default function CustomPagesManagement() {
                 ...page, 
                 ...formData,
                 updatedAt: now,
-                publishedAt: formData.status === 'published' && page.status !== 'published' ? now : page.publishedAt,
+                publishedAt: formData.status === 'published' && page?.status !== 'published' 
+                  ? now 
+                  : page?.publishedAt,
                 isVisible: formData.status === 'published'
-              }
+              } 
             : page
         ));
         enqueueSnackbar('Page updated successfully', { variant: 'success' });
       } else {
-        const newPage: CustomPage = {
-          id: Date.now().toString(),
+        setPages(prev => [...prev, {
           ...formData,
-          isVisible: formData.status === 'published',
+          id: crypto.randomUUID(),
           createdAt: now,
           updatedAt: now,
-          publishedAt: formData.status === 'published' ? now : undefined
-        };
-        setPages(prev => [...prev, newPage]);
+          publishedAt: formData.status === 'published' ? now : undefined,
+          isVisible: formData.status === 'published',
+        }]);
         enqueueSnackbar('Page created successfully', { variant: 'success' });
       }
       handleCloseDialog();

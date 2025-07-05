@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 // _mock
 import { PRODUCT_CHECKOUT_STEPS } from "@/_mock/_product";
 // components
-import { useSettingsContext } from "@/components/settings";
+import { useSettingsContext } from "@storely/shared/components/settings";
 import { useGetAddresses } from "@/services/user.service";
 import useGetUser from "@/hooks/use-get-user";
 //

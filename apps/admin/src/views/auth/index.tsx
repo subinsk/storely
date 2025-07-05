@@ -22,8 +22,8 @@ import { useBoolean } from "@/hooks/use-boolean";
 // auth
 import { signIn } from "next-auth/react";
 // components
-import Iconify from "@/components/iconify";
-import FormProvider, { RHFTextField } from "@/components/hook-form";
+import { Iconify } from "@storely/shared/components/iconify";
+import {FormProvider,RHFTextField } from "@storely/shared/components/hook-form";
 import { useRouter, useSearchParams } from "next/navigation";
 
 // ----------------------------------------------------------------------
@@ -61,7 +61,6 @@ function JwtLoginView() {
   const onSubmit = handleSubmit(async (data) => {
     setErrorMsg("");
     try {
-      // Use NextAuth signIn for credentials
       const res = await signIn("credentials", {
         redirect: false,
         email: data.email,
@@ -69,7 +68,11 @@ function JwtLoginView() {
       });
 
       if (res?.error) {
-        setErrorMsg(res.error || "Login failed. Please try again.");
+        if(res.error === "CredentialsSignin") {
+          setErrorMsg("Invalid email or password. Please try again.");
+        } else {
+          setErrorMsg(res.error || "Login failed. Please try again.");
+        }
         reset({ ...defaultValues, password: "" });
         return;
       }

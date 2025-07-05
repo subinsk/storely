@@ -12,12 +12,11 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 // routes
 // hooks
-import { useMockedUser } from "@/hooks/use-mocked-user";
-import { updateUserProfile, useGetUserProfile } from '@/services/user.service';
+import { useGetUserProfile } from '@/services/user.service';
 // components
-import { varHover } from "@/components/animate";
-import { useSnackbar } from "@/components/snackbar";
-import CustomPopover, { usePopover } from "@/components/custom-popover";
+import { varHover } from "@storely/shared/components/animate";
+import { useSnackbar } from "@storely/shared/components/snackbar";
+import CustomPopover, { usePopover } from "@storely/shared/components/custom-popover";
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 

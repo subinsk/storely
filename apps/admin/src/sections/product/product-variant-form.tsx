@@ -15,8 +15,8 @@ import {
   Stack,
   Avatar,
 } from '@mui/material';
-import { useFieldArray, Control } from 'react-hook-form';
-import Iconify from '@/components/iconify';
+import { useFieldArray, Control, UseFormSetValue } from 'react-hook-form';
+import { Iconify } from '@storely/shared/components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -35,9 +35,10 @@ interface ProductVariant {
 interface ProductVariantFormProps {
   control: Control<any>;
   name: string;
+  setValue: (name: string, value: any) => void;
 }
 
-export default function ProductVariantForm({ control, name }: ProductVariantFormProps) {
+export default function ProductVariantForm({ control, name, setValue }: ProductVariantFormProps) {
   const { fields, append, remove } = useFieldArray({
     control,
     name,
@@ -186,7 +187,7 @@ export default function ProductVariantForm({ control, name }: ProductVariantForm
                           avatar={<Avatar><Iconify icon={type.icon} /></Avatar>}
                           onClick={() => {
                             // Auto-fill variant name
-                            control.setValue(`${name}.${index}.name`, type.label);
+                            setValue(`${name}.${index}.name`, type.label);
                           }}
                           sx={{ cursor: 'pointer' }}
                         />

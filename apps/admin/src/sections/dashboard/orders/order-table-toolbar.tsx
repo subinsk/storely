@@ -9,8 +9,8 @@ import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 // components
-import Iconify from "@/components/iconify";
-import CustomPopover, { usePopover } from "@/components/custom-popover";
+import {Iconify} from "@storely/shared/components/iconify";
+import CustomPopover, { usePopover } from "@storely/shared/components/custom-popover";
 
 // ----------------------------------------------------------------------
 

@@ -1,4 +1,4 @@
-import { imagekit } from "@/lib";
+import { imagekit } from "@storely/shared/lib";
 
 export async function DELETE(req: Request) {
   try {

@@ -1,5 +1,5 @@
 import { Stack, Typography, Paper } from "@mui/material";
-import Image from "@/components/image";
+import Image from "@storely/shared/components/image";
 import { RouterLink } from "@/routes/components";
 import { usePathname } from "next/navigation";
 import { NextLinkComposed } from "@/routes/components/router-link";

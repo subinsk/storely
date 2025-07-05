@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib';
+import { prisma } from '@storely/database';
 import { z } from 'zod';
+
+export const dynamic = 'force-dynamic';
 
 // Validation schemas
 const ReportTemplateSchema = z.object({

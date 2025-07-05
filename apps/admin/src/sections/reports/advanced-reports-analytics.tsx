@@ -66,9 +66,9 @@ import {
   ComposedChart
 } from 'recharts';
 import { format, subDays, subMonths, startOfDay, endOfDay } from 'date-fns';
-import { fCurrency, fNumber, fPercent } from '@/utils/format-number';
-import Iconify from '@/components/iconify';
-import { useAdvancedReports } from '../../../hooks/useReports';
+import { fCurrency, fNumber, fPercent } from '@storely/shared/utils/format-number';
+import { Iconify } from '@storely/shared/components/iconify';
+import { useAdvancedReports } from '@/hooks/useReports';
 
 interface ReportTemplate {
   id: string;
@@ -167,6 +167,10 @@ export default function AdvancedReportsAnalytics() {
   const reportData = advancedData || null;
   const loading = advancedLoading;
 
+  // Add missing state for scheduledReports and templates
+  const [scheduledReports, setScheduledReports] = useState<ScheduledReport[]>([]);
+  const [templates, setTemplates] = useState<ReportTemplate[]>([]);
+
   useEffect(() => {
     // Refresh data when date range or report type changes
     refresh();
@@ -203,6 +207,47 @@ export default function AdvancedReportsAnalytics() {
     // Simulate export functionality
     console.log('Exporting report in format:', format);
   };
+
+  // Add missing loadReportsData function for Update button
+  const loadReportsData = () => {
+    refresh();
+  };
+
+  // Add fallback demo data for templates and scheduledReports if empty
+  useEffect(() => {
+    if (templates.length === 0) {
+      setTemplates([
+        {
+          id: '1',
+          name: 'Monthly Sales',
+          type: 'sales',
+          description: 'Monthly sales performance overview',
+          metrics: ['revenue', 'orders'],
+          charts: ['line', 'bar'],
+          frequency: 'monthly',
+          recipients: ['admin@store.com'],
+          isActive: true,
+          lastGenerated: new Date().toISOString(),
+          nextScheduled: new Date(Date.now() + 86400000).toISOString(),
+        },
+      ]);
+    }
+    if (scheduledReports.length === 0) {
+      setScheduledReports([
+        {
+          id: '1',
+          templateId: '1',
+          templateName: 'Monthly Sales',
+          schedule: 'Every 1st of the month',
+          recipients: ['admin@store.com'],
+          isActive: true,
+          lastRun: new Date().toISOString(),
+          nextRun: new Date(Date.now() + 86400000).toISOString(),
+          status: 'active',
+        },
+      ]);
+    }
+  }, [templates.length, scheduledReports.length]);
 
   if (loading) {
     return (
@@ -549,7 +594,7 @@ export default function AdvancedReportsAnalytics() {
                             fill="#8884d8"
                             dataKey="stock"
                           >
-                            {reportData.inventory.chartData.map((entry, index) => (
+                            {reportData.inventory.chartData.map((entry:any, index:any) => (
                               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                             ))}
                           </Pie>

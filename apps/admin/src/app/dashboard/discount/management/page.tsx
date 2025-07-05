@@ -1,10 +1,10 @@
 "use client"
 
 import { Container } from '@mui/material';
-import { useSettingsContext } from '@/components/settings/context';
-import CustomBreadcrumbs from '@/components/custom-breadcrumbs';
+import { useSettingsContext } from '@storely/shared/components/settings';
+import {CustomBreadcrumbs} from '@storely/shared/components';
 import { paths } from '@/routes/paths';
-import DiscountCouponManagement from '@/components/discount/discount-coupon-management';
+import DiscountCouponManagement from '@/sections/discount/discount-coupon-management';
 
 export default function DiscountManagementPage() {
   const settings: any = useSettingsContext();

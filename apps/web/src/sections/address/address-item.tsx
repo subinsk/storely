@@ -6,7 +6,7 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 
 // components
-import Label from "@/components/label";
+import Label from "@storely/shared/components/label";
 
 // ----------------------------------------------------------------------
 

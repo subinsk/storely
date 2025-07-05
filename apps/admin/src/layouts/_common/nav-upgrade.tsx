@@ -9,9 +9,9 @@ import { useAuthContext } from "@/hooks/use-auth-context";
 // routes
 import { paths } from "@/routes/paths";
 // locales
-import { useLocales } from "@/locales";
+import { useLocales } from "@storely/shared/locales";
 // components
-import Label from "@/components/label";
+import {Label} from "@storely/shared/components/label";
 
 // ----------------------------------------------------------------------
 

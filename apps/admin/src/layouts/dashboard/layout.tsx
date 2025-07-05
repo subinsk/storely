@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import { useBoolean } from "@/hooks/use-boolean";
 import { useResponsive } from "@/hooks/use-responsive";
 // components
-import { useSettingsContext } from "@storely/shared/components";
+import { useSettingsContext } from "@storely/shared/components/settings";
 import Main from "./main";
 import Header from "./header";
 import NavMini from "./nav-mini";

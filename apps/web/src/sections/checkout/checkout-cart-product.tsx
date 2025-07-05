@@ -9,9 +9,9 @@ import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 // utils
-import { fCurrency } from '@/utils/format-number';
+import { fCurrency } from '@storely/shared/utils/format-number';
 // components
-import Iconify from '@/components/iconify';
+import {Iconify} from'@storely/shared/components/iconify';
 //
 import IncrementerButton from '../product/common/incrementer-button';
 

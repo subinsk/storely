@@ -22,8 +22,8 @@ import {
 } from "@/_mock";
 // api
 // components
-import EmptyContent from "@/components/empty-content";
-import { useSettingsContext } from "@/components/settings";
+import EmptyContent from "@storely/shared/components/empty-content";
+import { useSettingsContext } from "@storely/shared/components/settings";
 //
 import { useCheckoutContext } from "../../checkout/context";
 import CartIcon from "../common/cart-icon";

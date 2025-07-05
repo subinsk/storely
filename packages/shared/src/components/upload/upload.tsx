@@ -1,3 +1,4 @@
+import React from "react";
 import { useDropzone, type FileRejection } from "react-dropzone";
 // @mui
 import { alpha } from "@mui/material/styles";
@@ -9,13 +10,32 @@ import Typography from "@mui/material/Typography";
 // assets
 import { UploadIllustration } from "../../assets/illustrations";
 //
-import Iconify from "../iconify";
+import {Iconify} from "../iconify";
 //
 import RejectionFiles from "./errors-rejection-files";
 import MultiFilePreview from "./preview-multi-file";
 import SingleFilePreview from "./preview-single-file";
 
 // ----------------------------------------------------------------------
+
+export interface UploadProps {
+  disabled?: boolean;
+  multiple?: boolean;
+  error?: boolean;
+  helperText?: React.ReactNode;
+  file?: File | string | null;
+  files?: (File | string)[];
+  onDrop?: (acceptedFiles: File[]) => void;
+  onDelete?: () => void;
+  onRemove?: (file: File | string) => void;
+  onRemoveAll?: () => void;
+  onUpload?: () => void;
+  thumbnail?: boolean;
+  sx?: any;
+  accept?: Record<string, string[]>;
+  placeholder?: string;
+  [key: string]: any;
+}
 
 export default function Upload({
   disabled,
@@ -32,22 +52,9 @@ export default function Upload({
   onRemove,
   onRemoveAll,
   sx,
+  placeholder,
   ...other
-}: {
-  disabled?: boolean;
-  multiple?: boolean;
-  error: any;
-  helperText: any;
-  file?: any;
-  onDelete?: any;
-  files?: any;
-  thumbnail?: any;
-  onUpload?: any;
-  onRemove?: any;
-  onRemoveAll?: any;
-  sx?: any;
-  [key: string]: any;
-}) {
+}: UploadProps) {
   const {
     getRootProps,
     getInputProps,
@@ -77,7 +84,7 @@ export default function Upload({
       <Stack spacing={1} sx={{ textAlign: "center" }}>
         <Typography variant="h6">Drop or Select file</Typography>
         <Typography variant="body2" sx={{ color: "text.secondary" }}>
-          Drop files here or click
+          {placeholder || "Drop files here or click"}
           <Box
             component="span"
             sx={{
@@ -88,7 +95,7 @@ export default function Upload({
           >
             browse
           </Box>
-          thorough your machine
+          through your machine
         </Typography>
       </Stack>
     </Stack>
@@ -96,7 +103,7 @@ export default function Upload({
 
   const renderSinglePreview = (
     <SingleFilePreview
-      imgUrl={typeof file === "string" ? file : file?.preview}
+      imgUrl={typeof file === "string" ? file : (file as any)?.preview}
     />
   );
 
@@ -104,6 +111,7 @@ export default function Upload({
     <IconButton
       size="small"
       onClick={onDelete}
+      aria-label="Remove uploaded file"
       sx={{
         top: 16,
         right: 16,
@@ -124,9 +132,9 @@ export default function Upload({
     <>
       <Box sx={{ my: 3 }}>
         <MultiFilePreview
-          files={files}
-          thumbnail={thumbnail}
-          onRemove={onRemove}
+          files={files || []}
+          thumbnail={thumbnail || false}
+          onRemove={onRemove as any}
         />
       </Box>
 
@@ -192,14 +200,23 @@ export default function Upload({
           }),
         }}
       >
-        <input {...getInputProps()} />
+        <input {...getInputProps()} aria-label="File upload input" />
 
         {hasFile ? renderSinglePreview : renderPlaceholder}
       </Box>
 
       {removeSinglePreview}
 
-      {helperText && helperText}
+      {helperText && (
+        <Box sx={{ mt: 1 }}>
+          <Typography
+            variant="caption"
+            color={hasError ? "error" : "text.secondary"}
+          >
+            {helperText}
+          </Typography>
+        </Box>
+      )}
 
       <RejectionFiles fileRejections={fileRejections as FileRejection[]} />
 

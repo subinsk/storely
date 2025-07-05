@@ -1,4 +1,4 @@
-import Iconify from "@/components/iconify";
+import {Iconify} from"@storely/shared/components/iconify";
 import { RouterLink } from "@/routes/components";
 import { paths } from "@/routes/paths";
 import { useGetCategories } from "@/services/category.service";

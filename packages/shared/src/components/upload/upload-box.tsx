@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone";
 import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 //
-import Iconify from "../iconify";
+import {Iconify} from "../iconify";
 
 // ----------------------------------------------------------------------
 

@@ -26,8 +26,8 @@ import {
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { useForm, Controller } from 'react-hook-form';
-import { fNumber } from '@/utils/format-number';
-import Iconify from '@/components/iconify';
+import { fNumber } from '@storely/shared/utils/format-number';
+import {Iconify} from '@storely/shared/components/iconify';
 
 interface InventoryItem {
   id: string;

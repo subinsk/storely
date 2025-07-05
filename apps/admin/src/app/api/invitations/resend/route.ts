@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma-client";
 import transporter from "@/lib/mailer";
+import { prisma } from "@storely/database";
 
 export async function POST(req: Request) {
   const { invitationId } = await req.json();

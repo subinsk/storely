@@ -1,6 +1,9 @@
-import { prisma } from "@/lib";
+import { prisma } from '@storely/database';
 import sendResponse from "@/lib/response";
 import { NextRequest } from "next/server";
+
+// Force dynamic rendering for this route
+export const dynamic = 'force-dynamic';
 
 // GET /api/order/analytics
 export async function GET(request: NextRequest) {

@@ -8,11 +8,11 @@ import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 // hooks
-import { useBoolean } from '@/hooks/use-boolean';
+import { useBoolean } from '@storely/shared/hooks';
 // components
-import Iconify from '@/components/iconify';
-import { useSnackbar } from '@/components/snackbar';
-import FormProvider, { RHFTextField } from '@/components/hook-form';
+import {Iconify} from '@storely/shared/components/iconify';
+import { useSnackbar } from '@storely/shared/components/snackbar';
+import {FormProvider, RHFTextField } from '@storely/shared/components/hook-form';
 
 // ----------------------------------------------------------------------
 

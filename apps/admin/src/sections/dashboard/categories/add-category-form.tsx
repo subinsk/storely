@@ -1,9 +1,9 @@
 "use client";
 
-import FormProvider from "@/components/hook-form/form-provider";
+import FormProvider from "@storely/shared/components/hook-form/form-provider";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RHFEditor, RHFTextField, RHFUpload } from "@/components/hook-form";
+import { RHFEditor, RHFTextField, RHFUpload } from "@storely/shared/components/hook-form";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import {
@@ -11,15 +11,12 @@ import {
   getCategoryById,
   updateCategory,
 } from "@/services/category.service";
-import { categorySchema } from "@/schema/category";
+import { categorySchema } from "@storely/shared/schemas/category";
 import { useCallback, useEffect, useState } from "react";
-import Label from "@/components/label";
-import { CLOUDINARY_CLOUD_NAME, CLOUDINARY_UPLOAD_PRESET } from "@/config";
-import { CLOUDINARY_API_URL } from "@/lib/cloudinary";
 import { useSnackbar } from "notistack";
 import { useRouter } from "next/navigation";
-import { imagekit } from "@/lib";
-import { slugify } from "@/utils/slugify";
+import { slugify } from "@storely/shared/utils/slugify";
+import { imagekit } from "@storely/shared/lib";
 
 export default function AddCategoryForm({
   parentId,

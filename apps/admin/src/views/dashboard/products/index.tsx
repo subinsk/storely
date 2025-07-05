@@ -1,7 +1,7 @@
 "use client";
 
-import CustomBreadcrumbs from "@/components/custom-breadcrumbs";
-import { useSettingsContext } from "@/components/settings";
+import {CustomBreadcrumbs} from "@storely/shared/components/custom-breadcrumbs";
+import { useSettingsContext } from "@storely/shared/components/settings";
 import { paths } from "@/routes/paths";
 import { Container } from "@mui/material";
 import ProductsList from "@/sections/dashboard/products/list";

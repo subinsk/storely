@@ -38,7 +38,7 @@ import {
   Tab,
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import Iconify from '@/components/iconify';
+import { Iconify } from '@storely/shared/components/iconify';
 import { useSnackbar } from 'notistack';
 import { format } from 'date-fns';
 

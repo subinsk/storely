@@ -6,8 +6,8 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
-import { useSnackbar } from "@/components/snackbar";
-import Iconify from "@/components/iconify";
+import { useSnackbar } from "@storely/shared/components/snackbar";
+import {Iconify} from "@storely/shared/components/iconify";
 import { createOrganization } from "@/services/organization.service";
 
 interface CreateOrganizationModalProps {

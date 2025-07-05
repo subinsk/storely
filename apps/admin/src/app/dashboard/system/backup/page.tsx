@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
-import BackupRestore from '@/components/system/backup-restore';
+
+export const dynamic = 'force-dynamic';
+
+import BackupRestore from '@/sections/system/backup-restore';
 
 // ----------------------------------------------------------------------
 

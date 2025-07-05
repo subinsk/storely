@@ -8,12 +8,11 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Drawer, { drawerClasses } from "@mui/material/Drawer";
 // theme
-import { paper } from "@/theme/css";
-//
-import Iconify from "../../../../../../packages/shared/src/components/iconify";
-import Scrollbar from "../../../../../../packages/shared/src/components/scrollbar";
-//
-import { useSettingsContext } from "../../../../../../packages/shared/src/components/settings";
+import { paper } from "@storely/shared/theme/css";
+import {Iconify} from "@storely/shared/components/iconify";
+import { useSettingsContext } from "@storely/shared/components/settings";
+import { Scrollbar } from "@storely/shared/components/scrollbar";
+
 import LayoutOptions from "./layout-options";
 import PresetsOptions from "./presets-options";
 import StretchOptions from "./stretch-options";

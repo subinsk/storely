@@ -1,4 +1,6 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
+
+export const dynamic = 'force-dynamic';
 
 // Mock system configuration data
 const mockSystemConfig = {

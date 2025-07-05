@@ -17,8 +17,7 @@ import {
   IconButton,
   InputAdornment,
 } from "@mui/material";
-import { useSnackbar } from "@/components/snackbar";
-import Iconify from "@/components/iconify";
+import { useSnackbar, Iconify } from "@storely/shared/components";
 import { signIn } from "next-auth/react";
 import { ROLE_LABEL_MAP } from "@/constants/role-label-map";
 

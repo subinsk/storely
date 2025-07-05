@@ -10,7 +10,7 @@ import { useResponsive } from "@/hooks/use-responsive";
 // theme
 import { bgGradient } from "@/theme/css";
 // components
-import Logo from "@/components/logo";
+import Logo from "@storely/shared/components/logo";
 
 // ----------------------------------------------------------------------
 

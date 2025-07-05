@@ -34,8 +34,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import { format, subDays, startOfDay, endOfDay } from 'date-fns';
-import { fCurrency, fNumber } from '@/utils/format-number';
-import Iconify from '@/components/iconify';
+import { fCurrency, fNumber } from '@storely/shared/utils/format-number';
+import {Iconify} from '@storely/shared/components';
 
 interface AnalyticsData {
   revenue: {

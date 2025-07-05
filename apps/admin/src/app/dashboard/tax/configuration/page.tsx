@@ -1,8 +1,11 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
+
 import { Container } from '@mui/material';
-import { useSettingsContext } from '@/components/settings';
-import TaxConfiguration from '@/components/tax/tax-configuration';
+import { useSettingsContext } from '@storely/shared/components/settings';
+import TaxConfiguration from '@/sections/tax/tax-configuration';
 
 // ----------------------------------------------------------------------
 

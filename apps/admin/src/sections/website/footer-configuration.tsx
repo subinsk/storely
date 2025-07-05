@@ -33,9 +33,9 @@ import {
   Alert
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import { Iconify } from 'src/components/iconify';
-import { useSnackbar } from 'src/components/snackbar';
-import { ConfirmDialog } from 'src/components/custom-dialog';
+import { Iconify } from '@storely/shared/components/iconify';
+import { useSnackbar } from '@storely/shared/components/snackbar';
+import { ConfirmDialog } from '@storely/shared/components/custom-dialog';
 
 // ----------------------------------------------------------------------
 

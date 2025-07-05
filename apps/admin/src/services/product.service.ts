@@ -1,4 +1,4 @@
-import { api, endpoints } from "@/lib/axios"
+import { api, endpoints } from "@storely/shared/lib/axios"
 import { useMemo } from "react";
 import useSWR from "swr";
 
@@ -80,20 +80,22 @@ export function useGetProducts(params?: { id?: string; slug?: string; filters?: 
 
     const products = useMemo(() => {
         if (slug || id) {
-            return data?.data?.subCategories;
+            // Single product or product by slug returns the product directly
+            return data?.data || null;
         } else {
-            return data?.data;
+            // List of products returns { products: [...], pagination: {...} }
+            return Array.isArray(data?.data?.products) ? data.data.products : [];
         }
     }, [data, slug, id]);
 
     const memoizedValue = useMemo(
         () => ({
             productDetails: data?.data,
-            products: products || [],
+            products: Array.isArray(products) ? products : (products ? [products] : []),
             productsLoading: isLoading,
             productsError: error,
             productsValidating: isValidating,
-            productsEmpty: !isLoading && !products.length,
+            productsEmpty: !isLoading && (!products || (Array.isArray(products) ? products.length === 0 : !products)),
             refresh: mutate,
         }),
         [products, data?.data, error, isLoading, isValidating, mutate]
@@ -127,17 +129,22 @@ class ProductService {
   }
 
   async getProduct(id: string) {
-    const response = await api.get(`${this.baseURL}/${id}`);
+    const response = await api.get(`${this.baseURL}?id=${id}`);
+    return response.data?.data;
+  }
+
+  async getProductBySlug(slug: string) {
+    const response = await api.get(`${this.baseURL}?slug=${slug}`);
     return response.data?.data;
   }
 
   async updateProduct(id: string, data: Partial<ProductFormData>) {
-    const response = await api.put(`${this.baseURL}/${id}`, data);
+    const response = await api.put(this.baseURL, { id, ...data });
     return response.data?.data;
   }
 
   async deleteProduct(id: string) {
-    const response = await api.delete(`${this.baseURL}/${id}`);
+    const response = await api.delete(this.baseURL, { data: { id } });
     return response.data?.data;
   }
 
@@ -194,7 +201,7 @@ export const updateProduct = async (data: any) => {
 }
 
 export const deleteProduct = async (id: string) => {
-    const response = await api.delete(`${endpoints.product}?id=${id}`)
+    const response = await api.delete(endpoints.product, { data: { id } })
     return response.data
 }
 

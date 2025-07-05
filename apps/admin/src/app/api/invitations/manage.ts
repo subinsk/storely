@@ -1,5 +1,5 @@
+import { prisma } from "@storely/database";
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma-client";
 
 export async function PATCH(req: Request) {
   const { id, ...data } = await req.json();

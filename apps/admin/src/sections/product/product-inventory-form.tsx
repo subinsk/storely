@@ -17,7 +17,7 @@ import {
   InputAdornment,
 } from '@mui/material';
 import { useController, Control } from 'react-hook-form';
-import Iconify from '@/components/iconify';
+import { Iconify } from '@storely/shared/components/iconify';
 
 // ----------------------------------------------------------------------
 

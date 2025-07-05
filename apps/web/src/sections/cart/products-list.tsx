@@ -1,4 +1,4 @@
-import Image from "@/components/image";
+import Image from "@storely/shared/components/image";
 import useCartContext from "@/hooks/use-cart-context";
 import {
   alpha,

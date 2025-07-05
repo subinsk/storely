@@ -29,8 +29,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { createOrder, updateOrder, OrderFormData } from '@/services/order.service';
 import { useGetProducts } from '@/services/product.service';
-import { fCurrency } from '@/utils/format-number';
-import Iconify from '@/components/iconify';
+import { fCurrency } from '@storely/shared/utils/format-number';
+import { Iconify } from '@storely/shared/components/iconify';
 
 interface LocalOrderFormData {
   customerId: string;
@@ -201,6 +201,15 @@ export default function OrderForm({ order, onSuccess, onCancel }: OrderFormProps
     }
   };
 
+  // Helper for safely getting error messages for array fields
+  function getItemError(errors: any, index: number, field: string): string | undefined {
+    return (errors.items && Array.isArray(errors.items) && errors.items[index] && errors.items[index][field]?.message) || undefined;
+  }
+  // Helper for safely getting error messages for shippingAddress fields
+  function getAddressError(errors: any, field: string): string | undefined {
+    return (errors.shippingAddress && typeof errors.shippingAddress === 'object' && 'message' in errors.shippingAddress[field] ? errors.shippingAddress[field].message : undefined);
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3}>
@@ -229,7 +238,7 @@ export default function OrderForm({ order, onSuccess, onCancel }: OrderFormProps
                         fullWidth
                         label="Customer ID"
                         error={!!errors.customerId}
-                        helperText={errors.customerId?.message}
+                        helperText={typeof errors.customerId?.message === 'string' ? errors.customerId.message : undefined}
                       />
                     )}
                   />
@@ -305,7 +314,8 @@ export default function OrderForm({ order, onSuccess, onCancel }: OrderFormProps
                                     {...params}
                                     placeholder="Select product"
                                     size="small"
-                                    error={!!errors.items?.[index]?.productId}
+                                    error={Boolean(getItemError(errors, index, 'productId'))}
+                                    helperText={getItemError(errors, index, 'productId')}
                                   />
                                 )}
                               />
@@ -322,7 +332,8 @@ export default function OrderForm({ order, onSuccess, onCancel }: OrderFormProps
                                 type="number"
                                 size="small"
                                 inputProps={{ min: 1 }}
-                                error={!!errors.items?.[index]?.quantity}
+                                error={Boolean(getItemError(errors, index, 'quantity'))}
+                                helperText={getItemError(errors, index, 'quantity')}
                                 sx={{ width: 80 }}
                               />
                             )}
@@ -338,7 +349,8 @@ export default function OrderForm({ order, onSuccess, onCancel }: OrderFormProps
                                 type="number"
                                 size="small"
                                 inputProps={{ min: 0, step: 0.01 }}
-                                error={!!errors.items?.[index]?.price}
+                                error={Boolean(getItemError(errors, index, 'price'))}
+                                helperText={getItemError(errors, index, 'price')}
                                 sx={{ width: 100 }}
                               />
                             )}
@@ -443,8 +455,8 @@ export default function OrderForm({ order, onSuccess, onCancel }: OrderFormProps
                         {...field}
                         fullWidth
                         label="Full Name"
-                        error={!!errors.shippingAddress?.fullName}
-                        helperText={errors.shippingAddress?.fullName?.message}
+                        error={Boolean(getAddressError(errors, 'fullName'))}
+                        helperText={getAddressError(errors, 'fullName')}
                       />
                     )}
                   />
@@ -471,8 +483,8 @@ export default function OrderForm({ order, onSuccess, onCancel }: OrderFormProps
                         {...field}
                         fullWidth
                         label="Address Line 1"
-                        error={!!errors.shippingAddress?.addressLine1}
-                        helperText={errors.shippingAddress?.addressLine1?.message}
+                        error={Boolean(getAddressError(errors, 'addressLine1'))}
+                        helperText={getAddressError(errors, 'addressLine1')}
                       />
                     )}
                   />
@@ -499,8 +511,8 @@ export default function OrderForm({ order, onSuccess, onCancel }: OrderFormProps
                         {...field}
                         fullWidth
                         label="City"
-                        error={!!errors.shippingAddress?.city}
-                        helperText={errors.shippingAddress?.city?.message}
+                        error={Boolean(getAddressError(errors, 'city'))}
+                        helperText={getAddressError(errors, 'city')}
                       />
                     )}
                   />
@@ -514,8 +526,8 @@ export default function OrderForm({ order, onSuccess, onCancel }: OrderFormProps
                         {...field}
                         fullWidth
                         label="State"
-                        error={!!errors.shippingAddress?.state}
-                        helperText={errors.shippingAddress?.state?.message}
+                        error={Boolean(getAddressError(errors, 'state'))}
+                        helperText={getAddressError(errors, 'state')}
                       />
                     )}
                   />
@@ -529,8 +541,8 @@ export default function OrderForm({ order, onSuccess, onCancel }: OrderFormProps
                         {...field}
                         fullWidth
                         label="Postal Code"
-                        error={!!errors.shippingAddress?.postalCode}
-                        helperText={errors.shippingAddress?.postalCode?.message}
+                        error={Boolean(getAddressError(errors, 'postalCode'))}
+                        helperText={getAddressError(errors, 'postalCode')}
                       />
                     )}
                   />
@@ -544,8 +556,8 @@ export default function OrderForm({ order, onSuccess, onCancel }: OrderFormProps
                         {...field}
                         fullWidth
                         label="Country"
-                        error={!!errors.shippingAddress?.country}
-                        helperText={errors.shippingAddress?.country?.message}
+                        error={Boolean(getAddressError(errors, 'country'))}
+                        helperText={getAddressError(errors, 'country')}
                       />
                     )}
                   />

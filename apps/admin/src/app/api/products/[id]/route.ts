@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { prisma } from '@storely/database';
 
 export async function GET(
   request: NextRequest,
@@ -15,11 +15,6 @@ export async function GET(
           select: {
             id: true,
             name: true
-          }
-        },
-        images: {
-          orderBy: {
-            isPrimary: 'desc'
           }
         },
         variants: true,
@@ -65,11 +60,8 @@ export async function PUT(
       categoryId,
       isActive,
       stockQuantity,
-      lowStockThreshold,
       weight,
       dimensions,
-      seoTitle,
-      seoDescription,
       tags
     } = body;
     
@@ -90,25 +82,21 @@ export async function PUT(
       where: { id },
       data: {
         name,
-        description,
+        subDescription: description, // Prisma model uses subDescription
         price: price ? parseFloat(price) : undefined,
         comparePrice: comparePrice ? parseFloat(comparePrice) : null,
         sku,
         categoryId,
         isActive,
-        stockQuantity,
-        lowStockThreshold,
+        trackQuantity: stockQuantity, // Prisma model uses trackQuantity
         weight: weight ? parseFloat(weight) : null,
         dimensions,
-        seoTitle,
-        seoDescription,
         tags,
         updatedAt: new Date()
       },
       include: {
         category: true,
-        images: true,
-        variants: true
+        variants: true,
       }
     });
     

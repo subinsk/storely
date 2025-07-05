@@ -16,7 +16,7 @@ import {
   Skeleton
 } from '@mui/material';
 import { Search, FilterList } from '@mui/icons-material';
-import { ProductCard } from '@/components/product/ProductCard';
+import { ProductCard } from '@storely/shared/components/product/ProductCard';
 import { useState, useEffect } from 'react';
 
 interface Product {

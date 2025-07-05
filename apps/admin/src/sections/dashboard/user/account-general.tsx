@@ -12,166 +12,127 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 // hooks
 import useGetUser from "@/hooks/use-get-user";
-import { updateUserProfile, useGetUserProfile } from '@/services/user.service';
+import { updateUser } from '@/services/user.service';
 // utils
-import { fData } from '@/utils/format-number';
-// assets
-import { countries } from '@/assets/data';
+import { fData } from '@storely/shared/utils/format-number';
 // components
-import Iconify from '@/components/iconify';
-import { useSnackbar } from '@/components/snackbar';
-import FormProvider, {
-  RHFSwitch,
-  RHFTextField,
-  RHFUploadAvatar,
-  RHFAutocomplete,
-} from '@/components/hook-form';
-import { imagekit } from '@/lib';
-import { slugify } from '@/utils/slugify';
+import {Iconify} from '@storely/shared/components/iconify';
+import { useSnackbar } from '@storely/shared/components/snackbar';
+import {FormProvider, RHFSwitch, RHFTextField, RHFUploadAvatar} from '@storely/shared/components/hook-form';
+import { imagekit } from '@storely/shared/lib';
+import { User } from '@/types/user';
 
 // ----------------------------------------------------------------------
 
+export type FormValues = {
+  name: string;
+  email: string;
+  phone: string | null;
+  image: string | null;
+};
+
+const defaultValues: FormValues = {
+  name: '',
+  email: '',
+  phone: null,
+  image: null,
+};
+
+const UpdateUserSchema = Yup.object().shape({
+  name: Yup.string().required('Name is required'),
+  email: Yup.string().required('Email is required').email('Invalid email format'),
+  phone: Yup.string().nullable(),
+  image: Yup.string().nullable(),
+});
+
 export default function AccountGeneral() {
-  const { enqueueSnackbar, closeSnackbar} = useSnackbar();
+  const user = useGetUser();
+  const { enqueueSnackbar } = useSnackbar();
 
-  const currentUser = useGetUser()
-
-  const { user, userError, userLoading, userValidating } = useGetUserProfile(currentUser?.id);
-
-  const UpdateUserSchema = Yup.object().shape({
-    name: Yup.string().required('Name is required'),
-    email: Yup.string().required('Email is required').email('Email must be a valid email address'),
-    image: Yup.mixed().nullable().required('Avatar is required'),
-    phone: Yup.string(),
-  });
-
-  const defaultValues = {
-    name: user?.name || '',
-    email: user?.email || '',
-    image: user?.image || null,
-    phone: user?.phone || '',
-  };
-
-  const methods = useForm({
-    resolver: yupResolver(UpdateUserSchema),
+  const methods = useForm<FormValues>({
+    resolver: yupResolver(UpdateUserSchema) as any,
     defaultValues,
+    mode: 'onChange',
   });
 
   const {
+    reset,
     setValue,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = handleSubmit(async (data) => {
-    console.log('user; ', user)
+  const onSubmit = async (data: FormValues) => {
     try {
-      const response =  await updateUserProfile({
-        id: user.id,
-        ...data,
+      if (!user?.id) throw new Error('User ID not found');
+
+      await updateUser(user.id, {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        image: data.image,
       });
 
-      if(response.success){
-        enqueueSnackbar('Update success!');
-      }
-      else throw new Error('Update failed!');
+      enqueueSnackbar('Profile updated successfully');
     } catch (error) {
       console.error(error);
-      enqueueSnackbar('Update failed!', { variant: 'error' });
+      enqueueSnackbar('Error updating profile', { variant: 'error' });
     }
-  });
+  };
 
   const handleDrop = useCallback(
-    async(acceptedFiles:any) => {
-      const file = acceptedFiles[0];
-
+    async (acceptedFiles: File[]) => {
       try {
-        const snackbarId = enqueueSnackbar("Uploading image", {
-          variant: "info",
-        });
+        const file = acceptedFiles[0];
+        if (!file) return;
 
-        const response = await imagekit.upload({
-          file,
-          fileName: "pfp",
-          folder: "/furnerio/user/" + user.id + "/avatar",
-          useUniqueFileName: false,          
-        });
+        if (!user?.id) throw new Error('User ID not found');
 
-        const imageUrl = response.url;
-        
-        const editImageUserResponse = await updateUserProfile({
-          id: user.id,
-          image: imageUrl,
-        });
+        const previewUrl = URL.createObjectURL(file);
 
-        closeSnackbar(snackbarId)
-
-        if(editImageUserResponse.success){
-          enqueueSnackbar("Image uploaded successfully", {
-            variant: "success",
-          });
-        }
-        else throw new Error(editImageUserResponse.message)
+        setValue('image', previewUrl);
+        enqueueSnackbar('Avatar updated successfully');
       } catch (error) {
-        enqueueSnackbar("Failed to upload image", {
-          variant: "error",
-        });
-      }
-
-      const newFile = Object.assign(file, {
-        preview: URL.createObjectURL(file),
-      });
-
-      if (file) {
-        setValue('image', newFile, { shouldValidate: true });
+        console.error(error);
+        enqueueSnackbar('Error updating avatar', { variant: 'error' });
       }
     },
-    [enqueueSnackbar, setValue, user?.id]
+    [setValue, user?.id, enqueueSnackbar]
   );
 
-  // effects
-  useEffect(()=>{
-    if(user){
-      setValue('name', user.name);
-      setValue('email', user.email);
-      setValue('phone', user.phone);
-      setValue('image', user.image);
+  useEffect(() => {
+    if (user) {
+      reset({
+        name: user.name || '',
+        email: user.email || '',
+        phone: user.phone || null,
+        image: user.image || null,
+      });
     }
-  },[setValue, user])
-
-  useEffect(()=>{
-    const id = enqueueSnackbar('Loading user data', { variant: 'info' });
-  
-    if(!userLoading){
-      closeSnackbar(id)
-    }
-  },[closeSnackbar, enqueueSnackbar, userLoading])
+  }, [user, reset]);
 
   return (
-    <FormProvider methods={methods} onSubmit={onSubmit}>
+    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={3}>
         <Grid xs={12} md={4}>
-          <Card sx={{ pt: 10, pb: 5, px: 3, textAlign: 'center' }}>
+          <Card sx={{ py: 10, px: 3, textAlign: 'center' }}>
             <RHFUploadAvatar
               name="image"
-              maxSize={3145728}
               onDrop={handleDrop}
-              helperText={
-                <Typography
-                  variant="caption"
-                  sx={{
-                    mt: 3,
-                    mx: 'auto',
-                    display: 'block',
-                    textAlign: 'center',
-                    color: 'text.disabled',
-                  }}
-                >
-                  Allowed *.jpeg, *.jpg, *.png, *.gif
-                  <br /> max size of {fData(3145728)}
-                </Typography>
-              }
             />
+            <Typography
+              variant="caption"
+              sx={{
+                mt: 2,
+                mx: 'auto',
+                display: 'block',
+                textAlign: 'center',
+                color: 'text.secondary',
+              }}
+            >
+              Allowed *.jpeg, *.jpg, *.png, *.gif
+              <br /> max size of {fData(3145728)}
+            </Typography>
           </Card>
         </Grid>
 

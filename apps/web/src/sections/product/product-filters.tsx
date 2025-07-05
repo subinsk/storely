@@ -17,9 +17,9 @@ import Typography from "@mui/material/Typography";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import InputBase, { inputBaseClasses } from "@mui/material/InputBase";
 // components
-import Iconify from "@/components/iconify";
-import Scrollbar from "@/components/scrollbar";
-import { ColorPicker } from "@/components/color-utils";
+import {Iconify} from"@storely/shared/components/iconify";
+import Scrollbar from "@storely/shared/components/scrollbar";
+import { ColorPicker } from "@storely/shared/components/color-utils";
 
 // ----------------------------------------------------------------------
 

@@ -22,22 +22,22 @@ import {
   TablePaginationCustom,
   TableSelectedAction,
   useTable,
-} from "@/components/table";
-import { useSettingsContext } from "@/components/settings";
+} from "@storely/shared/components/table";
+import { useSettingsContext } from "@storely/shared/components/settings";
 import { useRouter } from "next/navigation";
 import { useBoolean } from "@/hooks/use-boolean";
 // _mock
 // Removed mock import - using real API data now
-import { fTimestamp } from "@/utils/format-time";
+import { fTimestamp } from "@storely/shared/utils/format-time";
 import { paths } from "@/routes/paths";
-import CustomBreadcrumbs from "@/components/custom-breadcrumbs";
-import Label from "@/components/label";
+import {CustomBreadcrumbs} from "@storely/shared/components/custom-breadcrumbs";
+import {Label} from "@storely/shared/components/label";
 import OrderTableToolbar from "@/sections/dashboard/orders/order-table-toolbar";
 import OrderTableFiltersResult from "@/sections/dashboard/orders/order-table-filters-result";
-import Iconify from "@/components/iconify";
-import Scrollbar from "@/components/scrollbar";
+import { Iconify } from "@storely/shared/components/iconify";
+import {Scrollbar} from "@storely/shared/components/scrollbar";
 import OrderTableRow from "@/sections/dashboard/orders/order-table-row";
-import { ConfirmDialog } from "@/components/custom-dialog";
+import { ConfirmDialog } from "@storely/shared/components/custom-dialog";
 import { useOrders, bulkDeleteOrders, type OrderFilters } from "@/hooks/useOrders";
 
 // ----------------------------------------------------------------------

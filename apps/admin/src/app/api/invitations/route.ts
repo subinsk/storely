@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma-client";
 import transporter from "@/lib/mailer";
 import { getServerSession } from "next-auth";
 import { ROLE_LABEL_MAP } from "@/constants/role-label-map";
 import { authOptions } from "@/lib/auth";
+import { prisma } from "@storely/database";
 
 export async function POST(req: Request) {
   const { email, role, organizationId } = await req.json();

@@ -24,12 +24,12 @@ import "slick-carousel/slick/slick-theme.css";
 // image
 import "react-lazy-load-image-component/src/effects/blur.css";
 
-import { MotionLazy } from "@/components/animate/motion-lazy";
-import { SettingsDrawer, SettingsProvider } from "@/components/settings";
-import { SnackbarProvider } from "@/components/snackbar";
+import { MotionLazy } from "@storely/shared/components/animate/motion-lazy";
+import { SettingsDrawer, SettingsProvider } from "@storely/shared/components/settings";
+import { SnackbarProvider } from "@storely/shared/components/snackbar";
 import { LocalizationProvider } from "@/locales";
 import ThemeProvider from "@/theme";
-import ProgressBar from "@/components/progress-bar/progress-bar";
+import ProgressBar from "@storely/shared/components/progress-bar/progress-bar";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { IKContext } from "imagekitio-react";
 import { IMAGE_KIT_PUBLIC_KEY, IMAGE_KIT_URL_ENDPOINT } from "@/config";

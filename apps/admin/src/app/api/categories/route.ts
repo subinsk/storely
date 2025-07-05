@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
       }
     });
     
-    return NextResponse.json(categories);
+    return NextResponse.json({data: categories});
   } catch (error) {
     console.error('Categories API error:', error);
     return NextResponse.json(

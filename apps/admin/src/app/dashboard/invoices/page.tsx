@@ -1,9 +1,12 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
+
 import { Container } from '@mui/material';
-import CustomBreadcrumbs from '@/components/custom-breadcrumbs';
+import { CustomBreadcrumbs } from '@storely/shared/components/custom-breadcrumbs';
 import { paths } from '@/routes/paths';
-import InvoiceManagement from '@/components/invoice/invoice-management';
+import InvoiceManagement from '@/sections/invoice/invoice-management';
 
 export default function InvoicesPage() {
   return (

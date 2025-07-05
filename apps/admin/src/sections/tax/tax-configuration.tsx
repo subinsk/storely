@@ -38,7 +38,7 @@ import {
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import Iconify from '@/components/iconify';
+import { Iconify } from '@storely/shared/components/iconify';
 import { enqueueSnackbar } from 'notistack';
 
 // Types

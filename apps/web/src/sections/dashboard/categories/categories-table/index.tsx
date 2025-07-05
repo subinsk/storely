@@ -1,5 +1,5 @@
-import Iconify from "@/components/iconify";
-import Scrollbar from "@/components/scrollbar";
+import {Iconify} from"@storely/shared/components/iconify";
+import Scrollbar from "@storely/shared/components/scrollbar";
 import {
   emptyRows,
   getComparator,
@@ -8,7 +8,7 @@ import {
   TableNoData,
   TableSelectedAction,
   useTable,
-} from "@/components/table";
+} from "@storely/shared/components/table";
 import { useBoolean } from "@/hooks/use-boolean";
 import { useGetCategories } from "@/services/category.service";
 import {

@@ -1,5 +1,5 @@
+import { prisma } from "@storely/database";
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma-client";
 
 // GET invitation details by ID (for validation and display)
 export async function GET(req: Request, { params }: { params: { id: string } }) {

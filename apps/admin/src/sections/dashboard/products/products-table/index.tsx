@@ -1,7 +1,7 @@
 "use client";
 
-import Iconify from "@/components/iconify";
-import Scrollbar from "@/components/scrollbar";
+import {Iconify} from "@storely/shared/components/iconify";
+import {Scrollbar} from "@storely/shared/components/scrollbar";
 import {
   emptyRows,
   getComparator,
@@ -10,9 +10,9 @@ import {
   TableNoData,
   TableSelectedAction,
   useTable,
-} from "@/components/table";
+} from "@storely/shared/components/table";
 import { useBoolean } from "@/hooks/use-boolean";
-import { deleteCategoryById } from "@/services/category.service";
+import { deleteProduct } from "@/services/product.service";
 import {
   IconButton,
   Table,
@@ -73,10 +73,10 @@ function applyFilter({
 }
 
 export default function ProductsTable({
-  products,
+  products = [],
   productsLoading,
 }: {
-  products: any[];
+  products?: any[];
   productsLoading: boolean;
 }) {
   // hooks
@@ -137,17 +137,20 @@ export default function ProductsTable({
   const handleDeleteRow = useCallback(
     async (id: string) => {
       try {
-        const deleteResponse = await deleteCategoryById(id);
+        const deleteResponse = await deleteProduct(id);
 
         if (deleteResponse.success) {
           const deleteRow = tableData.filter((row: any) => row.id !== id);
           setTableData(deleteRow);
 
           table.onUpdatePageDeleteRow(dataInPage.length);
+          enqueueSnackbar("Product deleted successfully", {
+            variant: "success",
+          });
         } else throw new Error(deleteResponse.message);
       } catch (err: any) {
         console.log("err: ", err);
-        enqueueSnackbar("Failed to delete category", {
+        enqueueSnackbar("Failed to delete product", {
           variant: "error",
         });
       }
@@ -174,7 +177,11 @@ export default function ProductsTable({
 
   //effects
   useEffect(() => {
-    setTableData(products);
+    if (Array.isArray(products)) {
+      setTableData(products);
+    } else {
+      setTableData([]);
+    }
   }, [products]);
 
   return (

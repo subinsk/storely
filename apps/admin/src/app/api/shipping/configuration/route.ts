@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { prisma } from '@/lib';
+import { prisma } from '@storely/database';
 import sendResponse from '@/lib/response';
 
 export async function GET(request: NextRequest) {

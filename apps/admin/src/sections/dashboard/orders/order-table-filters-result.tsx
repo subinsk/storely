@@ -6,8 +6,8 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
 // components
-import Iconify from "@/components/iconify";
-import { shortDateLabel } from "@/components/custom-date-range-picker";
+import {Iconify} from "@storely/shared/components/iconify";
+import { shortDateLabel } from "@storely/shared/components/custom-date-range-picker";
 
 // ----------------------------------------------------------------------
 

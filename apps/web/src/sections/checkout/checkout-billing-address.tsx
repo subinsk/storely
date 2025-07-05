@@ -6,7 +6,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 // hooks
 import { useBoolean } from "@/hooks/use-boolean";
 // components
-import Iconify from "@/components/iconify";
+import {Iconify} from"@storely/shared/components/iconify";
 //
 import { useCheckoutContext } from "./context";
 import CheckoutSummary from "./checkout-summary";

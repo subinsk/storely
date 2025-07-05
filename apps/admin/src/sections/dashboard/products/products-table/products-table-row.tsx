@@ -1,8 +1,7 @@
 "use client";
 
-import CustomPopover, { usePopover } from "@/components/custom-popover";
-import Iconify from "@/components/iconify";
-import { fToNow } from "@/utils/format-time";
+import CustomPopover, { usePopover } from "@storely/shared/components/custom-popover";
+import {Iconify} from "@storely/shared/components/iconify";
 import {
   Checkbox,
   IconButton,

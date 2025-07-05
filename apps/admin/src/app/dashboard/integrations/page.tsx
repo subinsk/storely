@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
-import IntegrationsManagement from '@/components/integrations/integrations-management';
+import IntegrationsManagement from '@/sections/integrations/integrations-management';
+
+export const dynamic = 'force-dynamic';
 
 // ----------------------------------------------------------------------
 

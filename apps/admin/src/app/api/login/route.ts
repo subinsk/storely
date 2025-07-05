@@ -1,5 +1,4 @@
-import { prisma } from "@/lib";
-import { User } from "@prisma/client";
+import { prisma, User } from "@storely/database";
 import { compare } from "bcryptjs";
 
 async function getUser(email: string): Promise<User | null> {

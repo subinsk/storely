@@ -4,8 +4,8 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 // components
-import Iconify from "@/components/iconify";
-import CustomPopover, { usePopover } from "@/components/custom-popover";
+import {Iconify} from"@storely/shared/components/iconify";
+import CustomPopover, { usePopover } from "@storely/shared/components/custom-popover";
 
 // ----------------------------------------------------------------------
 

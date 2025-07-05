@@ -9,12 +9,12 @@ import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
 import ListItemText from '@mui/material/ListItemText';
 // utils
-import { fDate } from '@/utils/format-time';
-import { fCurrency } from '@/utils/format-number';
+import { fDate } from '@storely/shared/utils/format-time';
+import { fCurrency } from '@storely/shared/utils/format-number';
 // hooks
 import { useBoolean } from '@/hooks/use-boolean';
 // components
-import Iconify from '@/components/iconify';
+import {Iconify} from'@storely/shared/components/iconify';
 
 // ----------------------------------------------------------------------
 

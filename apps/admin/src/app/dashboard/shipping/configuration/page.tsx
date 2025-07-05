@@ -1,10 +1,13 @@
 "use client";
 
+export const dynamic = 'force-dynamic';
+
+
 import { Container } from '@mui/material';
-import { useSettingsContext } from '@/components/settings/context';
-import CustomBreadcrumbs from '@/components/custom-breadcrumbs';
+import { useSettingsContext } from '@storely/shared/components/settings';
+import {CustomBreadcrumbs} from '@storely/shared/components';
 import { paths } from '@/routes/paths';
-import ShippingConfiguration from '@/components/shipping/shipping-configuration';
+import ShippingConfiguration from '@/sections/shipping/shipping-configuration';
 
 export default function ShippingConfigurationPage() {
   const settings: any = useSettingsContext();

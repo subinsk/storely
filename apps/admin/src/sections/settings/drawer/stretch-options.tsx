@@ -4,8 +4,8 @@ import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import ButtonBase from "@mui/material/ButtonBase";
+import { Iconify } from "@storely/shared/components/iconify";
 //
-import Iconify from "../../../../../../packages/shared/src/components/iconify";
 
 // ----------------------------------------------------------------------
 

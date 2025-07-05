@@ -8,7 +8,7 @@ import { bgBlur } from "@/theme/css";
 // hooks
 import { useMockedUser } from "@/hooks/use-mocked-user";
 // components
-import { NavSectionHorizontal } from "@/components/nav-section";
+import { NavSectionHorizontal } from "@storely/shared/components/nav-section";
 //
 import { HEADER } from "../config-layout";
 import { useNavData } from "./config-navigation";

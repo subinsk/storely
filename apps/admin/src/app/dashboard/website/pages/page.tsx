@@ -1,7 +1,10 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
+
 import { Container } from '@mui/material';
-import CustomPagesManagement from '@/components/website/custom-pages-management';
+import CustomPagesManagement from '@/sections/website/custom-pages-management';
 
 // ----------------------------------------------------------------------
 

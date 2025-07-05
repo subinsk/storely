@@ -15,7 +15,7 @@ import DialogContent from "@mui/material/DialogContent";
 import FormHelperText from "@mui/material/FormHelperText";
 import Dialog from "@mui/material/Dialog";
 // components
-import FormProvider, { RHFTextField } from "@/components/hook-form";
+import FormProvider, { RHFTextField } from "@storely/shared/components/hook-form";
 
 // ----------------------------------------------------------------------
 

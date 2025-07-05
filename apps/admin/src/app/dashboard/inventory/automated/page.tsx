@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { Box, Container } from '@mui/material';
-import AutomatedInventoryManagement from '@/components/inventory/automated-inventory-management';
+import AutomatedInventoryManagement from '@/sections/inventory/automated-inventory-management';
 
 export const metadata: Metadata = {
   title: 'Automated Inventory Management | Furnerio Admin',

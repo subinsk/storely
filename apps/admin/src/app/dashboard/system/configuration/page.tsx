@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import SystemConfiguration from '@/components/system/system-configuration';
+import SystemConfiguration from '@/sections/system/system-configuration';
 
 export const metadata: Metadata = {
   title: 'System Configuration | Storely',

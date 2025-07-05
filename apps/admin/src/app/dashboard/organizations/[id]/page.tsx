@@ -6,8 +6,8 @@ import { getOrganizationUsers, getOrganizationById } from "@/services/organizati
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import InviteUserModal from "@/components/invite-user-modal";
-import UserTable from "@/components/user-table";
+import InviteUserModal from "@/sections/invite-user-modal";
+import UserTable from "@/sections/user-table";
 
 export default function OrganizationDetailsPage() {
   const { id } = useParams();

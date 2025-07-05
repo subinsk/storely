@@ -34,9 +34,9 @@ import {
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import Iconify from '@/components/iconify';
+import { Iconify } from '@storely/shared/components/iconify';
 import { useSnackbar } from 'notistack';
 import { format } from 'date-fns';
 

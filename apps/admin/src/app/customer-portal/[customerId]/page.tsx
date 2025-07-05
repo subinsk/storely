@@ -1,4 +1,4 @@
-import CustomerPortalDashboard from '@/components/customer/customer-portal-dashboard';
+import CustomerPortalDashboard from '@/sections/customer/customer-portal-dashboard';
 
 export const metadata = {
   title: 'Customer Portal | Furnerio Admin',

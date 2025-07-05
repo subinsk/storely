@@ -61,8 +61,8 @@ import {
   Legend
 } from 'recharts';
 import { format } from 'date-fns';
-import { fCurrency, fNumber, fPercent } from '@/utils/format-number';
-import Iconify from '@/components/iconify';
+import { fCurrency, fNumber, fPercent } from '@storely/shared/utils/format-number';
+import { Iconify } from '@storely/shared/components/iconify';
 
 interface LoyaltyProgram {
   id: string;

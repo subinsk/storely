@@ -11,9 +11,9 @@ import { bgBlur } from "@/theme/css";
 import { useOffSetTop } from "@/hooks/use-off-set-top";
 import { useResponsive } from "@/hooks/use-responsive";
 // components
-import Logo from "@/components/logo";
-import SvgColor from "@/components/svg-color";
-import { useSettingsContext } from "@/components/settings";
+import Logo from "@storely/shared/components/logo";
+import SvgColor from "@storely/shared/components/svg-color";
+import { useSettingsContext } from "@storely/shared/components/settings";
 //
 import { HEADER, NAV } from "../config-layout";
 import {

@@ -8,8 +8,8 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import InputAdornment from "@mui/material/InputAdornment";
 // components
-import Iconify from "@/components/iconify";
-import SearchNotFound from "@/components/search-not-found";
+import {Iconify} from"@storely/shared/components/iconify";
+import SearchNotFound from "@storely/shared/components/search-not-found";
 //
 import PaymentCardItem from "./payment-card-item";
 

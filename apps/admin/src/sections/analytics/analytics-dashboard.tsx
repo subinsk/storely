@@ -14,7 +14,7 @@ import {
   useTheme,
 } from '@mui/material';
 import { alpha } from '@mui/material/styles';
-import Iconify from '@/components/iconify';
+import {Iconify} from '@storely/shared/components';
 
 // ----------------------------------------------------------------------
 
@@ -46,7 +46,7 @@ function AnalyticsCard({
   return (
     <Card>
       <CardContent>
-        <Stack direction="row" alignItems="center" justifyContent="space-between">
+        <Stack direction="row" alignItems="center" justifyContent="space-between" pt={3}>
           <Box>
             <Typography variant="subtitle2" color="text.secondary" gutterBottom>
               {title}

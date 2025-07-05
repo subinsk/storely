@@ -1,6 +1,6 @@
-import { prisma } from "@/lib";
+import { prisma } from '@storely/database';
 import sendResponse from "@/lib/response";
-import { slugify } from "@/utils/slugify";
+import { slugify } from "@storely/shared/utils/slugify";
 import { NextRequest } from "next/server";
 
 export async function GET(

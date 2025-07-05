@@ -1,8 +1,7 @@
+import { prisma } from '@storely/database';
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
 import { z } from 'zod';
 
-const prisma = new PrismaClient();
 
 // Customer portal access validation schema
 const CustomerPortalSchema = z.object({

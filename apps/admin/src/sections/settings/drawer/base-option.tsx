@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { alpha } from "@mui/material/styles";
 import Stack from "@mui/material/Stack";
 import ButtonBase from "@mui/material/ButtonBase";
+import SvgColor from "@storely/shared/components/svg-color";
 //
-import SvgColor from "../../../../../../packages/shared/src/components/svg-color";
 
 // ----------------------------------------------------------------------
 

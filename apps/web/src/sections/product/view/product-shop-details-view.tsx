@@ -16,10 +16,10 @@ import Typography from "@mui/material/Typography";
 import { paths } from "@/routes/paths";
 import { RouterLink } from "@/routes/components";
 // components
-import Iconify from "@/components/iconify";
-import EmptyContent from "@/components/empty-content";
-import { useSettingsContext } from "@/components/settings";
-import CustomBreadcrumbs from "@/components/custom-breadcrumbs";
+import {Iconify} from"@storely/shared/components/iconify";
+import EmptyContent from "@storely/shared/components/empty-content";
+import { useSettingsContext } from "@storely/shared/components/settings";
+import CustomBreadcrumbs from "@storely/shared/components/custom-breadcrumbs";
 //
 import CartIcon from "../common/cart-icon";
 import ProductDetailsReview from "../product-details-review";

@@ -8,13 +8,13 @@ import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import { inviteUser, updateUser } from "@/services/user.service";
 import { getOrganizations } from "@/services/organization.service";
-import Iconify from "@/components/iconify";
-import { useSnackbar } from "@/components/snackbar";
+import {Iconify} from "@storely/shared/components/iconify";
+import { useSnackbar } from "@storely/shared/components";
 
 interface InviteUserModalProps {
   open: boolean;
   onClose: () => void;
-  orgId?: string;
+  orgId?: string | null;
   user?: any;
   onUserInvited?: () => void;
 }

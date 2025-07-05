@@ -6,9 +6,9 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 // components
-import Label from "@/components/label";
-import Iconify from "@/components/iconify";
-import CustomPopover, { usePopover } from "@/components/custom-popover";
+import Label from "@storely/shared/components/label";
+import {Iconify} from"@storely/shared/components/iconify";
+import CustomPopover, { usePopover } from "@storely/shared/components/custom-popover";
 
 // ----------------------------------------------------------------------
 

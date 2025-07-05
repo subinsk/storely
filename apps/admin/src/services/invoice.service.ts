@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import { fetcher } from '@/lib/axios';
+import { fetcher } from '@storely/shared/lib/axios';
 
 export interface Invoice {
   id: string;

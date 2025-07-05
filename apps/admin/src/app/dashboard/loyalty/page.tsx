@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { Box, Container } from '@mui/material';
-import LoyaltyProgramManagement from '@/components/loyalty/loyalty-program-management';
+import LoyaltyProgramManagement from '@/sections/loyalty/loyalty-program-management';
 
 export const metadata: Metadata = {
   title: 'Loyalty Program Management | Furnerio Admin',

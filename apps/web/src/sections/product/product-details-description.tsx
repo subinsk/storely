@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 // components
-import Markdown from "@/components/markdown";
+import Markdown from "@storely/shared/components/markdown";
 
 // ----------------------------------------------------------------------
 

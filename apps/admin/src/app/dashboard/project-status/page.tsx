@@ -1,8 +1,11 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
+
 import { Container } from '@mui/material';
-import { useSettingsContext } from '@/components/settings';
-import ProjectStatusSummary from '@/components/dashboard/project-status-summary';
+import { useSettingsContext } from '@storely/shared/components/settings';
+import ProjectStatusSummary from '@/sections/dashboard/project-status-summary';
 
 export default function ProjectStatusPage() {
   const settings: any = useSettingsContext();

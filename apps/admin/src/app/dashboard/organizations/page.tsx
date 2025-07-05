@@ -1,5 +1,8 @@
 "use client";
 
+export const dynamic = 'force-dynamic';
+
+
 import { useEffect, useState } from "react";
 import { getOrganizations } from "@/services/organization.service";
 import Stack from "@mui/material/Stack";
@@ -20,8 +23,8 @@ import Chip from "@mui/material/Chip";
 import { debounce } from "lodash";
 import { useRouter } from "next/navigation";
 import Button from "@mui/material/Button";
-import Iconify from "@/components/iconify";
-import CreateOrganizationModal from "@/components/create-organization-modal";
+import {Iconify} from "@storely/shared/components";
+import CreateOrganizationModal from "@/sections/create-organization-modal";
 
 export default function OrganizationsPage() {
   const [orgs, setOrgs] = useState<any[]>([]);

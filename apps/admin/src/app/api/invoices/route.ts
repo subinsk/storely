@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@storely/database';
-import { Prisma } from '@prisma/client';
+import { Prisma, prisma } from '@storely/database';
 
 export async function GET(request: NextRequest) {
   try {

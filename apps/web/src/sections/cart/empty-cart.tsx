@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "@/components/image";
+import Image from "@storely/shared/components/image";
 import { RouterLink } from "@/routes/components";
 import { paths } from "@/routes/paths";
 import { Button, Container, Stack, Typography } from "@mui/material";

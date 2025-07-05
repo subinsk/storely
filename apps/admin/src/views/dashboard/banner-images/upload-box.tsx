@@ -1,10 +1,10 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { ReactNode, useRef, useState } from "react";
 import { UploadBoxContainer, VisuallyHiddenInput } from "./styles";
-import Iconify from "@/components/iconify";
-import Image from "@/components/image";
+import { Iconify } from "@storely/shared/components/iconify";
+import Image from "@storely/shared/components/image";
 import { IKImage, IKUpload } from "imagekitio-react";
-import { IMAGE_KIT_URL_ENDPOINT } from "@/config";
+import { IMAGE_KIT_URL_ENDPOINT } from "@storely/shared/config";
 
 export default function UploadBox({
   banner,

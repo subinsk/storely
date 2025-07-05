@@ -16,12 +16,12 @@ import ListItemText from "@mui/material/ListItemText";
 // hooks
 import { useBoolean } from "@/hooks/use-boolean";
 // utils
-import { fCurrency } from "@/utils/format-number";
+import { fCurrency } from "@storely/shared/utils/format-number";
 // components
-import Label from "@/components/label";
-import Iconify from "@/components/iconify";
-import { ConfirmDialog } from "@/components/custom-dialog";
-import CustomPopover, { usePopover } from "@/components/custom-popover";
+import {Label} from "@storely/shared/components/label";
+import {Iconify} from "@storely/shared/components/iconify";
+import { ConfirmDialog } from "@storely/shared/components/custom-dialog";
+import CustomPopover, { usePopover } from "@storely/shared/components/custom-popover";
 
 // ----------------------------------------------------------------------
 

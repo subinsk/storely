@@ -1,7 +1,7 @@
 "use client";
 
-import Iconify from "@/components/iconify";
-import Scrollbar from "@/components/scrollbar";
+import {Iconify} from "@storely/shared/components/iconify";
+import {Scrollbar} from "@storely/shared/components/scrollbar";
 import {
   emptyRows,
   getComparator,
@@ -11,7 +11,7 @@ import {
   TablePaginationCustom,
   TableSelectedAction,
   useTable,
-} from "@/components/table";
+} from "@storely/shared/components/table";
 import { useBoolean } from "@/hooks/use-boolean";
 import {
   deleteCategoryById,
@@ -81,10 +81,10 @@ function applyFilter({
 }
 
 export default function CategoriesTable({
-  categories,
+  categories = [],
   categoriesLoading,
 }: {
-  categories: any[];
+  categories?: any[];
   categoriesLoading: boolean;
 }) {
   // hooks
@@ -182,7 +182,11 @@ export default function CategoriesTable({
 
   // effects
   useEffect(() => {
-    setTableData(categories);
+    if (Array.isArray(categories)) {
+      setTableData(categories);
+    } else {
+      setTableData([]);
+    }
   }, [categories]);
 
   return (

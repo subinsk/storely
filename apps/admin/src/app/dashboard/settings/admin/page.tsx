@@ -1,5 +1,8 @@
 import { Metadata } from 'next';
-import AdminSettings from '@/components/settings/admin-settings';
+
+export const dynamic = 'force-dynamic';
+
+import AdminSettings from '@/sections/settings/admin-settings';
 
 export const metadata: Metadata = {
   title: 'Admin Settings | Storely',

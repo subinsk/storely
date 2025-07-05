@@ -1,4 +1,4 @@
-import { api, endpoints } from "@/lib/axios";
+import { api, endpoints } from "@storely/shared/lib/axios";
 import { useMemo } from "react";
 import useSWR from "swr";
 
@@ -13,12 +13,11 @@ export function useGetCategories(params?: { id?: string; slug?: string }) {
     return res.data;
   });
 
-
   const categories = useMemo(() => {
     if (slug || id) {
-      return data?.data?.subCategories;
+      return data?.data?.subCategories || [];
     } else {
-      return data?.data;
+      return Array.isArray(data?.data) ? data.data : [];
     }
   }, [data, slug, id]);
 
@@ -29,7 +28,7 @@ export function useGetCategories(params?: { id?: string; slug?: string }) {
       categoriesLoading: isLoading,
       categoriesError: error,
       categoriesValidating: isValidating,
-      categoriesEmpty: !isLoading && !categories.length,
+      categoriesEmpty: !isLoading && (!categories || categories.length === 0),
     }),
     [categories, data?.data, error, isLoading, isValidating]
   );

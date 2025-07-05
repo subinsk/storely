@@ -14,8 +14,8 @@ import {
   InputAdornment,
   Autocomplete,
 } from '@mui/material';
-import { Control, useWatch } from 'react-hook-form';
-import Iconify from '@/components/iconify';
+import { Control, useWatch, Controller } from 'react-hook-form';
+import { Iconify } from '@storely/shared/components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -185,38 +185,42 @@ export default function ProductSEOForm({ control }: ProductSEOFormProps) {
           />
 
           {/* Tags */}
-          <Autocomplete
-            multiple
-            freeSolo
-            options={commonTags}
-            defaultValue={tags || []}
-            renderTags={(value, getTagProps) =>
-              value.map((option, index) => (
-                <Chip variant="outlined" label={option} {...getTagProps({ index })} key={option} />
-              ))
-            }
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="SEO Tags"
-                placeholder="Add relevant keywords"
-                helperText="Press Enter to add custom tags or select from suggestions"
-                InputProps={{
-                  ...params.InputProps,
-                  startAdornment: (
-                    <>
-                      <InputAdornment position="start">
-                        <Iconify icon="eva:pricetags-outline" />
-                      </InputAdornment>
-                      {params.InputProps.startAdornment}
-                    </>
-                  ),
-                }}
+          <Controller
+            name="tags"
+            control={control}
+            render={({ field }) => (
+              <Autocomplete
+                multiple
+                freeSolo
+                options={commonTags}
+                value={field.value || []}
+                onChange={(_, value) => field.onChange(value)}
+                renderTags={(value, getTagProps) =>
+                  value.map((option, index) => (
+                    <Chip variant="outlined" label={option} {...getTagProps({ index })} key={option} />
+                  ))
+                }
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="SEO Tags"
+                    placeholder="Add relevant keywords"
+                    helperText="Press Enter to add custom tags or select from suggestions"
+                    InputProps={{
+                      ...params.InputProps,
+                      startAdornment: (
+                        <>
+                          <InputAdornment position="start">
+                            <Iconify icon="eva:pricetags-outline" />
+                          </InputAdornment>
+                          {params.InputProps.startAdornment}
+                        </>
+                      ),
+                    }}
+                  />
+                )}
               />
             )}
-            onChange={(_, value) => {
-              control.setValue('tags', value);
-            }}
           />
 
           {/* SEO Suggestions */}

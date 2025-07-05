@@ -14,12 +14,12 @@ import { formHelperTextClasses } from "@mui/material/FormHelperText";
 // routes
 import { paths } from "@/routes/paths";
 // utils
-import { fShortenNumber, fCurrency } from "@/utils/format-number";
+import { fShortenNumber, fCurrency } from "@storely/shared/utils/format-number";
 // components
-import Label from "@/components/label";
-import Iconify from "@/components/iconify";
-import { ColorPicker } from "@/components/color-utils";
-import FormProvider, { RHFSelect } from "@/components/hook-form";
+import Label from "@storely/shared/components/label";
+import {Iconify} from"@storely/shared/components/iconify";
+import { ColorPicker } from "@storely/shared/components/color-utils";
+import FormProvider, { RHFSelect } from "@storely/shared/components/hook-form";
 //
 import IncrementerButton from "./common/incrementer-button";
 import { useRouter } from "next/navigation";

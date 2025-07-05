@@ -11,7 +11,7 @@ import { paths } from "@/routes/paths";
 // hooks
 import { useOffSetTop } from "@/hooks/use-off-set-top";
 // components
-import Logo from "@/components/logo";
+import Logo from "@storely/shared/components/logo";
 import { RouterLink } from "@/routes/components";
 //
 import { HEADER } from "../config-layout";
