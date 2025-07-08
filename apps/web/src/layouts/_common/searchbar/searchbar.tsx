@@ -15,10 +15,10 @@ import { useBoolean } from "@/hooks/use-boolean";
 import { useResponsive } from "@/hooks/use-responsive";
 import { useEventListener } from "@/hooks/use-event-listener";
 // components
-import Label from "@storely/shared/components/label";
+import {Label} from "@storely/shared/components/label";
 import {Iconify} from"@storely/shared/components/iconify";
-import Scrollbar from "@storely/shared/components/scrollbar";
-import SearchNotFound from "@storely/shared/components/search-not-found";
+import {Scrollbar} from "@storely/shared/components/scrollbar";
+import {SearchNotFound} from "@storely/shared/components/search-not-found";
 //
 import ResultItem from "./result-item";
 import { useNavData } from "../../dashboard/config-navigation";

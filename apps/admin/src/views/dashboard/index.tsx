@@ -113,9 +113,10 @@ export default function DashboardView() {
                 component={Link}
                 href={item.href}
                 sx={{
-                  display: "block", // Ensures Card fills grid cell when rendered as <a>
-                  height: 160,
-                  padding: 3,
+                  display: "block",
+                  height: 170,
+                  width: 210,
+                  padding: 2,
                   textDecoration: "none",
                   transition: "all 0.3s ease",
                   cursor: "pointer",
@@ -125,7 +126,7 @@ export default function DashboardView() {
                   },
                 }}
               >
-                <Stack spacing={2} height="100%">
+                <Stack spacing={1} height="100%">
                   <Box
                     sx={{
                       width: 48,
@@ -135,6 +136,7 @@ export default function DashboardView() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
+                      padding: 1,
                     }}
                   >
                     <Iconify 
@@ -144,7 +146,7 @@ export default function DashboardView() {
                     />
                   </Box>
                   <Box sx={{ flexGrow: 1 }}>
-                    <Typography variant="h6" gutterBottom>
+                    <Typography variant="h6">
                       {item.title}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">

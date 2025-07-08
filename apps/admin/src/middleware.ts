@@ -13,10 +13,26 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl)
   }
 
+  // Extract organization from user token or query parameter
   const response = NextResponse.next()
+  
   if (token?.email) {
     response.headers.set('x-user-email', token.email)
   }
+
+  // Add organization context for admin
+  if (token?.organizationId) {
+    response.headers.set('x-organization-id', token.organizationId)
+  }
+
+  // For super admin, allow org switching via query parameter
+  if (token?.role === 'super_admin') {
+    const orgId = request.nextUrl.searchParams.get('orgId')
+    if (orgId) {
+      response.headers.set('x-organization-id', orgId)
+    }
+  }
+
   return response
 }
 

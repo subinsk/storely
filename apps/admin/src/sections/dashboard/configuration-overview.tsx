@@ -114,7 +114,7 @@ const getStatusLabel = (status: string) => {
 export default function ConfigurationOverview() {
   return (
     <Box sx={{ width: '100%' }}>
-      <Typography variant="h5" sx={{ mb: 3 }}>
+      <Typography variant="h5">
         Store Configuration Overview
       </Typography>
       

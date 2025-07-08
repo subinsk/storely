@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import * as dotenv from 'dotenv'
+import bcrypt from 'bcryptjs'
 
 // Load environment variables from .env file
 dotenv.config()
@@ -88,7 +89,7 @@ async function createSuperUsers() {
     email: 'super1@storely.com',
     name: 'Sarah Wilson',
     phone: '+1-555-0001',
-    password: 'super_password_1', // In real apps, this should be hashed
+    password: await bcrypt.hash('super_password_1', 10),
     image: USER_AVATARS[0],
     role: 'super_admin',
     emailVerified: new Date(),
@@ -98,7 +99,7 @@ async function createSuperUsers() {
     email: 'super2@storely.com',
     name: 'Michael Chen',
     phone: '+1-555-0002',
-    password: 'super_password_2',
+    password: await bcrypt.hash('super_password_2', 10),
     image: USER_AVATARS[1],
     role: 'super_admin',
     emailVerified: new Date(),
@@ -118,7 +119,7 @@ async function createOrgUsers(organizations: any) {
       email: 'admin1@furnerio-premium.com',
       name: 'Emma Rodriguez',
       phone: '+1-555-1001',
-      password: 'admin_password_1',
+      password: await bcrypt.hash('admin_password_1', 10),
       image: USER_AVATARS[2],
       role: 'org_admin',
       organizationId: organizations.org1.id,
@@ -129,7 +130,7 @@ async function createOrgUsers(organizations: any) {
       email: 'admin2@furnerio-premium.com',
       name: 'James Thompson',
       phone: '+1-555-1002',
-      password: 'admin_password_2',
+      password: await bcrypt.hash('admin_password_2', 10),
       image: USER_AVATARS[3],
       role: 'org_admin',
       organizationId: organizations.org1.id,
@@ -144,7 +145,7 @@ async function createOrgUsers(organizations: any) {
       email: 'admin1@modernspace.com',
       name: 'Lisa Anderson',
       phone: '+1-555-2001',
-      password: 'admin_password_3',
+      password: await bcrypt.hash('admin_password_3', 10),
       image: USER_AVATARS[4],
       role: 'org_admin',
       organizationId: organizations.org2.id,
@@ -155,7 +156,7 @@ async function createOrgUsers(organizations: any) {
       email: 'admin2@modernspace.com',
       name: 'David Kim',
       phone: '+1-555-2002',
-      password: 'admin_password_4',
+      password: await bcrypt.hash('admin_password_4', 10),
       image: USER_AVATARS[5],
       role: 'org_admin',
       organizationId: organizations.org2.id,
@@ -170,7 +171,7 @@ async function createOrgUsers(organizations: any) {
     email: 'customer1@example.com',
     name: 'John Doe',
     phone: '+1-555-3001',
-    password: 'customer_password_1',
+    password: await bcrypt.hash('customer_password_1', 10),
     image: USER_AVATARS[0],
     role: 'user',
     organizationId: organizations.org1?.id,
@@ -181,7 +182,7 @@ async function createOrgUsers(organizations: any) {
     email: 'customer2@example.com',
     name: 'Jane Smith',
     phone: '+1-555-3002',
-    password: 'customer_password_2',
+    password: await bcrypt.hash('customer_password_2', 10),
     image: USER_AVATARS[1],
     role: 'user',
     organizationId: organizations.org2?.id,

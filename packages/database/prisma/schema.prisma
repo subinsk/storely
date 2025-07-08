@@ -102,6 +102,8 @@ model Organization {
   customPages      CustomPage[]
   analyticsEvents  AnalyticsEvent[]
   salesReports     SalesReport[]
+  emailTemplates   EmailTemplate[]
+  emailLogs        EmailLog[]
 
   @@map("organizations")
 }
@@ -143,17 +145,19 @@ model StoreConfiguration {
 
 // Enhanced User Model
 model User {
-  id              String       @id @default(uuid())
-  email           String       @unique
-  name            String
-  phone           String?
-  password        String?
-  image           String?
-  role            Role         @default(user)
-  organizationId  String?
-  createdAt       DateTime     @default(now()) @map("created_at")
-  emailVerified   DateTime?    @map("email_verified")
-  updatedAt       DateTime     @updatedAt @map("updated_at")
+  id                    String       @id @default(uuid())
+  email                 String       @unique
+  name                  String
+  phone                 String?
+  password              String?
+  image                 String?
+  role                  Role         @default(user)
+  organizationId        String?
+  passwordResetToken    String?      // Added for password reset
+  passwordResetExpires  DateTime?    // Added for password reset
+  createdAt             DateTime     @default(now()) @map("created_at")
+  emailVerified         DateTime?    @map("email_verified")
+  updatedAt             DateTime     @updatedAt @map("updated_at")
   
   // Relations
   organization    Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
@@ -685,4 +689,73 @@ model Notification {
   user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("notifications")
+}
+
+// Email Template Models
+model EmailTemplate {
+  id             String            @id @default(uuid())
+  organizationId String
+  name           String
+  subject        String
+  type           EmailTemplateType
+  content        String            @db.Text
+  htmlContent    String?           @db.Text
+  variables      Json?             // Dynamic variables that can be used in templates
+  isActive       Boolean           @default(true)
+  isSystem       Boolean           @default(false) // System templates cannot be deleted
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  
+  // Relations
+  organization   Organization      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  emailLogs      EmailLog[]
+  
+  @@unique([organizationId, name])
+  @@map("email_templates")
+}
+
+model EmailLog {
+  id             String        @id @default(uuid())
+  organizationId String
+  templateId     String?
+  recipientEmail String
+  subject        String
+  content        String        @db.Text
+  status         EmailStatus   @default(pending)
+  sentAt         DateTime?
+  failureReason  String?
+  metadata       Json?         // Additional metadata like variables used
+  createdAt      DateTime      @default(now())
+  
+  // Relations
+  organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  template       EmailTemplate? @relation(fields: [templateId], references: [id], onDelete: SetNull)
+  
+  @@index([organizationId, status])
+  @@index([organizationId, createdAt])
+  @@map("email_logs")
+}
+
+enum EmailTemplateType {
+  welcome
+  order_confirmation
+  order_shipped
+  order_delivered
+  password_reset
+  account_verification
+  newsletter
+  abandoned_cart
+  product_back_in_stock
+  receipt
+  invoice
+  custom
+}
+
+enum EmailStatus {
+  pending
+  sent
+  failed
+  bounced
+  opened
+  clicked
 }

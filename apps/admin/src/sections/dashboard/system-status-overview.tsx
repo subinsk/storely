@@ -123,7 +123,7 @@ const getStatusLabel = (status: string) => {
 export default function SystemStatusOverview() {
   return (
     <Box>
-      <Typography variant="h5" sx={{ mb: 3 }}>
+      <Typography variant="h5" >
         System Status Overview
       </Typography>
       
@@ -134,6 +134,7 @@ export default function SystemStatusOverview() {
               component={RouterLink}
               href={item.path}
               sx={{
+                display: 'block',
                 height: '100%',
                 textDecoration: 'none',
                 transition: 'all 0.3s ease',

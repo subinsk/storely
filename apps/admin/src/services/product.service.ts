@@ -104,9 +104,8 @@ export function useGetProducts(params?: { id?: string; slug?: string; filters?: 
     return memoizedValue;
 }
 
-// Enhanced product management functions
 class ProductService {
-  private baseURL = '/api/product';
+  private baseURL = endpoints.product;
 
   async createProduct(data: ProductFormData) {
     const response = await api.post(this.baseURL, data);

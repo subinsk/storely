@@ -1,5 +1,5 @@
-import SimpleAuth from "@/views/auth/login/simple-auth";
+import AuthView from "../../../views/auth/login/index";
 
 export default function LoginPage() {
-  return <SimpleAuth authType="login" />;
+  return <AuthView authType="login" />;
 }

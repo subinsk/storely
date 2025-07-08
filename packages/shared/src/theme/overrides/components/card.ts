@@ -35,7 +35,7 @@ export function card(theme: any) {
     MuiCardHeader: {
       styleOverrides: {
         root: {
-          padding: theme.spacing(3, 3, 2),
+          padding: theme.spacing(2, 3, 2),
         },
         title: {
           fontSize: '1.125rem',
@@ -50,7 +50,7 @@ export function card(theme: any) {
     MuiCardContent: {
       styleOverrides: {
         root: {
-          padding: theme.spacing(0, 3, 3),
+          padding: theme.spacing(1, 3, 3),
           '&:last-child': {
             paddingBottom: theme.spacing(3),
           },

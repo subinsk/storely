@@ -2,12 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
-import { API_URL } from "@/config";
-import { OrganizationProvider } from "@/hooks/useOrganization";
-import { DynamicThemeProvider } from "@storely/shared/components/theme/DynamicThemeProvider";
-import { Header } from "@storely/shared/components/common/Header";
-import { Footer } from "@storely/shared/components/common/Footer";
-import { AuthProvider } from "@storely/shared/components/auth/AuthProvider";
+import { API_URL } from "../config";
+import { headers } from "next/headers";
+import RootLayout from "../layouts/root-layout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -44,6 +41,8 @@ export default async function Layout({
   children: React.ReactNode;
 }>) {
   const categories = await getCategories();
+  const headersList = headers();
+  const organizationId = headersList.get('x-organization-id');
 
   return (
     <html lang="en">
@@ -55,17 +54,9 @@ export default async function Layout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className={inter.className}>
-        <AuthProvider>
-          <OrganizationProvider>
-            <DynamicThemeProvider>
-              <Header categories={categories} />
-              <main style={{ minHeight: 'calc(100vh - 200px)' }}>
-                {children}
-              </main>
-              <Footer />
-            </DynamicThemeProvider>
-          </OrganizationProvider>
-        </AuthProvider>
+        <RootLayout categories={categories} organizationId={organizationId || undefined}>
+          {children}
+        </RootLayout>
       </body>
     </html>
   );

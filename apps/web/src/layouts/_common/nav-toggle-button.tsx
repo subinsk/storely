@@ -1,11 +1,10 @@
-import PropTypes from "prop-types";
 // @mui
 import { useTheme } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 // hooks
 import { useResponsive } from "@/hooks/use-responsive";
 // theme
-import { bgBlur } from "@/theme/css";
+import { bgBlur } from "@storely/shared/theme/css";
 // components
 import {Iconify} from"@storely/shared/components/iconify";
 import { useSettingsContext } from "@storely/shared/components/settings";
@@ -66,7 +65,3 @@ export default function NavToggleButton({
     </IconButton>
   );
 }
-
-NavToggleButton.propTypes = {
-  sx: PropTypes.object,
-};

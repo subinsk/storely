@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 // @mui
 import Button from "@mui/material/Button";
 // routes
@@ -20,7 +19,3 @@ export default function LoginButton({ sx }: { sx?: any }) {
     </Button>
   );
 }
-
-LoginButton.propTypes = {
-  sx: PropTypes.object,
-};

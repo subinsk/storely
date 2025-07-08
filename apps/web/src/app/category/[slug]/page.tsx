@@ -10,24 +10,11 @@ import {
   Link,
   Skeleton
 } from '@mui/material';
-import { ProductCard } from '@storely/shared/components/product/ProductCard';
+import { ProductCard } from '@/components/product/ProductCard';
 import { useState, useEffect } from 'react';
 import NextLink from 'next/link';
 import { useParams } from 'next/navigation';
-
-interface Product {
-  id: string;
-  name: string;
-  slug: string;
-  price: number;
-  mrp: number;
-  images: string[];
-  sku: string;
-  saleLabel?: string;
-  newLabel?: string;
-  quantity: number;
-  subDescription?: string;
-}
+import { Product } from '@/types';
 
 interface Category {
   id: string;
@@ -38,7 +25,7 @@ interface Category {
 }
 
 export default function CategoryPage() {
-  const params = useParams();
+  const params:any = useParams();
   const categorySlug = params.slug as string;
   
   const [products, setProducts] = useState<Product[]>([]);
@@ -114,9 +101,14 @@ export default function CategoryPage() {
       mrp: 1599.99,
       images: ['/assets/placeholder.svg'],
       sku: 'SOF-001',
-      newLabel: 'New',
       quantity: 5,
-      subDescription: 'Comfortable L-shaped sofa perfect for modern living rooms'
+      description: 'Comfortable L-shaped sofa perfect for modern living rooms',
+      categoryId: '1',
+      organizationId: 'org-1',
+      status: 'active',
+      featured: false,
+      createdAt: new Date(),
+      updatedAt: new Date()
     },
     // Add more mock products based on category...
   ];

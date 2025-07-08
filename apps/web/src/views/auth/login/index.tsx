@@ -1,8 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -16,14 +16,12 @@ import Typography from "@mui/material/Typography";
 import InputAdornment from "@mui/material/InputAdornment";
 import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
-// routes
-import { paths } from "@/routes/paths";
 import Link from "next/link";
 // hooks
-import { useBoolean } from "@/hooks/use-boolean";
+import { useBoolean } from "../../../hooks/use-boolean";
 // components
-import {Iconify} from"@storely/shared/components/iconify";
-import FormProvider, { RHFTextField } from "@storely/shared/components/hook-form";
+import { Iconify } from "../../../components/iconify";
+import FormProvider, { RHFTextField } from "../../../components/hook-form";
 
 // ----------------------------------------------------------------------
 
@@ -167,7 +165,7 @@ export default function AuthView({ authType }: { authType: "login" | "signup" })
 
         <MuiLink
           component={Link}
-          href={authType === "login" ? paths.auth.signup : paths.auth.login}
+          href={authType === "login" ? "/auth/signup" : "/auth/login"}
           variant="subtitle2"
         >
           {authType === "login" ? "Create an account" : "Sign in"}
@@ -205,7 +203,7 @@ export default function AuthView({ authType }: { authType: "login" | "signup" })
       {authType === "login" && (
         <MuiLink
           component={Link}
-          href={paths.auth.forgotPassword}
+          href="/auth/forgot-password"
           variant="body2"
           color="inherit"
           underline="always"
@@ -259,9 +257,11 @@ export default function AuthView({ authType }: { authType: "login" | "signup" })
     <FormProvider methods={methods} onSubmit={onSubmit}>
       {renderHead}
 
-      <Alert severity="info" sx={{ mb: 3 }}>
-        Use email : <strong>demo@minimals.cc</strong> / password :<strong> demo1234</strong>
-      </Alert>
+      {authType === "login" && (
+        <Alert severity="info" sx={{ mb: 3 }}>
+          Use email : <strong>demo@storely.com</strong> / password : <strong>demo1234</strong>
+        </Alert>
+      )}
 
       {!!errorMsg && (
         <Alert severity="error" sx={{ mb: 3 }}>

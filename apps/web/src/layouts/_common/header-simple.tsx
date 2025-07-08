@@ -5,13 +5,13 @@ import Stack from "@mui/material/Stack";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 // theme
-import { bgBlur } from "@/theme/css";
+import { bgBlur } from "@storely/shared/theme/css";
 // routes
 import { paths } from "@/routes/paths";
 // hooks
 import { useOffSetTop } from "@/hooks/use-off-set-top";
 // components
-import Logo from "@storely/shared/components/logo";
+import {Logo} from "@storely/shared/components/logo";
 import { RouterLink } from "@/routes/components";
 //
 import { HEADER } from "../config-layout";

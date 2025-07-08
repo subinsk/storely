@@ -12,7 +12,7 @@ import { fToNow } from "@storely/shared/utils/format-time";
 import { _contacts } from "@/_mock";
 // components
 import {Iconify} from"@storely/shared/components/iconify";
-import Scrollbar from "@storely/shared/components/scrollbar";
+import {Scrollbar} from "@storely/shared/components/scrollbar";
 import { varHover } from "@storely/shared/components/animate";
 import CustomPopover, { usePopover } from "@storely/shared/components/custom-popover";
 

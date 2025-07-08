@@ -5,18 +5,19 @@ import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 // hooks
-import { useMockedUser } from "@/hooks/use-mocked-user";
+import { useSession } from "next-auth/react";
 // routes
 import { paths } from "@/routes/paths";
 // locales
 import { useLocales } from "@/locales";
 // components
-import Label from "@storely/shared/components/label";
+import {Label} from "@storely/shared/components/label";
 
 // ----------------------------------------------------------------------
 
 export default function NavUpgrade() {
-  const { user } = useMockedUser();
+  const { data: session } = useSession();
+  const user = session?.user;
 
   const { t } = useLocales();
 
@@ -31,8 +32,8 @@ export default function NavUpgrade() {
       <Stack alignItems="center">
         <Box sx={{ position: "relative" }}>
           <Avatar
-            src={user?.photoURL}
-            alt={user?.displayName}
+            src={user?.image || undefined}
+            alt={user?.name || undefined}
             sx={{ width: 48, height: 48 }}
           />
           <Label
@@ -53,7 +54,7 @@ export default function NavUpgrade() {
 
         <Stack spacing={0.5} sx={{ mt: 1.5, mb: 2 }}>
           <Typography variant="subtitle2" noWrap>
-            {user?.displayName}
+            {user?.name}
           </Typography>
 
           <Typography variant="body2" noWrap sx={{ color: "text.disabled" }}>

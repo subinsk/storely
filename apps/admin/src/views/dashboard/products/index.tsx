@@ -1,8 +1,6 @@
 "use client";
 
-import {CustomBreadcrumbs} from "@storely/shared/components/custom-breadcrumbs";
 import { useSettingsContext } from "@storely/shared/components/settings";
-import { paths } from "@/routes/paths";
 import { Container } from "@mui/material";
 import ProductsList from "@/sections/dashboard/products/list";
 
@@ -11,22 +9,6 @@ export default function ProductsView() {
 
   return (
     <Container maxWidth={settings.themeStretch ? false : "lg"}>
-      <CustomBreadcrumbs
-        heading="Products"
-        links={[
-          {
-            name: "Dashboard",
-            href: paths.dashboard.root,
-          },
-          {
-            name: "Products",
-          },
-        ]}
-        sx={{
-          mb: { xs: 3, md: 5 },
-        }}
-      />
-
       <ProductsList />
     </Container>
   );

@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 // @mui
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -11,8 +10,8 @@ import ListItemButton from "@mui/material/ListItemButton";
 // utils
 import { fToNow } from "@storely/shared/utils/format-time";
 // components
-import Label from "@storely/shared/components/label";
-import FileThumbnail from "@storely/shared/components/file-thumbnail";
+import {Label} from "@storely/shared/components/label";
+import {FileThumbnail} from "@storely/shared/components/file-thumbnail";
 
 // ----------------------------------------------------------------------
 
@@ -249,10 +248,6 @@ export default function NotificationItem({
     </ListItemButton>
   );
 }
-
-NotificationItem.propTypes = {
-  notification: PropTypes.object,
-};
 
 // ----------------------------------------------------------------------
 

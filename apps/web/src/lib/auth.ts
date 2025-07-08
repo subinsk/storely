@@ -1,6 +1,6 @@
 import { NextAuthOptions } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "./prisma";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
@@ -91,7 +91,7 @@ export const authOptions: NextAuthOptions = {
                 image: user.image,
                 emailVerified: new Date(),
                 role: "user",
-                updated_at: new Date()
+                updatedAt: new Date()
               }
             });
           }

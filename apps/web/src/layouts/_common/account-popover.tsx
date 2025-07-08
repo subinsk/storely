@@ -12,13 +12,12 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 // routes
 // hooks
-import { useGetUserProfile } from '@/services/user.service';
+import { useSession, signOut } from "next-auth/react";
 // components
 import { varHover } from "@storely/shared/components/animate";
 import { useSnackbar } from "@storely/shared/components/snackbar";
 import CustomPopover, { usePopover } from "@storely/shared/components/custom-popover";
 import { useRouter } from "next/navigation";
-import { useSession, signOut } from "next-auth/react";
 
 // ----------------------------------------------------------------------
 
@@ -34,7 +33,7 @@ const OPTIONS = [
 export default function AccountPopover() {
   const router = useRouter();
   const { data: session } = useSession();
-  const { user, userError, userLoading, userValidating } = useGetUserProfile(session?.user?.id);
+  const user = session?.user;
   const { enqueueSnackbar } = useSnackbar();
 
   const popover = usePopover();
@@ -74,8 +73,8 @@ export default function AccountPopover() {
         }}
       >
         <Avatar
-          src={user?.image}
-          alt={user?.name}
+          src={user?.image ?? undefined}
+          alt={user?.name ?? undefined}
           sx={{
             width: 36,
             height: 36,

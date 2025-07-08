@@ -28,6 +28,8 @@ export const paths = {
     products: {
       root: `${ROOTS.DASHBOARD}/products`,
       new: `${ROOTS.DASHBOARD}/add-product`,
+      editProduct: (id: string) => `${ROOTS.DASHBOARD}/edit-product/${id}`,
+      edit: (slug: string) => `${ROOTS.DASHBOARD}/product/${slug}/edit`,
     },
     orders: {
       root: `${ROOTS.DASHBOARD}/orders`,

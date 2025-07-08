@@ -1,20 +1,84 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "baseUrl": ".",
     "plugins": [
       {
         "name": "next"
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@storely/shared": ["../../packages/shared/src"],
-      "@storely/shared/*": ["../../packages/shared/src/*"],
-      "@storely/database": ["../../packages/database/src"],
-      "@storely/database/*": ["../../packages/database/src/*"],
-      "@storely/config": ["../../packages/config/src"],
-      "@storely/config/*": ["../../packages/config/src/*"]
-    }
+      "@/*": [
+        "./src/*"
+      ],
+      "@storely/shared/components": [
+        "../../packages/shared/src/components/index.ts"
+      ],
+      "@storely/shared/components/*": [
+        "../../packages/shared/src/components/*"
+      ],
+      "@storely/shared/theme": [
+        "../../packages/shared/src/theme/index.ts"
+      ],
+      "@storely/shared/theme/*": [
+        "../../packages/shared/src/theme/*"
+      ],
+      "@storely/shared/config": [
+        "../../packages/shared/src/config/index.ts"
+      ],
+      "@storely/shared/config/*": [
+        "../../packages/shared/src/config/*"
+      ],
+      "@storely/database": [
+        "../../packages/database/src/index.ts"
+      ],
+      "@storely/database/*": [
+        "../../packages/database/src/*"
+      ],
+      "@storely/shared/lib": [
+        "../../packages/shared/src/lib/index.ts"
+      ],
+      "@storely/shared/lib/*": [
+        "../../packages/shared/src/lib/*"
+      ],
+      "@storely/shared/utils": [
+        "../../packages/shared/src/utils/index.ts"
+      ],
+      "@storely/shared/utils/*": [
+        "../../packages/shared/src/utils/*"
+      ],
+      "@storely/shared/locales": [
+        "../../packages/shared/src/locales/index.ts"
+      ],
+      "@storely/shared/locales/*": [
+        "../../packages/shared/src/locales/*"
+      ],
+      "@storely/shared/assets": [
+        "../../packages/shared/src/assets/index.ts"
+      ],
+      "@storely/shared/assets/*": [
+        "../../packages/shared/src/assets/*"
+      ],
+      "@storely/shared/schemas": [
+        "../../packages/shared/src/schemas/index.ts"
+      ],
+      "@storely/shared/schemas/*": [
+        "../../packages/shared/src/schemas/*"
+      ],
+      "@storely/shared/hooks": [
+        "../../packages/shared/src/hooks/index.ts"
+      ],
+      "@storely/shared/hooks/*": [
+        "../../packages/shared/src/hooks/*"
+      ],
+      "@storely/shared/types": [
+        "../../packages/shared/src/types/index.ts"
+      ],
+      "@storely/shared/types/*": [
+        "../../packages/shared/src/types/*"
+      ]
+    },
+    "strictNullChecks": true
   },
   "include": [
     "next-env.d.ts",

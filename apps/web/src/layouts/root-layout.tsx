@@ -25,26 +25,32 @@ import "slick-carousel/slick/slick-theme.css";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
 import { MotionLazy } from "@storely/shared/components/animate/motion-lazy";
-import { SettingsDrawer, SettingsProvider } from "@storely/shared/components/settings";
+import { SettingsProvider } from "@storely/shared/components/settings";
 import { SnackbarProvider } from "@storely/shared/components/snackbar";
 import { LocalizationProvider } from "@/locales";
-import ThemeProvider from "@/theme";
+import {ThemeProvider} from "@storely/shared/theme";
 import ProgressBar from "@storely/shared/components/progress-bar/progress-bar";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
 import { IKContext } from "imagekitio-react";
 import { IMAGE_KIT_PUBLIC_KEY, IMAGE_KIT_URL_ENDPOINT } from "@/config";
-import { imageKitAuthenticator } from "@/lib";
+import { imageKitAuthenticator } from "@storely/shared/lib";
 import Navbar from "@/sections/common/navbar";
 import { usePathname } from "next/navigation";
 import Footer from "@/sections/common/footer";
 import {CheckoutProvider} from "@/sections/checkout/context"
+import { OrganizationProvider } from "@/contexts/OrganizationContext";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { CartProvider } from "@/contexts/CartContext";
+import StoreAccessGuard from "@/components/StoreAccessGuard";
 
 export default function RootLayout({
   children,
   categories,
+  organizationId,
 }: {
   children: React.ReactNode;
   categories: any[];
+  organizationId?: string;
 }) {
   // hooks
   const pathname = usePathname();
@@ -70,15 +76,20 @@ export default function RootLayout({
                   publicKey={IMAGE_KIT_PUBLIC_KEY}
                   authenticator={imageKitAuthenticator}
                 >
-                  <CheckoutProvider>
-                    <SettingsDrawer />
-                    <ProgressBar />
-                    {!pathname.startsWith("/auth") && (
-                      <Navbar categories={categories} />
-                    )}
-                    {children}
-                    <Footer />
-                  </CheckoutProvider>
+                  <OrganizationProvider organizationId={organizationId}>
+                    <AuthProvider>
+                      <CartProvider>
+                        <StoreAccessGuard>
+                          <ProgressBar />
+                          {!pathname?.startsWith("/auth") && (
+                            <Navbar categories={categories} />
+                          )}
+                          {children}
+                          <Footer />
+                        </StoreAccessGuard>
+                      </CartProvider>
+                    </AuthProvider>
+                  </OrganizationProvider>
                 </IKContext>
               </SnackbarProvider>
             </MotionLazy>

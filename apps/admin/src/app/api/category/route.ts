@@ -16,6 +16,8 @@ export async function GET(request: NextRequest) {
       });
     }
 
+    console.log("Session org:", session.user.organizationId);
+
     const searchParams = request.nextUrl.searchParams
     const slug = searchParams.get('slug')
     const id = searchParams.get('id')
@@ -381,6 +383,8 @@ export async function DELETE(request: NextRequest) {
         }
       }
     });
+
+    console.log("existingCategory:", existingCategory);
 
     if (!existingCategory) {
       return sendResponse({

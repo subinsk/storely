@@ -1,6 +1,5 @@
 "use client";
 
-import {CustomBreadcrumbs} from "@storely/shared/components/custom-breadcrumbs";
 import { useSettingsContext } from "@storely/shared/components/settings";
 import { paths } from "@/routes/paths";
 import AddCategoryForm from "@/sections/dashboard/categories/add-category-form";
@@ -16,23 +15,7 @@ function AddCategory() {
 
   return (
     <Container maxWidth={settings.themeStretch ? false : "lg"}>
-      <CustomBreadcrumbs
-        heading="Categories"
-        links={[
-          {
-            name: "Dashboard",
-            href: paths.dashboard.root,
-          },
-          {
-            name: "Add Category",
-          },
-        ]}
-        sx={{
-          mb: { xs: 3, md: 5 },
-        }}
-      />
-
-      <AddCategoryForm parentId={parentId} />
+      <AddCategoryForm parentId={parentId || undefined} />
     </Container>
   );
 }

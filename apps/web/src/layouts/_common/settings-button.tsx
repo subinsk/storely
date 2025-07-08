@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { m } from "framer-motion";
 // @mui
 import Box from "@mui/material/Box";
@@ -56,7 +55,3 @@ export default function SettingsButton({ sx }: { sx?: any; [x: string]: any }) {
     </Badge>
   );
 }
-
-SettingsButton.propTypes = {
-  sx: PropTypes.object,
-};

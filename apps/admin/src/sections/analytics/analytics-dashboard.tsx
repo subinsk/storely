@@ -12,9 +12,10 @@ import {
   Chip,
   IconButton,
   useTheme,
+  CardHeader,
 } from '@mui/material';
 import { alpha } from '@mui/material/styles';
-import {Iconify} from '@storely/shared/components';
+import { Iconify } from '@storely/shared/components';
 
 // ----------------------------------------------------------------------
 
@@ -28,17 +29,17 @@ interface AnalyticsCardProps {
   chart?: React.ReactNode;
 }
 
-function AnalyticsCard({ 
-  title, 
-  value, 
-  change, 
-  changeType, 
-  icon, 
+function AnalyticsCard({
+  title,
+  value,
+  change,
+  changeType,
+  icon,
   color = 'primary',
-  chart 
+  chart
 }: AnalyticsCardProps) {
   const theme = useTheme();
-  
+
   const isPositiveChange = changeType === 'increase';
   const changeColor = isPositiveChange ? 'success' : 'error';
   const changeIcon = isPositiveChange ? 'eva:trending-up-fill' : 'eva:trending-down-fill';
@@ -123,14 +124,11 @@ interface TopProductsCardProps {
 function TopProductsCard({ products }: TopProductsCardProps) {
   return (
     <Card>
+      <CardHeader
+        title="Top Products"
+        action={<IconButton size="small"><Iconify icon="eva:more-vertical-fill" /></IconButton>}
+      />
       <CardContent>
-        <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 3 }}>
-          <Typography variant="h6">Top Products</Typography>
-          <IconButton size="small">
-            <Iconify icon="eva:more-vertical-fill" />
-          </IconButton>
-        </Stack>
-
         <Stack spacing={2}>
           {products.map((product, index) => (
             <Stack key={product.id} direction="row" alignItems="center" spacing={2}>
@@ -182,145 +180,9 @@ function TopProductsCard({ products }: TopProductsCardProps) {
   );
 }
 
-// ----------------------------------------------------------------------
-
-interface OverviewStatsProps {
-  totalProducts?: number;
-  totalOrders?: number;
-  totalRevenue?: number;
-  totalCustomers?: number;
-  growthData?: {
-    products: number;
-    orders: number;
-    revenue: number;
-    customers: number;
-  };
-}
-
-export default function AnalyticsDashboard({
-  totalProducts = 0,
-  totalOrders = 0,
-  totalRevenue = 0,
-  totalCustomers = 0,
-  growthData = {
-    products: 0,
-    orders: 0,
-    revenue: 0,
-    customers: 0,
-  },
-}: OverviewStatsProps) {
-  const topProducts: TopProduct[] = [
-    {
-      id: '1',
-      name: 'Modern Oak Dining Table',
-      sales: 127,
-      revenue: 15240,
-      growth: 12.5,
-    },
-    {
-      id: '2',
-      name: 'Ergonomic Office Chair',
-      sales: 89,
-      revenue: 8900,
-      growth: 8.2,
-    },
-    {
-      id: '3',
-      name: 'Vintage Leather Sofa',
-      sales: 67,
-      revenue: 13400,
-      growth: -2.1,
-    },
-    {
-      id: '4',
-      name: 'Minimalist Bookshelf',
-      sales: 45,
-      revenue: 4500,
-      growth: 15.3,
-    },
-  ];
-
-  const SimpleChart = ({ color, value }: { color: string; value: number }) => (
-    <Box sx={{ width: '100%' }}>
-      <LinearProgress
-        variant="determinate"
-        value={Math.abs(value)}
-        color={color as any}
-        sx={{
-          height: 6,
-          borderRadius: 3,
-          bgcolor: alpha('#000', 0.08),
-        }}
-      />
-    </Box>
-  );
-
-  return (
-    <Box>
-      <Typography variant="h4" sx={{ mb: 4 }}>
-        Analytics Overview
-      </Typography>
-
-      <Grid container spacing={3} sx={{ml: '-24px'}}>
-        {/* Key Metrics */}
-        <Grid item xs={12} sm={6} md={4}>
-          <AnalyticsCard
-            title="Total Products"
-            value={totalProducts.toLocaleString()}
-            change={growthData.products}
-            changeType={growthData.products >= 0 ? 'increase' : 'decrease'}
-            icon="eva:cube-fill"
-            color="primary"
-            chart={<SimpleChart color="primary" value={Math.abs(growthData.products)} />}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <AnalyticsCard
-            title="Total Orders"
-            value={totalOrders.toLocaleString()}
-            change={growthData.orders}
-            changeType={growthData.orders >= 0 ? 'increase' : 'decrease'}
-            icon="eva:shopping-cart-fill"
-            color="info"
-            chart={<SimpleChart color="info" value={Math.abs(growthData.orders)} />}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <AnalyticsCard
-            title="Total Revenue"
-            value={`$${totalRevenue.toLocaleString()}`}
-            change={growthData.revenue}
-            changeType={growthData.revenue >= 0 ? 'increase' : 'decrease'}
-            icon="eva:pie-chart-2-fill"
-            color="success"
-            chart={<SimpleChart color="success" value={Math.abs(growthData.revenue)} />}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <AnalyticsCard
-            title="Total Customers"
-            value={totalCustomers.toLocaleString()}
-            change={growthData.customers}
-            changeType={growthData.customers >= 0 ? 'increase' : 'decrease'}
-            icon="eva:people-fill"
-            color="warning"
-            chart={<SimpleChart color="warning" value={Math.abs(growthData.customers)} />}
-          />
-        </Grid>
-
-        {/* Top Products */}
-        <Grid item xs={12} md={6}>
-          <TopProductsCard products={topProducts} />
-        </Grid>
-
-        {/* Quick Actions */}
-        <Grid item xs={12} md={6}>
-          <Card>
-            <CardContent>
-              <Typography variant="h6" sx={{ mb: 3 }}>
-                Quick Actions
-              </Typography>
-              <Stack spacing={2}>
+function QuickActionsCard(){
+  return(
+    <Stack spacing={2}>
                 <Card
                   variant="outlined"
                   sx={{
@@ -414,6 +276,149 @@ export default function AnalyticsDashboard({
                   </Stack>
                 </Card>
               </Stack>
+  )
+}
+
+// ----------------------------------------------------------------------
+
+interface OverviewStatsProps {
+  totalProducts?: number;
+  totalOrders?: number;
+  totalRevenue?: number;
+  totalCustomers?: number;
+  growthData?: {
+    products: number;
+    orders: number;
+    revenue: number;
+    customers: number;
+  };
+}
+
+export default function AnalyticsDashboard({
+  totalProducts = 0,
+  totalOrders = 0,
+  totalRevenue = 0,
+  totalCustomers = 0,
+  growthData = {
+    products: 0,
+    orders: 0,
+    revenue: 0,
+    customers: 0,
+  },
+}: OverviewStatsProps) {
+  const topProducts: TopProduct[] = [
+    {
+      id: '1',
+      name: 'Modern Oak Dining Table',
+      sales: 127,
+      revenue: 15240,
+      growth: 12.5,
+    },
+    {
+      id: '2',
+      name: 'Ergonomic Office Chair',
+      sales: 89,
+      revenue: 8900,
+      growth: 8.2,
+    },
+    {
+      id: '3',
+      name: 'Vintage Leather Sofa',
+      sales: 67,
+      revenue: 13400,
+      growth: -2.1,
+    },
+    {
+      id: '4',
+      name: 'Minimalist Bookshelf',
+      sales: 45,
+      revenue: 4500,
+      growth: 15.3,
+    },
+  ];
+
+  const SimpleChart = ({ color, value }: { color: string; value: number }) => (
+    <Box sx={{ width: '100%' }}>
+      <LinearProgress
+        variant="determinate"
+        value={Math.abs(value)}
+        color={color as any}
+        sx={{
+          height: 6,
+          borderRadius: 3,
+          bgcolor: alpha('#000', 0.08),
+        }}
+      />
+    </Box>
+  );
+
+  return (
+    <Box>
+      <Typography variant="h4" sx={{ mb: 4 }}>
+        Analytics Overview
+      </Typography>
+
+      <Grid container spacing={3} sx={{ ml: '-24px' }}>
+        {/* Key Metrics */}
+        <Grid item xs={12} sm={6} md={4}>
+          <AnalyticsCard
+            title="Total Products"
+            value={totalProducts.toLocaleString()}
+            change={growthData.products}
+            changeType={growthData.products >= 0 ? 'increase' : 'decrease'}
+            icon="eva:cube-fill"
+            color="primary"
+            chart={<SimpleChart color="primary" value={Math.abs(growthData.products)} />}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <AnalyticsCard
+            title="Total Orders"
+            value={totalOrders.toLocaleString()}
+            change={growthData.orders}
+            changeType={growthData.orders >= 0 ? 'increase' : 'decrease'}
+            icon="eva:shopping-cart-fill"
+            color="info"
+            chart={<SimpleChart color="info" value={Math.abs(growthData.orders)} />}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <AnalyticsCard
+            title="Total Revenue"
+            value={`$${totalRevenue.toLocaleString()}`}
+            change={growthData.revenue}
+            changeType={growthData.revenue >= 0 ? 'increase' : 'decrease'}
+            icon="eva:pie-chart-2-fill"
+            color="success"
+            chart={<SimpleChart color="success" value={Math.abs(growthData.revenue)} />}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <AnalyticsCard
+            title="Total Customers"
+            value={totalCustomers.toLocaleString()}
+            change={growthData.customers}
+            changeType={growthData.customers >= 0 ? 'increase' : 'decrease'}
+            icon="eva:people-fill"
+            color="warning"
+            chart={<SimpleChart color="warning" value={Math.abs(growthData.customers)} />}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={8}></Grid>
+
+        {/* Top Products */}
+        <Grid item xs={12} md={6}>
+          <TopProductsCard products={topProducts} />
+        </Grid>
+
+        {/* Quick Actions */}
+        <Grid item xs={12} md={6}>
+          <Card>
+            <CardHeader
+              title="Quick Actions"
+            />
+            <CardContent>
+              <QuickActionsCard />
             </CardContent>
           </Card>
         </Grid>
